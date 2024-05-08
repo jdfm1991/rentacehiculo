@@ -52,7 +52,6 @@ $(document).ready(function () {
             contentType: false,
             processData: false, 
             success: function(data) {
-                console.log(data);
                 if (data['status']==true) {
                     if (data['ut']=='Administrativo') {
                         $('#loginModal').modal('hide');
@@ -64,6 +63,7 @@ $(document).ready(function () {
                         $('#loginModal').modal('hide');
                         wipe() 
                         alert('eres '+ data['ut'])
+                        location.reload();
                     }
                 } else {
                     $("#errorl").text(data['message']);
@@ -89,7 +89,7 @@ $(document).ready(function () {
         datos.append('email', email)
         datos.append('passw', passw)
         $.ajax({
-            url: "assets/app/home/home_controller.php?op=login",
+            url: "assets/app/home/home_controller.php?op=register",
             type: "POST",
             dataType:"json",    
             data:  datos,
@@ -97,18 +97,11 @@ $(document).ready(function () {
             contentType: false,
             processData: false, 
             success: function(data) {
-                console.log(data);
                 if (data['status']==true) {
-                    if (data['ut']=='Administrativo') {
-                        $('#loginModal').modal('hide');
-                        wipe()
-                        alert('eres '+ data['ut'])
-                    }
-                    if (data['ut']=='Cliente') {
-                        $('#loginModal').modal('hide');
-                        wipe() 
-                        alert('eres '+ data['ut'])
-                    }
+                    $('#loginModal').modal('hide');
+                    wipe() 
+                    alert('eres '+ data['ut'])
+                    location.reload();
                 } else {
                     $("#errorl").text(data['message']);
                     $("#messegel").show();
@@ -119,6 +112,45 @@ $(document).ready(function () {
                 }
             }
         });
+    });
+
+    $("#forget").click(function (e) { 
+        e.preventDefault();
+        $(".modal-title").text("Recuperar Contraseña")
+        $("#messegef").hide();	
+        $('#loginModal').modal('hide');
+        $('#forgetModal').modal('show');	
+    });
+
+    $("#formforget").submit(function (e) { 
+        e.preventDefault();
+        email = $.trim($('#email').val());
+        var datos = new FormData();
+        datos.append('email', email)
+        $.ajax({
+            url: "assets/app/home/home_controller.php?op=forget",
+            type: "POST",
+            dataType:"json",    
+            data:  datos,
+            cache: false,
+            contentType: false,
+            processData: false, 
+            success: function(data) {
+                console.log(data);
+                if (data['status']==true) {
+                    alert('Enviado ')
+                    location.reload(); 
+                } else {
+                    $("#errorl").text(data['message']);
+                    $("#messegel").show();
+                    setTimeout(() => {
+                        $("#errorl").text("");
+                        $("#messegel").hide();
+                    }, 3000);
+                }
+            }
+        });
+        
     });
 });
 

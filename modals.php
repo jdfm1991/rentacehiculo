@@ -1,3 +1,8 @@
+<!--
+  *************************************************
+  Modal Para Registro de Usuario e Inicio de Sesion
+  *************************************************
+-->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -28,8 +33,6 @@
                       <input type="password" class="form-control" id="pass" placeholder="Contraseña" required>
                   </div>              
                 </div>
-                
-                
                 <div class="modal-footer">
                 <div id="options" class="mx-3 px-3">
                     <a href="" id="lnkRegister">Registrarme</a>
@@ -43,7 +46,41 @@
                 <div id="messegel" class="alert alert-warning" role="alert">
                   <p id="errorl" class="mb-0">Alert Description</p>
                 </div>
-                
+            </form>  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+  *************************************************
+  Modal Para Opcion de Olvide Contrase#a
+  *************************************************
+-->
+<div class="modal fade" id="forgetModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Login - Modulo Admin</h1>
+        <button type="button" id="closeLogin" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+            <form id="formforget">    
+                <div class="modal-body">
+                  <div class="mb-3">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="email" placeholder="Email" required>
+                  </div>            
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="cncLogin" class="btn btn-outline-danger btn-light" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    <button type="submit" id="btnforget" class="btn btn-outline-primary btn-light">Enviar Solicitud</button>
+                </div>
+                <div id="messegef" class="alert alert-warning" role="alert">
+                  <p id="errorf" class="mb-0">Alert Description</p>
+                </div>
             </form>  
         </div>
       </div>
