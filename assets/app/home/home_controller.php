@@ -9,10 +9,10 @@ require_once("home_model.php");
 
 $user = new User();
 
-$name = (isset($_POST['name'])) ? $_POST['name'] : 'Jovanni Franco';
-$phone = (isset($_POST['phone'])) ? $_POST['phone'] : '04249265304';
-$email = (isset($_POST['email'])) ? $_POST['email'] : 'jovannifranco@gmail.com';
-$passw = (isset($_POST['passw'])) ? $_POST['passw'] : '20975144';
+$name = (isset($_POST['name'])) ? $_POST['name'] : '';
+$phone = (isset($_POST['phone'])) ? $_POST['phone'] : '';
+$email = (isset($_POST['email'])) ? $_POST['email'] : '';
+$passw = (isset($_POST['passw'])) ? $_POST['passw'] : '';
 
 switch ($_GET["op"]) {
     case 'login':

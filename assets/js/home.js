@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
     $(function() {
         $("input[name='phone']").on('input',function (e) {
             $(this).val($(this).val().replace(/[^0-9]/g,''));
@@ -35,6 +36,8 @@ $(document).ready(function () {
 
     $("#formLogin").submit(function (e) { 
         e.preventDefault();
+        name = $.trim($('#name').val());
+        phone = $.trim($('#phone').val());
         email = $.trim($('#email').val());
         passw = $.trim($('#pass').val());
 

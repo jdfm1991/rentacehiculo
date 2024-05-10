@@ -40,3 +40,7 @@ if (URI!=$_SERVER["REQUEST_URI"] ) {
 include_once("lib.php");
 include_once("modals.php")
 ?>
+
+</body>
+
+</html>

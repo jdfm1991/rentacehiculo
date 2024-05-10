@@ -13,3 +13,4 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script src="assets/js/home.js"></script>
+  <script src="assets/js/portfolio.js"></script>

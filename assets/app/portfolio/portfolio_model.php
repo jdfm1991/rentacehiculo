@@ -1,25 +1,90 @@
 <?php
-require_once("../../conexion/conexion.php");
+require_once("../../../conection.php");
 
-class Owner extends Conectar{
+class Portfolio extends Conectar{
 
-    public function getdata(){
+    public function getDataPortfolio($begin,$finish){
         //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
         //CUANDO ES APPWEB ES CONEXION.
         $conectar= parent::conexion();
         parent::set_names();
-
         //QUERY
-
-            $sql="SELECT * FROM owners";
-
-        
+            $sql="SELECT anno,imgc,B.model AS model, C.brand AS brand FROM cars_table AS A 
+            INNER JOIN cars_models_table AS B ON A.model=B.id
+            INNER JOIN cars_brands_table AS C ON A.brand=C.id
+            LIMIT $begin,$finish";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
         $sql->execute();
         return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
-        
+    }
+    
+    public function getDataPortfolios(){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT anno,imgc,B.model AS model, C.brand AS brand FROM cars_table AS A 
+            INNER JOIN cars_models_table AS B ON A.model=B.id
+            INNER JOIN cars_brands_table AS C ON A.brand=C.id
+            ";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+        return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 
+    public function getDataModel(){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT * FROM cars_models_table";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+        return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getDataBrand(){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT * FROM cars_brands_table";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+        return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getDataRegion(){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT * FROM cars_regions_table";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+        return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getDataAnno(){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT DISTINCT anno FROM `cars_table` ORDER BY anno DESC";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+        return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function countdata($ownerid){
