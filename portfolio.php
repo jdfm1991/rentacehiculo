@@ -1,6 +1,6 @@
 <?php 
 include_once("header.php");
-require_once("env.php")
+require_once("env.php");
 ?> 
     <!-- ======= Portfolio Section ======= -->
     <section id="portfolio" class="portfolio section-bg">
@@ -38,8 +38,14 @@ require_once("env.php")
 
         </div>
 
-        <div id="paginator" class="btn-group justify-content-center" rol="group" aria-label="basic outl">
-          
+        <div class="row">
+            <div class="col-lg-12">
+                <nav aria-label="Page navigation example">
+                    <ul id="paginator" class="pagination justify-content-center">
+                        <!--<li class="page-item '.$active.'"><a class="page-link" href="#" data="'.$i.'">'.$i.'</a></li>-->
+                    </ul>
+                </nav>
+            </div>
         </div>
       </div>
     </section><!-- End Portfolio Section -->

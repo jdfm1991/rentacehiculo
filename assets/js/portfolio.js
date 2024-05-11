@@ -1,6 +1,32 @@
 $(document).ready(function () {
-    getProspect()   
+    var Url = $(location).attr('href')
 
+    $('#title').append(Url)
+
+    console.log(Url);
+    
+    getProspect()
+
+    $.ajax({
+        url: "assets/app/portfolio/portfolio_controller.php?op=pages",
+        method: "POST",
+        dataType: "html",  
+        success: function(data) {
+            $('#paginator').html(data);
+            $('#paginator').empty();
+            $('#paginator').append('<div>')
+            for (let index = 1; index <= data ; index++) {
+                active = '';
+                if (index == 1) {
+                    active = 'active';
+                }
+                $('#paginator').append('<li class="page-item '+active+'"><a class="page-link" href="#" onclick="getProspect('+index+')" data="'+index+'">'+index+'</a></li>');
+            }
+            $('#paginator').append('</div>')
+        }
+        
+    });
+    
     $.ajax({
         url: "assets/app/portfolio/portfolio_controller.php?op=model",
         method: "POST",
@@ -48,15 +74,13 @@ $(document).ready(function () {
               $('#region').append('<option name="" value="' + opt.id +'">' + opt.region + '</option>');
           });
         }
-    });
-});
-
-function getProspect() {
+    }); 
+    
     $.ajax({
         type: "POST",
-        url: "assets/app/portfolio/portfolio_controller.php?op=show",
+        url: "assets/app/portfolio/portfolio_controller.php?op=showdetails",
         dataType: "json",
-        //data:  {model:model,brand:brand,anno:anno},
+        //data:  {index:index},
         success: function (data) {
             //$('#prospect').html(data);
             $('#prospect').empty();
@@ -71,7 +95,7 @@ function getProspect() {
                             '<p>'+opt.brand+'</p>'+
                             '<p>'+opt.anno+'</p>'+
                             '<div class="portfolio-links">'+
-                            '<a href="portfolio-details.php" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>'+
+                            '<a href="portfolio-details.php?option='+opt.id+'" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>'+
                             '</div>'+
                         '</div>'+
                         '</div>'+
@@ -81,17 +105,48 @@ function getProspect() {
             $('#prospect').append('</div>')
         }
     });
-    $.ajax({
-        url: "assets/app/portfolio/portfolio_controller.php?op=pages",
-        method: "POST",
-        dataType: "json",  
-        success: function(data) {
-            $('#paginator').empty();
-            $('#paginator').append('<div>')
-            for (let index = 1; index <= data ; index++) {
-                $('#paginator').append('<button type="button" class="btn btn-outline-primary" value="'+index+'">'+index+'</button>');
+});
+
+function getProspect(index) {
+    if (index==undefined) {
+        index=1
+    }
+    else{
+        $('.pagination li').removeClass('active');
+        page=$('.pagination li a').length
+        for (let i = 0; i <= page; i++) {
+            if (i==index) {
+                $('.pagination li a[data="'+i+'"]').parent().addClass('active');
             }
-            $('#paginator').append('</div>')
         }
-    });
+    }
+    $.ajax({
+        type: "POST",
+        url: "assets/app/portfolio/portfolio_controller.php?op=show",
+        dataType: "json",
+        data:  {index:index},
+        success: function (data) {
+            //$('#prospect').html(data);
+            $('#prospect').empty();
+            $('#prospect').append('<div>')
+            $.each(data, function(idx, opt) {
+                $('#prospect').append(
+                    '<div class="col-lg-4 col-md-6 portfolio-item filter-app">'+
+                        '<div class="portfolio-wrap">'+
+                        '<img src="assets/img/portfolio/'+opt.imgc+'" class="imgfluid" alt="">'+
+                        '<div class="portfolio-info">'+
+                            '<h4>'+opt.model+'</h4>'+
+                            '<p>'+opt.brand+'</p>'+
+                            '<p>'+opt.anno+'</p>'+
+                            '<div class="portfolio-links">'+
+                            '<a href="portfolio-details.php?option='+opt.id+'" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>'+
+                            '</div>'+
+                        '</div>'+
+                        '</div>'+
+                    '</div>'
+                );
+            });
+            $('#prospect').append('</div>')
+        }
+    });   
 }

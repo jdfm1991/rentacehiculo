@@ -34,7 +34,7 @@ require_once("env.php")
 
           <div class="col-lg-4">
             <div class="portfolio-info">
-              <h3>Project information</h3>
+              <h3 id="title">Project information</h3>
               <ul>
                 <li><strong>Category</strong>: Web design</li>
                 <li><strong>Client</strong>: ASU Company</li>
@@ -57,10 +57,12 @@ require_once("env.php")
 
   </main><!-- End #main -->
 
-<?php 
+  <?php 
+if (URI<>$_SERVER["REQUEST_URI"] ) {
+    include_once("footer.php");
+}
 include_once("lib.php");
 ?>
-
 </body>
 
 </html>

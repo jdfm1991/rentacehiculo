@@ -9,9 +9,10 @@ class Portfolio extends Conectar{
         $conectar= parent::conexion();
         parent::set_names();
         //QUERY
-            $sql="SELECT anno,imgc,B.model AS model, C.brand AS brand FROM cars_table AS A 
+            $sql="SELECT A.id,anno,imgc,B.model AS model, C.brand AS brand FROM cars_table AS A 
             INNER JOIN cars_models_table AS B ON A.model=B.id
             INNER JOIN cars_brands_table AS C ON A.brand=C.id
+            ORDER BY A.id ASC
             LIMIT $begin,$finish";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);

@@ -6,7 +6,7 @@ require_once("portfolio_model.php");
 
 $portfolio = new Portfolio();
 
-$pagenun   = (isset($_POST['pagenun'])) ? $_POST['pagenun'] : '1';
+$index   = (isset($_POST['index'])) ? $_POST['index'] : '';
 $model = (isset($_POST['model'])) ? $_POST['model'] : '';
 $brand = (isset($_POST['brand'])) ? $_POST['brand'] : '';
 $anno = (isset($_POST['anno'])) ? $_POST['anno'] : '';
@@ -16,11 +16,12 @@ switch($_GET["op"]){
 
     case 'show':
         $finish =  12;
-        $begin = ($pagenun - 1) * $finish;
+        $begin = ($index - 1) * $finish;
         $dato = array();
         $data = $portfolio->getDataPortfolio($begin,$finish);
         foreach ($data as $data) {
             $sub_array = array();
+            $sub_array['id']    = $data['id'];
             $sub_array['imgc']    = $data['imgc'];
             $sub_array['model'] = $data['model'];
             $sub_array['brand']    = $data['brand'];
