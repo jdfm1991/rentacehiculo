@@ -6,7 +6,8 @@ require_once("portfolio_model.php");
 
 $portfolio = new Portfolio();
 
-$index   = (isset($_POST['index'])) ? $_POST['index'] : '';
+$index   = (isset($_POST['index'])) ? $_POST['index'] : '1';
+$id   = (isset($_POST['id'])) ? $_POST['id'] : '1';
 $model = (isset($_POST['model'])) ? $_POST['model'] : '';
 $brand = (isset($_POST['brand'])) ? $_POST['brand'] : '';
 $anno = (isset($_POST['anno'])) ? $_POST['anno'] : '';
@@ -22,12 +23,37 @@ switch($_GET["op"]){
         foreach ($data as $data) {
             $sub_array = array();
             $sub_array['id']    = $data['id'];
-            $sub_array['imgc']    = $data['imgc'];
+            $image = $portfolio->getDataImgPortfolio($data['id']);
+            $sub_array['imgc']    = $image;
             $sub_array['model'] = $data['model'];
             $sub_array['brand']    = $data['brand'];
             $sub_array['anno'] = $data['anno'];
             $dato[] = $sub_array;
         }
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
+        break;
+
+    case 'showdetails':
+
+        $dato = array();
+        $data = $portfolio->getDataDetailsPortfolio($id);
+        $data2 = $portfolio->getDataImgDetailsPortfolio($id);
+        foreach ($data as $data) {
+            $sub_array = array();
+            $sub_array['id']    = $data['id'];
+            $sub_array['model'] = $data['model'];
+            $sub_array['brand']    = $data['brand'];
+            $sub_array['anno'] = $data['anno'];
+            $sub_array['descrip'] = $data['descrip'];
+            $image = array();
+            foreach ($data2 as $data2) {
+                array_push($image, $data2['image']);
+                $sub_array['image'] = $image;
+            }
+            $dato[] = $sub_array;
+        }
+        
+        
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
 

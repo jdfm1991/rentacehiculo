@@ -1,10 +1,7 @@
 $(document).ready(function () {
-    var Url = $(location).attr('href')
+    var url = $(location).attr('href').split("=")
+    var id = url[1]
 
-    $('#title').append(Url)
-
-    console.log(Url);
-    
     getProspect()
 
     $.ajax({
@@ -12,7 +9,6 @@ $(document).ready(function () {
         method: "POST",
         dataType: "html",  
         success: function(data) {
-            $('#paginator').html(data);
             $('#paginator').empty();
             $('#paginator').append('<div>')
             for (let index = 1; index <= data ; index++) {
@@ -80,32 +76,46 @@ $(document).ready(function () {
         type: "POST",
         url: "assets/app/portfolio/portfolio_controller.php?op=showdetails",
         dataType: "json",
-        //data:  {index:index},
+        data:  {id:id},
         success: function (data) {
-            //$('#prospect').html(data);
-            $('#prospect').empty();
-            $('#prospect').append('<div>')
+            //Colocacion de Fotos de Muestra
+            $('#img_propect').empty();
+            $('#img_propect').append('<div>')
             $.each(data, function(idx, opt) {
-                $('#prospect').append(
-                    '<div class="col-lg-4 col-md-6 portfolio-item filter-app">'+
-                        '<div class="portfolio-wrap">'+
-                        '<img src="assets/img/portfolio/'+opt.imgc+'" class="imgfluid" alt="">'+
-                        '<div class="portfolio-info">'+
-                            '<h4>'+opt.model+'</h4>'+
-                            '<p>'+opt.brand+'</p>'+
-                            '<p>'+opt.anno+'</p>'+
-                            '<div class="portfolio-links">'+
-                            '<a href="portfolio-details.php?option='+opt.id+'" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>'+
-                            '</div>'+
-                        '</div>'+
-                        '</div>'+
-                    '</div>'
-                );
+                console.log(opt.image);
+                for (let i = 0; i < opt.image.length; i++) {
+                    $('#img_propect').append(
+                        '<div class="swiper-slide">'+
+                            '<img class="img_detail" src="assets/img/portfolio/'+opt.image[i]+'" alt="">'+
+                        '</div>'
+                        );
+                }
             });
-            $('#prospect').append('</div>')
+            $('#img_propect').append('</div>')
+
+            //Colocacion de infomacion basica
+            $('#text_prospect').empty();
+            $('#text_prospect').append('<div>')
+            $.each(data, function(idx, opt) {
+                $('#text_prospect').append(
+                    '<li><strong>Marca</strong>: '+opt.brand+'</li>'+
+                    '<li><strong>Modelo</strong>: '+opt.model+'</li>'+
+                    '<li><strong>Año</strong>: '+opt.anno+'</li>'
+                    );
+            });
+            $('#text_prospect').append('</div>')
+
+            //Colocacion de Descripcion
+            $('#desc_prospect').empty();
+            $('#desc_prospect').append('<div>')
+            $.each(data, function(idx, opt) {
+                $('#desc_prospect').append('<p>'+opt.descrip+'</p>');
+            });
+            $('#desc_prospect').append('</div>')
         }
     });
 });
+
 
 function getProspect(index) {
     if (index==undefined) {
@@ -126,12 +136,11 @@ function getProspect(index) {
         dataType: "json",
         data:  {index:index},
         success: function (data) {
-            //$('#prospect').html(data);
             $('#prospect').empty();
             $('#prospect').append('<div>')
             $.each(data, function(idx, opt) {
                 $('#prospect').append(
-                    '<div class="col-lg-4 col-md-6 portfolio-item filter-app">'+
+                    '<div class="col-lg-4 col-md-6 portfolio-item">'+
                         '<div class="portfolio-wrap">'+
                         '<img src="assets/img/portfolio/'+opt.imgc+'" class="imgfluid" alt="">'+
                         '<div class="portfolio-info">'+

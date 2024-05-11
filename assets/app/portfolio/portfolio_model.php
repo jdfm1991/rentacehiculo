@@ -9,13 +9,61 @@ class Portfolio extends Conectar{
         $conectar= parent::conexion();
         parent::set_names();
         //QUERY
-            $sql="SELECT A.id,anno,imgc,B.model AS model, C.brand AS brand FROM cars_table AS A 
+            $sql="SELECT DISTINCT  A.id,anno,B.model AS model, C.brand AS brand FROM cars_table AS A 
             INNER JOIN cars_models_table AS B ON A.model=B.id
             INNER JOIN cars_brands_table AS C ON A.brand=C.id
+            INNER JOIN cars_images_table AS D ON A.id=D.car
             ORDER BY A.id ASC
             LIMIT $begin,$finish";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
+        $sql->execute();
+        return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getDataImgPortfolio($id){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT image FROM cars_images_table WHERE car = ? LIMIT 1";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $id);
+        $sql->execute();
+        return ($sql->fetch(PDO::FETCH_ASSOC)['image']);
+    }
+
+    public function getDataDetailsPortfolio($id){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT DISTINCT A.id,anno,B.model AS model, C.brand AS brand, A.description AS descrip FROM cars_table AS A 
+            INNER JOIN cars_models_table AS B ON A.model=B.id
+            INNER JOIN cars_brands_table AS C ON A.brand=C.id
+            INNER JOIN cars_images_table AS D ON A.id=D.car
+            WHERE A.id=?
+            ORDER BY A.id ASC";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $id);
+        $sql->execute();
+        return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getDataImgDetailsPortfolio($id){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT image FROM cars_images_table WHERE car = ?";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $id);
         $sql->execute();
         return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -26,10 +74,7 @@ class Portfolio extends Conectar{
         $conectar= parent::conexion();
         parent::set_names();
         //QUERY
-            $sql="SELECT anno,imgc,B.model AS model, C.brand AS brand FROM cars_table AS A 
-            INNER JOIN cars_models_table AS B ON A.model=B.id
-            INNER JOIN cars_brands_table AS C ON A.brand=C.id
-            ";
+            $sql="SELECT * FROM cars_table";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
         $sql->execute();
