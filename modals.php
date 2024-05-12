@@ -91,15 +91,15 @@
   Modal Para Opcion de Olvide Contrase#a
   *************************************************
 -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="advanceModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Busqueda Avanzada, Selecciones los Filtros</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="">
-        <div class="row d-flex justify-content-center">
+        <div class="row justify-content-center">
           <div class="col-sm-3">
             <div class="form-floating">
               <select class="form-select" id="region"  aria-label="Default select example"> 

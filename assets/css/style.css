@@ -113,6 +113,40 @@ h6 {
   }
 }
 
+.imgfluid{
+  max-width: 100%;
+  height: 250px;
+  margin: auto;
+  display: block;
+}
+
+.btnlogin {
+  position: fixed;
+  right: 60px;
+  top: 10px;
+  z-index: 9998;
+  transition: all 0.5s;
+  border-radius: 50px;
+}
+
+.btnsearch {
+  position: fixed;
+  right: 60px;
+  top: 60px;
+  z-index: 9998;
+  transition: all 0.5s;
+}
+
+.radius {
+  border-radius: 50px;
+}
+
+@media (max-width: 992px) {
+  .tsearch{
+    display: none;
+  }
+}
+
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
@@ -205,6 +239,8 @@ h6 {
     color: #fff;
   }
 }
+
+
 
 .nav-menu a:hover,
 .nav-menu .active,
@@ -579,12 +615,6 @@ section {
   margin-bottom: 30px;
 }
 
-.imgfluid{
-  max-width: 100%;
-  height: 250px;
-  margin: auto;
-  display: block;
-}
 .img_detail{
   max-width: 100%;
   height: 500px;
@@ -1219,22 +1249,4 @@ section {
 
 #footer .credits {
   font-size: 13px;
-}
-
-
-
-
-svg {
-  border: 1px solid black;
-  width: 100px;
-  height: 100px;
-  #features {
-    #VEZ {
-      fill: #FF4745;
-    }
-  }
-}
-
-.blackbg{
-  background-color: black;
 }

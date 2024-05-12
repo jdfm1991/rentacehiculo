@@ -6,21 +6,6 @@ require_once("env.php")
 ?>
   <!-- ======= Hero Section ======= --> 
   <section id="hero" class="d-flex flex-column justify-content-center">
-    <div class="navbar nav-menu">    
-      <div class="btn-group ms-3" role="group" aria-label="">
-        <?php
-        if ($_SESSION) { ?>
-          <a id="btnLogout" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Cerrar Sesion</span></a>
-        <?php
-        } else { ?>
-          <a id="btnLogin" class="nav-link scrollto"><i class="bx bx-user"></i> <span> Iniciar Sesion</span></a>
-          <?php
-        }
-        
-        ?>
-        
-      </div>
-    </div>
     <div class="container" data-aos="zoom-in" data-aos-delay="100">
       <h1>Nombre de la Empresa <?php echo $_SESSION['email'] ?></h1>
       <p>Somos tu mejor opcion en alquiler de <span class="typed" data-typed-items="carros, camiones, pick up y mas"></span></p>

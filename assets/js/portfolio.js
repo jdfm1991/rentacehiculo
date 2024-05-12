@@ -76,6 +76,15 @@ $(document).ready(function () {
         }
     });
     //************************************************/
+    //********Abrir Modal de Busqueda Avanzada********/
+    //************************************************/
+    $('#tsearch').click(function (e) { 
+        e.preventDefault();
+        $(".modal-title").text("Busqueda Avanzada, Selecciones los Filtros")
+        $('#advanceModal').modal('show');	
+        
+    });
+    //************************************************/
     //*********Cargar Selector de Regiones************/
     //************************************************/
     $.ajax({
@@ -142,7 +151,9 @@ $(document).ready(function () {
     $('#region').change(function (e) { 
         e.preventDefault();
         region=$.trim($('#region').val());
-        console.log(region);
+        brand=$.trim($('#brand').val());
+        model=$.trim($('#model').val());
+        anno=$.trim($('#anno').val());
         if (!region) {
             $('#cbrand').hide();
             $('#cmodel').hide();
@@ -159,7 +170,7 @@ $(document).ready(function () {
                 url: "assets/app/portfolio/portfolio_controller.php?op=advanced",
                 method: "POST",
                 dataType: "json",
-                data:  {region:region},  
+                data:  {region:region,brand:brand,model:model,anno:anno},
                 success: function(data) {
                     if (data.length) {
                         $('#cbrand').show();
@@ -201,7 +212,9 @@ $(document).ready(function () {
         e.preventDefault();
         region=$.trim($('#region').val());
         brand=$.trim($('#brand').val());
-        if (brand=='-') {
+        model=$.trim($('#model').val());
+        anno=$.trim($('#anno').val());
+        if (!brand) {
             $('#cmodel').hide();
             $('#canno').hide();
             $('#alertma').show();
@@ -218,7 +231,7 @@ $(document).ready(function () {
                 url: "assets/app/portfolio/portfolio_controller.php?op=advanced",
                 method: "POST",
                 dataType: "json",
-                data:  {region:region,brand:brand},  
+                data:  {region:region,brand:brand,model:model,anno:anno},  
                 success: function(data) {
                     if (data.length) {
                         $('#cmodel').show();
@@ -261,7 +274,8 @@ $(document).ready(function () {
         region=$.trim($('#region').val());
         brand=$.trim($('#brand').val());
         model=$.trim($('#model').val());
-        if (brand=='') {
+        anno=$.trim($('#anno').val());
+        if (!model) {
             $('#canno').hide();
             $('#alertma').show();
             $('#alertma').addClass('alert-warning');
@@ -276,7 +290,7 @@ $(document).ready(function () {
                 url: "assets/app/portfolio/portfolio_controller.php?op=advanced",
                 method: "POST",
                 dataType: "json",
-                data:  {region:region,brand:brand,model:model},  
+                data:  {region:region,brand:brand,model:model,anno:anno},  
                 success: function(data) {
                     if (data.length) {
                         $('#canno').show();
@@ -320,7 +334,7 @@ $(document).ready(function () {
         brand=$.trim($('#brand').val());
         model=$.trim($('#model').val());
         anno=$.trim($('#anno').val());
-        if (brand=='-') {
+        if (!anno) {
             $('#alertma').show();
             $('#alertma').addClass('alert-warning');
             $('#messagema').text('Por Favor Selecciones Un Annio');

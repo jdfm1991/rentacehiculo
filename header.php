@@ -53,5 +53,18 @@
         <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
       </ul>
     </nav><!-- .nav-menu -->
-
   </header><!-- End Header -->
+
+  <div class="btnlogin">    
+      <div class="btn-group ms-3" role="group" aria-label="">
+        <?php
+        if ($_SESSION) { ?>
+          <a id="btnLogout" class="btn btn-outline-danger radius"><i class="bx bx-user"></i><span class="tsearch">Cerrar Sesion</span></a>
+        <?php
+        } else { ?>
+          <a id="btnLogin" class="btn btn-outline-primary radius"><i class="bx bx-user"></i><span class="tsearch"> Iniciar Sesion</span></a>
+          <?php
+        }
+        ?>
+      </div>
+    </div>

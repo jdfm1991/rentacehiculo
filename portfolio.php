@@ -3,20 +3,20 @@ include_once("header.php");
 require_once("env.php");
 ?> 
     <!-- ======= Portfolio Section ======= -->
+    <button id="search" type="button" class="btn btn-primary btnsearch radius" data-bs-toggle="modal" data-bs-target="#advanceModal"><i class="bi bi-search"></i>
+      <span class="tsearch">Busqueda Avanzada</span>
+    </button>
     <section id="portfolio" class="portfolio section-bg">
+      
+    
+     
       <div class="container" data-aos="fade-up">
-
         <div class="section-title">
           <h2>Portfolio</h2>
-        </div>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  Launch static backdrop modal
-</button>
-        
+        </div> 
         <div id="prospect" class="row" data-aos="fade-up" data-aos-delay="200">
 
         </div>
-
         <div class="row">
             <div class="col-lg-12">
                 <nav aria-label="Page navigation example">
