@@ -52,7 +52,6 @@
     </div>
   </div>
 </div>
-
 <!--
   *************************************************
   Modal Para Opcion de Olvide Contrase#a
@@ -83,6 +82,65 @@
                 </div>
             </form>  
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+  *************************************************
+  Modal Para Opcion de Olvide Contrase#a
+  *************************************************
+-->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="">
+        <div class="row d-flex justify-content-center">
+          <div class="col-sm-3">
+            <div class="form-floating">
+              <select class="form-select" id="region"  aria-label="Default select example"> 
+            </select>
+            <label for="region">Selecione un Region</label>
+            </div>
+          </div>
+          <div id="cbrand" class="col-sm-3">
+            <div class="form-floating">
+              <select id="brand" class="form-select" aria-label="Default select example">
+              </select>
+              <label for="brand">Selecione una Marca</label>
+            </div>
+          </div>
+          <div id="cmodel" class="col-sm-3">
+            <div class="form-floating">
+              <select id="model" class="form-select" aria-label="Default select example">
+              </select>
+              <label for="model">Selecione un Modelo</label>
+            </div>
+          </div>
+          <div id="canno" class="col-sm-3">
+            <div class="form-floating">
+              <select id="anno" class="form-select" aria-label="Default select example">
+              </select>
+              <label for="anno">Selecione un Año</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div id="alertma" class="alert" role="alert">
+          <div id="messagema" class="row justify-content-sm-center mb-3">
+          </div>
+        </div>
+        <div id="advancep" class="row" data-aos="fade-up" data-aos-delay="200">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
       </div>
     </div>
   </div>

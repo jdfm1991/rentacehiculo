@@ -9,31 +9,10 @@ require_once("env.php");
         <div class="section-title">
           <h2>Portfolio</h2>
         </div>
-        <!--
-        <div class="row justify-content-md-center mb-3">
-          <div class="form-floating col-sm-4 mb-2">
-            <select id="model" class="form-select" aria-label="Default select example">
-              <option selected>Selecione un Modelo</option>
-            </select>
-          </div>
-          <div class="form-floating col-sm-4 mb-2">
-            <select id="brand" class="form-select" aria-label="Default select example">
-              <option selected>Selecione una Marca</option>
-            </select>
-          </div>
-          <div class="form-floating col-sm-4 mb-2">
-            <select id="anno" class="form-select" aria-label="Default select example">
-              <option selected>Selecione un Año</option>
-            </select>
-          </div>
-          <div class="form-floating col-sm-4 mb-2">
-            <select id="region" class="form-select" aria-label="Default select example">
-              <option selected>Selecione un Region</option>
-            </select>
-          </div>
-        </div>
-        -->
-
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Launch static backdrop modal
+</button>
+        
         <div id="prospect" class="row" data-aos="fade-up" data-aos-delay="200">
 
         </div>
@@ -54,6 +33,7 @@ if (URI<>$_SERVER["REQUEST_URI"] ) {
     include_once("footer.php");
 }
 include_once("lib.php");
+include_once("modals.php")
 ?>
 </body>
 

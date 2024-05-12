@@ -1220,3 +1220,21 @@ section {
 #footer .credits {
   font-size: 13px;
 }
+
+
+
+
+svg {
+  border: 1px solid black;
+  width: 100px;
+  height: 100px;
+  #features {
+    #VEZ {
+      fill: #FF4745;
+    }
+  }
+}
+
+.blackbg{
+  background-color: black;
+}

@@ -6,12 +6,13 @@ require_once("portfolio_model.php");
 
 $portfolio = new Portfolio();
 
-$index   = (isset($_POST['index'])) ? $_POST['index'] : '1';
-$id   = (isset($_POST['id'])) ? $_POST['id'] : '1';
-$model = (isset($_POST['model'])) ? $_POST['model'] : '';
-$brand = (isset($_POST['brand'])) ? $_POST['brand'] : '';
-$anno = (isset($_POST['anno'])) ? $_POST['anno'] : '';
+$index   = (isset($_POST['index'])) ? $_POST['index'] : '';
+$id   = (isset($_POST['id'])) ? $_POST['id'] : '';
 $region = (isset($_POST['region'])) ? $_POST['region'] : '';
+$brand = (isset($_POST['brand'])) ? $_POST['brand'] : '';
+$model = (isset($_POST['model'])) ? $_POST['model'] : '';
+$anno = (isset($_POST['anno'])) ? $_POST['anno'] : '';
+
 
 switch($_GET["op"]){
 
@@ -34,7 +35,6 @@ switch($_GET["op"]){
         break;
 
     case 'showdetails':
-
         $dato = array();
         $data = $portfolio->getDataDetailsPortfolio($id);
         $data2 = $portfolio->getDataImgDetailsPortfolio($id);
@@ -52,8 +52,29 @@ switch($_GET["op"]){
             }
             $dato[] = $sub_array;
         }
-        
-        
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
+        break;
+
+    case 'advanced':
+        $condition = '';
+        $condition .= (!empty($region)) ? ' WHERE A.region ='.$region : '' ;
+        $condition .= (!empty($region) && !empty($brand)) ? ' AND A.brand ='.$brand : '' ;
+        $condition .= (!empty($region) && !empty($brand) && !empty($model)) ? ' AND A.model ='.$model : '' ;
+        $condition .= (!empty($region) && !empty($brand) && !empty($model) && !empty($anno)) ? ' AND A.anno ='.$anno : '' ;
+        $dato = array();
+        $data = $portfolio->getDataPortfolioAdvanced($condition);
+        foreach ($data as $data) {
+            $sub_array = array();
+            $sub_array['id']    = $data['id'];
+            $image = $portfolio->getDataImgPortfolio($data['id']);
+            $sub_array['imgc']    = $image;
+            $sub_array['region'] = $data['region'];
+            $sub_array['brand']    = $data['brand'];
+            $sub_array['model'] = $data['model'];
+            $sub_array['anno'] = $data['anno'];
+            $sub_array['descrip'] = $data['descrip'];
+            $dato[] = $sub_array;
+        }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
 

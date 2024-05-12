@@ -67,6 +67,24 @@ class Portfolio extends Conectar{
         $sql->execute();
         return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getDataPortfolioAdvanced($condition){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT DISTINCT  A.id,anno,E.region AS region,B.model AS model, C.brand AS brand FROM cars_table AS A 
+            INNER JOIN cars_models_table AS B ON A.model=B.id
+            INNER JOIN cars_brands_table AS C ON A.brand=C.id
+            INNER JOIN cars_images_table AS D ON A.id=D.car
+            INNER JOIN cars_regions_table AS E ON A.region=E.id $condition
+            ORDER BY A.id ASC";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+        return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
     
     public function getDataPortfolios(){
         //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
