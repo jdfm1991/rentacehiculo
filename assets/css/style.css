@@ -145,6 +145,29 @@ h6 {
   .tsearch{
     display: none;
   }
+  #prospect{
+    display: none;
+  }
+  #paginator{
+    display: none;
+  }
+  #mobile{
+    display: flex;
+    margin-top: -160px;
+  }
+  
+}
+
+@media (min-width: 992px) {
+  #prospect{
+    display: flex;
+  }
+  #paginator{
+    display: flex;
+  }
+  #mobile{
+    display: none;
+  }
 }
 
 /*--------------------------------------------------------------

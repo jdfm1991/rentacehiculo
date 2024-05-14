@@ -1,15 +1,18 @@
 <?php 
+session_name('R3nt@k4r');
+session_start();
 include_once("header.php");
 require_once("env.php");
+if ($_SESSION) {
+  echo '<input type="hidden" id="session" name="session" value=true>';
+}
 ?> 
     <!-- ======= Portfolio Section ======= -->
     <button id="search" type="button" class="btn btn-primary btnsearch radius" data-bs-toggle="modal" data-bs-target="#advanceModal"><i class="bi bi-search"></i>
       <span class="tsearch">Busqueda Avanzada</span>
     </button>
-    <section id="portfolio" class="portfolio section-bg">
-      
     
-     
+    <section id="portfolio" class="portfolio section-bg">
       <div class="container" data-aos="fade-up">
         <div class="section-title">
           <h2>Portfolio</h2>
@@ -28,6 +31,23 @@ require_once("env.php");
         </div>
       </div>
     </section><!-- End Portfolio Section -->
+
+    <section id="mobile" class="portfolio section-bg">
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-sm-12">
+            <div class="portfolio-details-slider swiper">
+              <div id="portfoliomobile" class="swiper-wrapper align-items-center">
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
 <?php 
 if (URI<>$_SERVER["REQUEST_URI"] ) {
     include_once("footer.php");

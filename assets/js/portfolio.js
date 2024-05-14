@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var url = $(location).attr('href').split("=")
+    var session = $.trim($('#session').val());
     var id = url[1]
     $('#cbrand').hide();
     $('#cmodel').hide();
@@ -9,6 +10,38 @@ $(document).ready(function () {
     //*********Llamda de Funcion para Cargar**********/
     //************Vista Inicial de Pagina*************/
     getProspect()
+    //************************************************/
+    //*********Cargar Contenido Vers. Movil***********/
+    //************Vista Inicial de Pagina*************/
+    $.ajax({
+        type: "POST",
+        url: "assets/app/portfolio/portfolio_controller.php?op=showall",
+        dataType: "json",
+        success: function (data) {
+            $('#portfoliomobile').empty();
+            $('#portfoliomobile').append('<div>')
+            $.each(data, function(idx, opt) {
+                $('#portfoliomobile').append(
+                    '<div class="swiper-slide justify-content-center">'+
+                        '<div class="swiper-slide">'+
+                            '<div class="portfolio-wrap">'+
+                                '<img class="img_detail" src="assets/img/portfolio/'+opt.imgc+'" alt="">'+
+                                '<div class="portfolio-info">'+
+                                    '<h4>'+opt.model+'</h4>'+
+                                    '<p>'+opt.brand+'</p>'+
+                                    '<p>'+opt.anno+'</p>'+
+                                    '<div class="portfolio-links">'+
+                                    '<a href="portfolio-details.php?option='+opt.id+'" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'
+                );
+            });
+            $('#portfoliomobile').append('</div>')
+        }
+    });
     //************************************************/
     //*********Cargar Numeros de Paginador************/
     //************************************************/
@@ -43,7 +76,6 @@ $(document).ready(function () {
             $('#img_propect').empty();
             $('#img_propect').append('<div>')
             $.each(data, function(idx, opt) {
-                console.log(opt.image);
                 for (let i = 0; i < opt.image.length; i++) {
                     $('#img_propect').append(
                         '<div class="swiper-slide">'+
@@ -63,8 +95,16 @@ $(document).ready(function () {
                     '<li><strong>Modelo</strong>: '+opt.model+'</li>'+
                     '<li><strong>Año</strong>: '+opt.anno+'</li>'
                     );
+                if (opt.available==true) {
+                    $('#avail_prospect').append('<button id="btnrent" class="btn btn-outline-primary">Alquilar</button>')
+                    $("#messeged").hide();
+                } else {
+                    $('#avail_prospect').append('<button id="btnrent" class="btn btn-outline-primary" disabled>Alquilar</button>')
+                    $("#messeged").show();
+                    $("#errord").text('Este Vehiculo No Se Encuentra Disponible, Se Desea Puede Contactar Con Un Operador A traves del Siguiente Link: ');
+                }
             });
-            $('#text_prospect').append('</div>')
+            $('#text_prospect').append('</div>')           
 
             //Colocacion de Descripcion
             $('#desc_prospect').empty();
@@ -84,6 +124,28 @@ $(document).ready(function () {
         $('#advanceModal').modal('show');	
         
     });
+    $(document).on("click", "#btnrent", function(){
+        if (session) {
+            $(".modal-title").text("Informacion de registro")
+            $("#messeger").hide();
+            $("#rname").prop('disabled',true);
+            $("#rphone").prop('disabled',true);
+            $("#remail").prop('disabled',true);
+            $("#rdni").prop('disabled',true);
+            $('#rentModal').modal('show');
+        } else {
+            alert('Para Rentar Un Vehiculo Debe Iniciar Sesion Primero')
+            $(".modal-title").text("Inicio de Sesion")
+            $("#messegel").hide();
+            $("#optreg").hide();
+            $("#name").prop('required',false);
+            $("#phone").prop('required',false);
+            $("#btnRegister").hide();
+            $("#btnStart").show();
+            $("#options").show();	
+            $('#loginModal').modal('show');
+        }
+      });
     //************************************************/
     //*********Cargar Selector de Regiones************/
     //************************************************/
@@ -96,52 +158,6 @@ $(document).ready(function () {
           $.each(data, function(idx, opt) {
               //se itera con each para llenar el select en la vista
               $('#region').append('<option value="' + opt.id +'">' + opt.region + '</option>');
-          });
-        }
-    });
-    //************************************************/
-    //**********Mostras Selector de Marcas************/
-    //************************************************/
-    $.ajax({
-        url: "assets/app/portfolio/portfolio_controller.php?op=brand",
-        method: "POST",
-        dataType: "json",  
-        success: function(data) {
-            $('#brand').append('<option value="">-*_-*-_-*</option>');
-          $.each(data, function(idx, opt) {
-              //se itera con each para llenar el select en la vista
-              $('#brand').append('<option name="" value="' + opt.id +'">' + opt.brand + '</option>');
-          });
-        }
-    });
-    //************************************************/
-    //**********Mostras Selector de Modelos***********/
-    //************************************************/
-    $.ajax({
-        url: "assets/app/portfolio/portfolio_controller.php?op=model",
-        method: "POST",
-        dataType: "json",  
-        success: function(data) {
-            $('#model').append('<option value="">-*_-*-_-*</option>');
-          $.each(data, function(idx, opt) {
-              //se itera con each para llenar el select en la vista
-              $('#model').append('<option name="" value="' + opt.id +'">' + opt.model + '</option>');
-          });
-      
-        }
-    });
-    //************************************************/
-    //**********Mostras Selector de annios************/
-    //************************************************/
-    $.ajax({
-        url: "assets/app/portfolio/portfolio_controller.php?op=anno",
-        method: "POST",
-        dataType: "json",  
-        success: function(data) {
-            $('#anno').append('<option value="">-*_-*-_-*</option>');
-          $.each(data, function(idx, opt) {
-              //se itera con each para llenar el select en la vista
-              $('#anno').append('<option name="" value="' + opt.anno +'">' + opt.anno + '</option>');
           });
         }
     });
@@ -166,43 +182,25 @@ $(document).ready(function () {
             $('#anno').val('');
             $('#advancep').empty();
         } else {
+            //************************************************/
+            //**********Mostras Selector de Marcas************/
+            //************************************************/
             $.ajax({
-                url: "assets/app/portfolio/portfolio_controller.php?op=advanced",
+                url: "assets/app/portfolio/portfolio_controller.php?op=brand",
                 method: "POST",
                 dataType: "json",
-                data:  {region:region,brand:brand,model:model,anno:anno},
+                data:  {region:region}, 
                 success: function(data) {
-                    if (data.length) {
-                        $('#cbrand').show();
-                        $('#alertma').hide();
-                        $('#advancep').empty();
-                        $('#advancep').append('<div>')
-                        $.each(data, function(idx, opt) {
-                            $('#advancep').append(
-                                '<div class="col-lg-4 col-md-6 portfolio-item">'+
-                                    '<div class="portfolio-wrap">'+
-                                    '<img src="assets/img/portfolio/'+opt.imgc+'" class="imgfluid" alt="">'+
-                                        '<div class="portfolio-info">'+
-                                            '<h4>'+opt.model+'</h4>'+
-                                            '<p>'+opt.brand+'</p>'+
-                                            '<p>'+opt.anno+'</p>'+
-                                            '<div class="portfolio-links">'+
-                                            '<a href="portfolio-details.php?option='+opt.id+'" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>'+
-                                            '</div>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>'
-                            );
-                        });
-                        $('#advancep').append('</div>')
-                    } else {
-                        $('#alertma').show();
-                        $('#alertma').addClass('alert-danger');
-                        $('#messagema').text('No Existe Informacion');
-                        $('#advancep').empty();
-                    }
+                    $('#brand').empty();
+                    $('#brand').append('<option value="">-*_-*-_-*</option>');
+                    $.each(data, function(idx, opt) {
+                        //se itera con each para llenar el select en la vista
+                        $('#brand').append('<option name="" value="' + opt.id +'">' + opt.brand + '</option>');
+                    });
                 }
             });
+            $('#cbrand').show();
+            searchAdvance(region,brand,model,anno)
         } 
     });
     //************************************************/
@@ -227,43 +225,25 @@ $(document).ready(function () {
                 $("#alertma").hide();
             }, 3000);
         } else {
+            //************************************************/
+            //**********Mostras Selector de Modelos***********/
+            //************************************************/
             $.ajax({
-                url: "assets/app/portfolio/portfolio_controller.php?op=advanced",
+                url: "assets/app/portfolio/portfolio_controller.php?op=model",
                 method: "POST",
-                dataType: "json",
-                data:  {region:region,brand:brand,model:model,anno:anno},  
+                dataType: "json", 
+                data:  {brand:brand},  
                 success: function(data) {
-                    if (data.length) {
-                        $('#cmodel').show();
-                        $('#alertma').hide();
-                        $('#advancep').empty();
-                        $('#advancep').append('<div>')
-                        $.each(data, function(idx, opt) {
-                            $('#advancep').append(
-                                '<div class="col-lg-4 col-md-6 portfolio-item">'+
-                                    '<div class="portfolio-wrap">'+
-                                    '<img src="assets/img/portfolio/'+opt.imgc+'" class="imgfluid" alt="">'+
-                                        '<div class="portfolio-info">'+
-                                            '<h4>'+opt.model+'</h4>'+
-                                            '<p>'+opt.brand+'</p>'+
-                                            '<p>'+opt.anno+'</p>'+
-                                            '<div class="portfolio-links">'+
-                                            '<a href="portfolio-details.php?option='+opt.id+'" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>'+
-                                            '</div>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>'
-                            );
-                        });
-                        $('#advancep').append('</div>')
-                    } else {
-                        $('#alertma').show();
-                        $('#alertma').addClass('alert-danger');
-                        $('#messagema').text('No Existe Informacion');
-                        $('#advancep').empty();
-                    }
+                    $('#model').empty();
+                    $('#model').append('<option value="">-*_-*-_-*</option>');
+                    $.each(data, function(idx, opt) {
+                        //se itera con each para llenar el select en la vista
+                        $('#model').append('<option name="" value="' + opt.id +'">' + opt.model + '</option>');
+                    });
                 }
             });
+            $('#cmodel').show();
+            searchAdvance(region,brand,model,anno)
         } 
     });
     //************************************************/
@@ -286,43 +266,25 @@ $(document).ready(function () {
                 $("#alertma").hide();
             }, 3000);
         } else {
+            //************************************************/
+            //**********Mostras Selector de annios************/
+            //************************************************/
             $.ajax({
-                url: "assets/app/portfolio/portfolio_controller.php?op=advanced",
+                url: "assets/app/portfolio/portfolio_controller.php?op=anno",
                 method: "POST",
                 dataType: "json",
-                data:  {region:region,brand:brand,model:model,anno:anno},  
+                data:  {region:region,brand:brand,model:model},    
                 success: function(data) {
-                    if (data.length) {
-                        $('#canno').show();
-                        $('#alertma').hide();
-                        $('#advancep').empty();
-                        $('#advancep').append('<div>')
-                        $.each(data, function(idx, opt) {
-                            $('#advancep').append(
-                                '<div class="col-lg-4 col-md-6 portfolio-item">'+
-                                    '<div class="portfolio-wrap">'+
-                                    '<img src="assets/img/portfolio/'+opt.imgc+'" class="imgfluid" alt="">'+
-                                        '<div class="portfolio-info">'+
-                                            '<h4>'+opt.model+'</h4>'+
-                                            '<p>'+opt.brand+'</p>'+
-                                            '<p>'+opt.anno+'</p>'+
-                                            '<div class="portfolio-links">'+
-                                            '<a href="portfolio-details.php?option='+opt.id+'" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>'+
-                                            '</div>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>'
-                            );
-                        });
-                        $('#advancep').append('</div>')
-                    } else {
-                        $('#alertma').show();
-                        $('#alertma').addClass('alert-danger');
-                        $('#messagema').text('No Existe Informacion');
-                        $('#advancep').empty();
-                    }
+                    $('#anno').empty();
+                    $('#anno').append('<option value="">-*_-*-_-*</option>');
+                    $.each(data, function(idx, opt) {
+                        //se itera con each para llenar el select en la vista
+                        $('#anno').append('<option name="" value="' + opt.anno +'">' + opt.anno + '</option>');
+                    });
                 }
             });
+            $('#canno').show();
+            searchAdvance(region,brand,model,anno)
         } 
     });
     //************************************************/
@@ -343,42 +305,7 @@ $(document).ready(function () {
                 $("#alertma").hide();
             }, 3000);
         } else {
-            $.ajax({
-                url: "assets/app/portfolio/portfolio_controller.php?op=advanced",
-                method: "POST",
-                dataType: "json",
-                data:  {region:region,brand:brand,model:model,anno:anno},  
-                success: function(data) {
-                    if (data.length) {
-                        $('#alertma').hide();
-                        $('#advancep').empty();
-                        $('#advancep').append('<div>')
-                        $.each(data, function(idx, opt) {
-                            $('#advancep').append(
-                                '<div class="col-lg-4 col-md-6 portfolio-item">'+
-                                    '<div class="portfolio-wrap">'+
-                                    '<img src="assets/img/portfolio/'+opt.imgc+'" class="imgfluid" alt="">'+
-                                        '<div class="portfolio-info">'+
-                                            '<h4>'+opt.model+'</h4>'+
-                                            '<p>'+opt.brand+'</p>'+
-                                            '<p>'+opt.anno+'</p>'+
-                                            '<div class="portfolio-links">'+
-                                            '<a href="portfolio-details.php?option='+opt.id+'" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>'+
-                                            '</div>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>'
-                            );
-                        });
-                        $('#advancep').append('</div>')
-                    } else {
-                        $('#alertma').show();
-                        $('#alertma').addClass('alert-danger');
-                        $('#messagema').text('No Existe Informacion');
-                        $('#advancep').empty();
-                    }
-                }
-            });
+            searchAdvance(region,brand,model,anno)
         } 
     });
 });
@@ -409,7 +336,7 @@ function getProspect(index) {
             $('#prospect').append('<div>')
             $.each(data, function(idx, opt) {
                 $('#prospect').append(
-                    '<div class="col-lg-4 col-md-6 portfolio-item">'+
+                    '<div class="col-sm-4 col-md-3 portfolio-item">'+
                         '<div class="portfolio-wrap">'+
                         '<img src="assets/img/portfolio/'+opt.imgc+'" class="imgfluid" alt="">'+
                         '<div class="portfolio-info">'+
@@ -427,4 +354,45 @@ function getProspect(index) {
             $('#prospect').append('</div>')
         }
     });   
+}
+
+function searchAdvance(region,brand,model,anno) {
+
+    $.ajax({
+        url: "assets/app/portfolio/portfolio_controller.php?op=advanced",
+        method: "POST",
+        dataType: "json",
+        data:  {region:region,brand:brand,model:model,anno:anno},
+        success: function(data) {
+            if (data.length) {
+                $('#alertma').hide();
+                $('#advancep').empty();
+                $('#advancep').append('<div>')
+                $.each(data, function(idx, opt) {
+                    $('#advancep').append(
+                        '<div class="col-sm-3 col-sm-3 portfolio-item">'+
+                            '<div class="portfolio-wrap">'+
+                            '<img src="assets/img/portfolio/'+opt.imgc+'" class="imgfluid" alt="">'+
+                                '<div class="portfolio-info">'+
+                                    '<h4>'+opt.model+'</h4>'+
+                                    '<p>'+opt.brand+'</p>'+
+                                    '<p>'+opt.anno+'</p>'+
+                                    '<div class="portfolio-links">'+
+                                    '<a href="portfolio-details.php?option='+opt.id+'" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'
+                    );
+                });
+                $('#advancep').append('</div>')
+            } else {
+                $('#alertma').show();
+                $('#alertma').addClass('alert-danger');
+                $('#messagema').text('No Existe Informacion');
+                $('#advancep').empty();
+            }
+        }
+    });
+    
 }

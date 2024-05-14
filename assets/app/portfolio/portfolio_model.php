@@ -21,6 +21,23 @@ class Portfolio extends Conectar{
         return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getDataPortfolioAll(){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT DISTINCT  A.id,anno,B.model AS model, C.brand AS brand FROM cars_table AS A 
+            INNER JOIN cars_models_table AS B ON A.model=B.id
+            INNER JOIN cars_brands_table AS C ON A.brand=C.id
+            INNER JOIN cars_images_table AS D ON A.id=D.car
+            ORDER BY A.id ASC";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+        return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getDataImgPortfolio($id){
         //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
         //CUANDO ES APPWEB ES CONEXION.
@@ -41,7 +58,7 @@ class Portfolio extends Conectar{
         $conectar= parent::conexion();
         parent::set_names();
         //QUERY
-            $sql="SELECT DISTINCT A.id,anno,B.model AS model, C.brand AS brand, A.description AS descrip FROM cars_table AS A 
+            $sql="SELECT DISTINCT A.id,anno,B.model AS model, C.brand AS brand, A.description AS descrip, A.available AS available FROM cars_table AS A 
             INNER JOIN cars_models_table AS B ON A.model=B.id
             INNER JOIN cars_brands_table AS C ON A.brand=C.id
             INNER JOIN cars_images_table AS D ON A.id=D.car
@@ -99,32 +116,6 @@ class Portfolio extends Conectar{
         return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getDataModel(){
-        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
-        //CUANDO ES APPWEB ES CONEXION.
-        $conectar= parent::conexion();
-        parent::set_names();
-        //QUERY
-            $sql="SELECT * FROM cars_models_table";
-        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
-        $sql = $conectar->prepare($sql);
-        $sql->execute();
-        return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function getDataBrand(){
-        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
-        //CUANDO ES APPWEB ES CONEXION.
-        $conectar= parent::conexion();
-        parent::set_names();
-        //QUERY
-            $sql="SELECT * FROM cars_brands_table";
-        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
-        $sql = $conectar->prepare($sql);
-        $sql->execute();
-        return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
-    }
-
     public function getDataRegion(){
         //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
         //CUANDO ES APPWEB ES CONEXION.
@@ -138,15 +129,52 @@ class Portfolio extends Conectar{
         return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getDataAnno(){
+    public function getDataBrand($region){
         //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
         //CUANDO ES APPWEB ES CONEXION.
         $conectar= parent::conexion();
         parent::set_names();
         //QUERY
-            $sql="SELECT DISTINCT anno FROM `cars_table` ORDER BY anno DESC";
+            $sql="SELECT DISTINCT B.id  AS id , B.brand AS brand, A.region FROM cars_table AS A 
+            INNER JOIN cars_brands_table AS B ON A.brand=B.id
+            WHERE region=?
+            ORDER BY B.brand ASC";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $region);
+        $sql->execute();
+        return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getDataModel($brand){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT DISTINCT B.id AS id, B.model AS model FROM cars_table AS A 
+            INNER JOIN cars_models_table AS B ON A.model=B.id
+            WHERE A.brand=?
+            ORDER BY B.brand ASC";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $brand);
+        $sql->execute();
+        return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getDataAnno($region,$brand,$model){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT DISTINCT anno FROM `cars_table` WHERE region=? AND brand=? AND model=? ORDER BY anno DESC";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $region);
+        $sql->bindValue(2, $brand);
+        $sql->bindValue(3, $model);
         $sql->execute();
         return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
     }

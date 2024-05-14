@@ -88,7 +88,7 @@
 </div>
 <!--
   *************************************************
-  Modal Para Opcion de Olvide Contrase#a
+  Modal Para Opcion de Busqueda Avanzada
   *************************************************
 -->
 <div class="modal fade" id="advanceModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -98,7 +98,7 @@
         <h1 class="modal-title fs-5" id="staticBackdropLabel">Busqueda Avanzada, Selecciones los Filtros</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="">
+      <div class="mb-3">
         <div class="row justify-content-center">
           <div class="col-sm-3">
             <div class="form-floating">
@@ -135,12 +135,71 @@
           <div id="messagema" class="row justify-content-sm-center mb-3">
           </div>
         </div>
-        <div id="advancep" class="row" data-aos="fade-up" data-aos-delay="200">
-        </div>
+        <section class="portfolio section-bg">
+          <div id="advancep" class="row" data-aos="fade-up" data-aos-delay="200">
+          </div>
+        </section>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-outline-danger btn-light" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+  *************************************************
+  Modal Para Registro de Usuario e Inicio de Sesion
+  *************************************************
+-->
+<div class="modal fade" id="rentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Informacion</h1>
+        <button type="button" id="closeLogin" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+            <form id="formRent">    
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="rname" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="rname" placeholder="Ingrese Nombre y Apellido">
+                    </div>
+                    <div class="mb-3">
+                        <label for="rphone" class="form-label">N# Telefono</label>
+                        <input type="tel" class="form-control" id="rphone" placeholder="Ingrese Numero Telefonico">
+                    </div>
+                    <div class="mb-3">
+                        <label for="rdni" class="form-label">DNI</label>
+                        <input type="number" class="form-control" id="rdni" placeholder="Ingrese Numero Telefonico">
+                    </div>
+                    <div class="mb-3">
+                      <label for="remail" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="remail" placeholder="Email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fechar" class="form-label">Fecha Renta</label>
+                        <input type="date" class="form-control" id="fechar">
+                    </div>
+                    <div class="mb-3">
+                        <label for="fechae" class="form-label">Fecha Entrega</label>
+                        <input type="date" class="form-control" id="fechar">
+                    </div> 
+                    <div class="mb-3">
+                        <label for="payment" class="form-label">Fecha Entrega</label>
+                        <input type="file" class="form-control" id="payment">
+                    </div>                                 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger btn-light" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-primary btn-light">Registar</button>
+                </div>
+                <div id="messeger" class="alert alert-warning" role="alert">
+                  <p id="errorr" class="mb-0">Alert Description</p>
+                </div>
+            </form>  
+        </div>
       </div>
     </div>
   </div>

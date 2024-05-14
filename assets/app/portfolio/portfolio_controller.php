@@ -6,29 +6,45 @@ require_once("portfolio_model.php");
 
 $portfolio = new Portfolio();
 
-$index   = (isset($_POST['index'])) ? $_POST['index'] : '';
-$id   = (isset($_POST['id'])) ? $_POST['id'] : '';
+$index  = (isset($_POST['index'])) ? $_POST['index'] : '';
+$id     = (isset($_POST['id'])) ? $_POST['id'] : '';
 $region = (isset($_POST['region'])) ? $_POST['region'] : '';
-$brand = (isset($_POST['brand'])) ? $_POST['brand'] : '';
-$model = (isset($_POST['model'])) ? $_POST['model'] : '';
-$anno = (isset($_POST['anno'])) ? $_POST['anno'] : '';
+$brand  = (isset($_POST['brand'])) ? $_POST['brand'] : '';
+$model  = (isset($_POST['model'])) ? $_POST['model'] : '';
+$anno   = (isset($_POST['anno'])) ? $_POST['anno'] : '';
 
 
 switch($_GET["op"]){
 
     case 'show':
         $finish =  12;
-        $begin = ($index - 1) * $finish;
-        $dato = array();
-        $data = $portfolio->getDataPortfolio($begin,$finish);
+        $begin  = ($index - 1) * $finish;
+        $dato   = array();
+        $data   = $portfolio->getDataPortfolio($begin,$finish);
         foreach ($data as $data) {
             $sub_array = array();
             $sub_array['id']    = $data['id'];
             $image = $portfolio->getDataImgPortfolio($data['id']);
-            $sub_array['imgc']    = $image;
+            $sub_array['imgc']  = $image;
             $sub_array['model'] = $data['model'];
-            $sub_array['brand']    = $data['brand'];
-            $sub_array['anno'] = $data['anno'];
+            $sub_array['brand'] = $data['brand'];
+            $sub_array['anno']  = $data['anno'];
+            $dato[] = $sub_array;
+        }
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
+        break;
+    
+    case 'showall':
+        $dato = array();
+        $data = $portfolio->getDataPortfolioAll();
+        foreach ($data as $data) {
+            $sub_array = array();
+            $sub_array['id']    = $data['id'];
+            $image = $portfolio->getDataImgPortfolio($data['id']);
+            $sub_array['imgc']  = $image;
+            $sub_array['model'] = $data['model'];
+            $sub_array['brand'] = $data['brand'];
+            $sub_array['anno']  = $data['anno'];
             $dato[] = $sub_array;
         }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
@@ -40,11 +56,12 @@ switch($_GET["op"]){
         $data2 = $portfolio->getDataImgDetailsPortfolio($id);
         foreach ($data as $data) {
             $sub_array = array();
-            $sub_array['id']    = $data['id'];
-            $sub_array['model'] = $data['model'];
-            $sub_array['brand']    = $data['brand'];
-            $sub_array['anno'] = $data['anno'];
-            $sub_array['descrip'] = $data['descrip'];
+            $sub_array['id']        = $data['id'];
+            $sub_array['model']     = $data['model'];
+            $sub_array['brand']     = $data['brand'];
+            $sub_array['anno']      = $data['anno'];
+            $sub_array['descrip']   = $data['descrip'];
+            $sub_array['available'] = $data['available'];
             $image = array();
             foreach ($data2 as $data2) {
                 array_push($image, $data2['image']);
@@ -67,12 +84,11 @@ switch($_GET["op"]){
             $sub_array = array();
             $sub_array['id']    = $data['id'];
             $image = $portfolio->getDataImgPortfolio($data['id']);
-            $sub_array['imgc']    = $image;
+            $sub_array['imgc']   = $image;
             $sub_array['region'] = $data['region'];
-            $sub_array['brand']    = $data['brand'];
-            $sub_array['model'] = $data['model'];
-            $sub_array['anno'] = $data['anno'];
-            $sub_array['descrip'] = $data['descrip'];
+            $sub_array['brand']  = $data['brand'];
+            $sub_array['model']  = $data['model'];
+            $sub_array['anno']   = $data['anno'];
             $dato[] = $sub_array;
         }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
@@ -80,15 +96,15 @@ switch($_GET["op"]){
 
     case 'pages':
         $finish =  12;
-        $data = $portfolio->getDataPortfolios();
-        $count = count($data);
-        $dato = ceil($count/$finish);
+        $data   = $portfolio->getDataPortfolios();
+        $count  = count($data);
+        $dato   = ceil($count/$finish);
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
 
     case 'model':
         $dato = array();
-        $data = $portfolio->getDataModel($add_query);
+        $data = $portfolio->getDataModel($brand);
         foreach ($data as $data) {
             $sub_array = array();
             $sub_array['id']    = $data['id'];
@@ -100,7 +116,7 @@ switch($_GET["op"]){
 
     case 'brand':
         $dato = array();
-        $data = $portfolio->getDataBrand();
+        $data = $portfolio->getDataBrand($region);
         foreach ($data as $data) {
             $sub_array = array();
             $sub_array['id']    = $data['id'];
@@ -112,7 +128,7 @@ switch($_GET["op"]){
 
     case 'anno':
         $dato = array();
-        $data = $portfolio->getDataAnno();
+        $data = $portfolio->getDataAnno($region,$brand,$model);
         foreach ($data as $data) {
             $sub_array = array();
             $sub_array['anno'] = $data['anno'];
@@ -126,14 +142,12 @@ switch($_GET["op"]){
         $data = $portfolio->getDataRegion();
         foreach ($data as $data) {
             $sub_array = array();
-            $sub_array['id']    = $data['id'];
+            $sub_array['id']     = $data['id'];
             $sub_array['region'] = $data['region'];
             $dato[] = $sub_array;
         }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
-
-    
 }
 
 
