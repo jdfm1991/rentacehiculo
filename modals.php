@@ -62,19 +62,19 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Login - Modulo Admin</h1>
-        <button type="button" id="closeLogin" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
             <form id="formforget">    
                 <div class="modal-body">
                   <div class="mb-3">
-                      <label for="email" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="email" placeholder="Email" required>
+                      <label for="emailf" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="emailf" placeholder="Email" required>
                   </div>            
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="cncLogin" class="btn btn-outline-danger btn-light" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    <button type="button" class="btn btn-outline-danger btn-light" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
                     <button type="submit" id="btnforget" class="btn btn-outline-primary btn-light">Enviar Solicitud</button>
                 </div>
                 <div id="messegef" class="alert alert-warning" role="alert">
@@ -148,55 +148,77 @@
 </div>
 <!--
   *************************************************
-  Modal Para Registro de Usuario e Inicio de Sesion
+  Modal Para Registro de Renta de Vehiculo
   *************************************************
 -->
 <div class="modal fade" id="rentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Informacion</h1>
-        <button type="button" id="closeLogin" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
             <form id="formRent">    
                 <div class="modal-body">
-                    <div class="mb-3">
+                  <input type="hidden" id="rstatus">
+                  <div id="messeger" class="alert alert-warning" role="alert">
+                    <p id="errorr" class="mb-0">Alert Description</p>
+                  </div>
+                  <div class="row justify-content-md-center">
+                    <strong><label for="" class="form-label">Infomacion de Cliente</label></strong>
+                    <div class="mb-3 col-sm-6">
                         <label for="rname" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="rname" placeholder="Ingrese Nombre y Apellido">
+                        <input type="text" class="form-control" id="rname">
                     </div>
-                    <div class="mb-3">
-                        <label for="rphone" class="form-label">N# Telefono</label>
-                        <input type="tel" class="form-control" id="rphone" placeholder="Ingrese Numero Telefonico">
+                    <div class="mb-3 col-sm-6">
+                      <label for="rphone" class="form-label">N# Telefono</label>
+                      <input type="tel" class="form-control" id="rphone">
                     </div>
-                    <div class="mb-3">
-                        <label for="rdni" class="form-label">DNI</label>
-                        <input type="number" class="form-control" id="rdni" placeholder="Ingrese Numero Telefonico">
+                    <div class="mb-3 col-sm-6">
+                      <label for="rdni" class="form-label">DNI</label>
+                      <input type="number" class="form-control" id="rdni">
                     </div>
-                    <div class="mb-3">
-                      <label for="remail" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="remail" placeholder="Email" required>
+                    <div class="mb-3 col-sm-6"></div>
+                    <strong><label for="" class="form-label">Infomacion de Vehiculo</label></strong>
+                    <div class="mb-3 col-sm-6">
+                      <label for="rbrand" class="form-label">Marca</label>
+                      <input type="text" class="form-control" id="rbrand">
                     </div>
-                    <div class="mb-3">
-                        <label for="fechar" class="form-label">Fecha Renta</label>
-                        <input type="date" class="form-control" id="fechar">
+                    <div class="mb-3 col-sm-6">
+                      <label for="rmodel" class="form-label">Modelo</label>
+                      <input type="text" class="form-control" id="rmodel">
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 col-sm-6">
+                      <label for="ranno" class="form-label">Annio</label>
+                      <input type="text" class="form-control" id="ranno">
+                    </div>
+                    <div class="mb-3 col-sm-6">
+                      <label for="rplate" class="form-label">Matricula</label>
+                      <input type="text" class="form-control" id="rplate">
+                    </div>
+                    <strong><label for="" class="form-label">Infomacion de Alquiler</label></strong>
+                    <div class="mb-3 col-sm-6">
+                      <label for="fechar" class="form-label">Fecha Renta</label>
+                      <input type="date" class="form-control" id="fechar">
+                    </div>
+                    <div class="mb-3 col-sm-6">
                         <label for="fechae" class="form-label">Fecha Entrega</label>
-                        <input type="date" class="form-control" id="fechar">
-                    </div> 
-                    <div class="mb-3">
-                        <label for="payment" class="form-label">Fecha Entrega</label>
-                        <input type="file" class="form-control" id="payment">
-                    </div>                                 
+                        <input type="date" class="form-control" id="fechae">
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                      <label for="payment" class="form-label">Soporte de Pago</label>
+                      <input type="file" class="form-control" id="payment">
+                  </div>
+                  <div id="messeger2" class="alert alert-warning" role="alert">
+                    <p id="errorr2" class="mb-0">Alert Description</p>
+                  </div>                                 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger btn-light" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
-                    <button type="submit" class="btn btn-outline-primary btn-light">Registar</button>
-                </div>
-                <div id="messeger" class="alert alert-warning" role="alert">
-                  <p id="errorr" class="mb-0">Alert Description</p>
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-primary">Registar</button>
                 </div>
             </form>  
         </div>

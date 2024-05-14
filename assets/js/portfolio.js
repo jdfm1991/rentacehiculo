@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var url = $(location).attr('href').split("=")
     var session = $.trim($('#session').val());
-    var id = url[1]
+    var option = url[1]
     $('#cbrand').hide();
     $('#cmodel').hide();
     $('#canno').hide();
@@ -70,7 +70,7 @@ $(document).ready(function () {
         type: "POST",
         url: "assets/app/portfolio/portfolio_controller.php?op=showdetails",
         dataType: "json",
-        data:  {id:id},
+        data:  {id:option},
         success: function (data) {
             //Colocacion de Fotos de Muestra
             $('#img_propect').empty();
@@ -124,15 +124,49 @@ $(document).ready(function () {
         $('#advanceModal').modal('show');	
         
     });
+    //************************************************/
+    //**********Abrir Modal Para el Proceso de********/
+    //**************Renta del Vehuiculo***************/
     $(document).on("click", "#btnrent", function(){
         if (session) {
-            $(".modal-title").text("Informacion de registro")
-            $("#messeger").hide();
-            $("#rname").prop('disabled',true);
-            $("#rphone").prop('disabled',true);
-            $("#remail").prop('disabled',true);
-            $("#rdni").prop('disabled',true);
-            $('#rentModal').modal('show');
+            $.ajax({
+                type: "POST",
+                url: "assets/app/user/user_controller.php?op=client",
+                dataType: "json",
+                data:  {user:session,option:option},
+                success: function (data) {
+                    $("#messeger2").hide();
+                    $('#rname').val(data.nameu);
+                    $('#rphone').val(data.phone);
+                    $('#rdni').val(data.dni);
+                    $('#rbrand').val(data.brand);
+                    $('#rmodel').val(data.model);
+                    $('#ranno').val(data.anno);
+                    $('#rplate').val(data.plate);
+                    $('#rstatus').val(data.status);
+                    if (data.status==1) {
+                        $("#messeger").hide();
+                    } else {
+                        $("#messeger").show();
+                        $("#errorr").text("La informacion Del Usuario Esta Incompleta o Pendiente Por Verificar");
+                        setTimeout(() => {
+                            $("#errorr").text("");
+                            $("#messeger").hide();
+                        }, 3000);
+                        
+                    }
+                    $(".modal-title").text("Informacion de registro")
+                    
+                    $("#rname").prop('disabled',true);
+                    $("#rphone").prop('disabled',true);
+                    $("#rdni").prop('disabled',true);
+                    $("#rbrand").prop('disabled',true);
+                    $("#rmodel").prop('disabled',true);
+                    $("#ranno").prop('disabled',true);
+                    $("#rplate").prop('disabled',true);
+                    $('#rentModal').modal('show');
+                }
+            });
         } else {
             alert('Para Rentar Un Vehiculo Debe Iniciar Sesion Primero')
             $(".modal-title").text("Inicio de Sesion")
@@ -145,7 +179,7 @@ $(document).ready(function () {
             $("#options").show();	
             $('#loginModal').modal('show');
         }
-      });
+    });
     //************************************************/
     //*********Cargar Selector de Regiones************/
     //************************************************/
@@ -307,6 +341,35 @@ $(document).ready(function () {
         } else {
             searchAdvance(region,brand,model,anno)
         } 
+    });
+    //************************************************/
+    //**********Evento para enviar informacion********/
+    //******************del Alquiler******************/
+    $('#formRent').submit(function (e) { 
+        e.preventDefault();
+        name = $('#rname').val();
+        phone = $('#rphone').val();
+        dni = $('#rdni').val();
+        status = $('#rstatus').val();
+        if (status==1) {
+            
+        } else {
+            $("#messeger2").show();
+            $("#errorr2").html('La informacion Del Usuario Esta Incompleta o Pendiente Por Verificar. <br> Si Desea Revisar La Informacion Suministrada haga Click <a href="profile.php"><label for=""><strong>Aqui</strong></label></a> <br> Si Desea Con Un El Departamento de Atencion Al Publico haga Click Aqui');
+        }
+        
+        
+    });
+    //************************************************/
+    //**********Abrir Modal Para el Proceso de********/
+    //**************Renta del Vehuiculo***************/
+    $(document).on("click", "#infouser", function(){
+        e.preventDefault();
+        alert(1)
+    });
+    $('#infouser').click(function (e) { 
+        e.preventDefault();
+        alert(1)
     });
 });
 

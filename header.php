@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+
+<?php 
+session_name('R3nt@k4r');
+session_start();
+?> <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -37,6 +41,11 @@
 </head>
 
 <body>
+  <?php
+  if ($_SESSION) {
+    echo '<input type="hidden" id="session" value="'.$_SESSION['id'].'">';
+  }
+  ?>
 
  <!-- ======= Mobile nav toggle button ======= -->
   <!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
@@ -47,10 +56,14 @@
     <nav id="navbar" class="navbar nav-menu">
       <ul>
         <li><a href="./" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-        <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
         <li><a href="./portfolio.php" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
         <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
         <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        <?php
+        if ($_SESSION) {
+          echo '<li><a href="profile.php" class="nav-link scrollto"><i class="bi bi-person-gear"></i> <span>Mi Perfil</span></a></li>';
+        }
+        ?>
       </ul>
     </nav><!-- .nav-menu -->
   </header><!-- End Header -->
@@ -59,7 +72,7 @@
       <div class="btn-group ms-3" role="group" aria-label="">
         <?php
         if ($_SESSION) { ?>
-          <a id="btnLogout" class="btn btn-outline-danger radius"><i class="bx bx-user"></i><span class="tsearch">Cerrar Sesion</span></a>
+          <a id="btnLogout" class="btn btn-outline-danger radius"><i class="bi bi-person-fill-x"></i><span class="tsearch">Cerrar Sesion</span></a>
         <?php
         } else { ?>
           <a id="btnLogin" class="btn btn-outline-primary radius"><i class="bx bx-user"></i><span class="tsearch"> Iniciar Sesion</span></a>

@@ -36,14 +36,10 @@ $(document).ready(function () {
 
     $("#formLogin").submit(function (e) { 
         e.preventDefault();
-        name = $.trim($('#name').val());
-        phone = $.trim($('#phone').val());
         email = $.trim($('#email').val());
         passw = $.trim($('#pass').val());
 
         var datos = new FormData();
-        datos.append('name', name)
-        datos.append('phone', phone)
         datos.append('email', email)
         datos.append('passw', passw)
         $.ajax({
@@ -127,7 +123,7 @@ $(document).ready(function () {
 
     $("#formforget").submit(function (e) { 
         e.preventDefault();
-        email = $.trim($('#email').val());
+        email = $.trim($('#emailf').val());
         var datos = new FormData();
         datos.append('email', email)
         $.ajax({

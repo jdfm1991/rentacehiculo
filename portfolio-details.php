@@ -1,11 +1,6 @@
 <?php 
-session_name('R3nt@k4r');
-session_start();
 include_once("header.php");
 require_once("env.php");
-if ($_SESSION) {
-  echo '<input type="hidden" id="session" name="session" value=true>';
-}
 ?> 
 
   <main id="main">
