@@ -31,49 +31,25 @@ switch ($_GET["op"]) {
         }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE); 
         break;
-        
-    case 'register':
-        $id = uniqid();
-        $passenc = password_hash($passw, PASSWORD_BCRYPT);
-        $type= 2;
+    
+    case 'show':
         $dato = array();
-        $userDB = $user->getLoginUser($email);
-        if ($userDB) {
-            $dato['status']  = false;
-            $dato['message'] = 'Ya se Encuentra un Usuario Registrado con ese Correo, Por Favor Verifique Informacion o Seleccione la Opcion de Olvide Contraseña';
-        } else {
-            $logreg = $user->setDataLogin($id,$email,$passenc,$type);
-            if ($logreg) {
-                $setdata = $user->setDataUser($id,$name,$phone);
-                if ($setdata) {
-                    $data = $user->getLoginUser($email);
-                    if (is_array($data) AND count($data) > 0) {
-                        foreach ($data as $data) {
-                            if (password_verify($passw, $data['passw'])) {
-                                $_SESSION['email'] = $data['email'];
-                                $_SESSION['passw'] = $data['passw'];
-                                $dato['status']  = true;
-                                $dato['message'] = 'Ingreso de Manera Exitosa, Sea Bienvenido!';
-                                $dato['ut'] = $data['type'];
-                            }else {
-                                $dato['status']  = false;
-                                $dato['message'] = 'La Contraseña es incorrecto';
-                            }
-                        }
-                    }else {
-                        $dato['status']  = false;
-                        $dato['message'] = 'El Usuario es incorrecto';
-                    }
-                }else {
-                    $dato['status']  = false;
-                    $dato['message'] = 'Error al Registrar Informacion de Nuevo Usuario!';
-                }
-            }else {
-                $dato['status']  = false;
-                $dato['message'] = 'Error al Registrar Nuevo Usuario!';
-            }
+        $data = $client->getDataProfile($user);
+        foreach ($data as $data) {
+            $sub_array = array();
+            $sub_array['nameu']   = $data['nameu'];
+            $sub_array['address'] = $data['address'];
+            $sub_array['imguser'] = $data['imguser'];
+            $sub_array['phone']   = $data['phone'];
+            $sub_array['letter']  = $data['letter'];
+            $sub_array['dni']     = $data['dni'];
+            $sub_array['imgdni']  = $data['imgdni'];
+            $sub_array['status']  = $data['status'];
+            $sub_array['email']   = $data['email'];
+            $sub_array['passw']   = $data['passw'];
+            $dato[] = $sub_array;
         }
-        echo json_encode($dato, JSON_UNESCAPED_UNICODE); 
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
 
     default:

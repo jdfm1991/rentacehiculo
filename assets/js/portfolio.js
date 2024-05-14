@@ -122,7 +122,6 @@ $(document).ready(function () {
         e.preventDefault();
         $(".modal-title").text("Busqueda Avanzada, Selecciones los Filtros")
         $('#advanceModal').modal('show');	
-        
     });
     //************************************************/
     //**********Abrir Modal Para el Proceso de********/
@@ -189,10 +188,10 @@ $(document).ready(function () {
         dataType: "json",  
         success: function(data) {
             $('#region').append('<option value="">-*_-*-_-*</option>');
-          $.each(data, function(idx, opt) {
-              //se itera con each para llenar el select en la vista
-              $('#region').append('<option value="' + opt.id +'">' + opt.region + '</option>');
-          });
+            $.each(data, function(idx, opt) {
+                //se itera con each para llenar el select en la vista
+                $('#region').append('<option value="' + opt.id +'">' + opt.region + '</option>');
+            });
         }
     });
     //************************************************/
@@ -359,18 +358,7 @@ $(document).ready(function () {
         }
         
         
-    });
-    //************************************************/
-    //**********Abrir Modal Para el Proceso de********/
-    //**************Renta del Vehuiculo***************/
-    $(document).on("click", "#infouser", function(){
-        e.preventDefault();
-        alert(1)
-    });
-    $('#infouser').click(function (e) { 
-        e.preventDefault();
-        alert(1)
-    });
+    });    
 });
 
 //************************************************/

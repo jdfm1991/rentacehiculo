@@ -112,7 +112,10 @@ h6 {
     transition-delay: 0 !important;
   }
 }
-
+.validate{
+  border-color: var(--bs-form-invalid-border-color);
+  padding-right: calc(1.5em + .75rem);
+}
 .imgfluid{
   max-width: 100%;
   height: 250px;

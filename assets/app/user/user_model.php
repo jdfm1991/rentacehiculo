@@ -16,6 +16,7 @@ class Client extends Conectar{
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
+
     public function getOptionUser($option){
         //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
         //CUANDO ES APPWEB ES CONEXION.
@@ -28,6 +29,22 @@ class Client extends Conectar{
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1, $option);
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getDataProfile($user){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT nameu, address, imguser, phone, letter, dni, imgdni, status, email, passw FROM users_data_table AS A 
+            INNER JOIN users_table AS B ON A.user=B.id
+            WHERE user=?";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $user);
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
