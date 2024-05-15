@@ -8,7 +8,15 @@ require_once("user_model.php");
 $client = new Client();
 
 $user = (isset($_POST['user'])) ? $_POST['user'] : '';
-$option = (isset($_POST['option'])) ? $_POST['option'] : '1';
+$option = (isset($_POST['option'])) ? $_POST['option'] : '';
+
+$name = (isset($_POST['name'])) ? $_POST['name'] : '';
+$pdnil = (isset($_POST['pdnil'])) ? $_POST['pdnil'] : '';
+$pdnin = (isset($_POST['pdnin'])) ? $_POST['pdnin'] : '';
+$email = (isset($_POST['email'])) ? $_POST['email'] : '';
+$pass = (isset($_POST['passw'])) ? $_POST['passw'] : '';
+$phone = (isset($_POST['phone'])) ? $_POST['phone'] : '';
+$address = (isset($_POST['address'])) ? $_POST['address'] : '';
 
 
 switch ($_GET["op"]) {
@@ -48,6 +56,89 @@ switch ($_GET["op"]) {
             $sub_array['email']   = $data['email'];
             $sub_array['passw']   = $data['passw'];
             $dato[] = $sub_array;
+        }
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
+        break;
+    
+    case 'register':
+        $dato = array();
+        $path1 = "../../img/user/"; 
+        $path2 = "../../img/identifications/"; 
+        $imageu = $_FILES['imageu']['name'];
+        if ($imageu) {
+            $imguser = move_uploaded_file($_FILES['imageu']['tmp_name'], $path1.'/'.$imageu);
+            if ($imguser) {
+                if ($pass) {
+                    $passw = password_hash($pass, PASSWORD_BCRYPT);
+                    $data = $client->ImgUserUpdateAll($user,$email,$passw,$imageu);
+                    if ($data) {
+                        $dato['status1'] = true;
+                        $dato['messege1'] = 'Se Actualizo Infomacion de Manera Exitosa (Usuario)';
+                    } else {
+                        $dato['status1'] = false;
+                        $dato['messege1'] = 'Error al Actualizar Infomacion';
+                    }
+                } else {
+                    $data = $client->ImgUserUpdate($user,$email,$imageu);
+                    if ($data) {
+                        $dato['status1'] = true;
+                        $dato['messege1'] = 'Se Actualizo Infomacion de Manera Exitosa (Usuario)';
+                    } else {
+                        $dato['status1'] = false;
+                        $dato['messege1'] = 'Error al Actualizar Infomacion';
+                    }
+                }
+            } else {
+                $dato['status1'] = false;
+                $dato['messege1'] = 'Error al Actualizar Infomacion (Carga de Imagen)';
+            } 
+        } else {
+            if ($passw) {
+                $data = $client->UserUpdateAll($user,$email,$passw);
+                if ($data) {
+                    $dato['status1'] = true;
+                    $dato['messege1'] = 'Se Actualizo Infomacion de Manera Exitosa (Usuario)';
+                } else {
+                    $dato['status1'] = false;
+                    $dato['messege1'] = 'Error al Actualizar Infomacion';
+                }
+            } else {
+                $data = $client->UserUpdate($user,$email);
+                if ($data) {
+                    $dato['status1'] = true;
+                    $dato['messege1'] = 'Se Actualizo Infomacion de Manera Exitosa (Usuario)';
+                } else {
+                    $dato['status1'] = false;
+                    $dato['messege1'] = 'Error al Actualizar Infomacion';
+                }
+            }
+        }
+
+        $idsupport = $_FILES['supportid']['name'];
+        if ($idsupport) {
+            $imgsupp = move_uploaded_file($_FILES['supportid']['tmp_name'], $path2.'/'.$idsupport);
+            if ($imgsupp) {
+                $data = $client->ImgUserDataUpdateAll($user,$name,$pdnil,$pdnin,$phone,$address,$idsupport);
+                if ($data) {
+                    $dato['status2'] = true;
+                    $dato['messege2'] = 'Se Actualizo Infomacion de Manera Exitosa (Cliente)';
+                } else {
+                    $dato['status2'] = false;
+                    $dato['messege2'] = 'Error al Actualizar Infomacion';
+                }
+            } else {
+                $dato['status2'] = false;
+                $dato['messege2'] = 'Error al Actualizar Infomacion (Carga de Imagen)';
+            }  
+        } else {
+            $data = $client->UserDataUpdateAll($user,$name,$pdnil,$pdnin,$phone,$address);
+            if ($data) {
+                $dato['status2'] = true;
+                $dato['messege2'] = 'Se Actualizo Infomacion de Manera Exitosa (Cliente)';
+            } else {
+                $dato['status2'] = false;
+                $dato['messege2'] = 'Error al Actualizar Infomacion';
+            }
         }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;

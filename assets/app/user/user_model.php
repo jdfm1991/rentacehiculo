@@ -9,7 +9,7 @@ class Client extends Conectar{
         $conectar= parent::conexion();
         parent::set_names();
         //QUERY
-            $sql="SELECT * FROM `users_data_table` WHERE user=?";
+            $sql="SELECT * FROM users_data_table WHERE user=?";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1, $user);
@@ -49,125 +49,101 @@ class Client extends Conectar{
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function setDataLogin($id,$email,$passenc,$type){
-        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
-        //CUANDO ES APPWEB ES CONEXION.
-		$conectar= parent::conexion();
-		parent::set_names();
- 		//QUERY
-			$sql="INSERT INTO users_table (id,email,passw,idtype) VALUES(?,?,?,?)";
-		//PREPARACION DE LA CONSULTA PARA EJECUTARLA.
-		$sql = $conectar->prepare($sql);
-        $sql->bindValue(1, $id);
-		$sql->bindValue(2, $email);
-        $sql->bindValue(3, $passenc);
-        $sql->bindValue(4, $type);
-		return $sql->execute();
-	}
-
-    public function setDataUser($id,$name,$phone){
-        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
-        //CUANDO ES APPWEB ES CONEXION.
-		$conectar= parent::conexion();
-		parent::set_names();
- 		//QUERY
-			$sql="INSERT INTO users_data_table (user,nameu,phone) VALUES(?,?,?)";
-		//PREPARACION DE LA CONSULTA PARA EJECUTARLA.
-		$sql = $conectar->prepare($sql);
-		$sql->bindValue(1, $id);
-        $sql->bindValue(2, $name);
-        $sql->bindValue(3, $phone);
-		return $sql->execute();
-	}
-
-    public function getforgetUser($email){
+    public function UserUpdateAll($user,$email,$passw){
         //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
         //CUANDO ES APPWEB ES CONEXION.
         $conectar= parent::conexion();
         parent::set_names();
-        //QUERY
-            $sql="SELECT email, nameu, phone FROM users_table AS A INNER JOIN users_data_table AS B ON A.id=B.user WHERE email=?";
+        ///QUERY
+            $sql="UPDATE users_table  SET email  = ?, passw  = ? WHERE id = ?";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1, $email);
-        $sql->execute();
-        return $sql->fetchAll(PDO::FETCH_ASSOC);
+        $sql->bindValue(2, $passw);
+        $sql->bindValue(3, $user);
+        return $sql->execute();
     }
 
-    public function countdata($ownerid){
+    public function UserUpdate($user,$email){
         //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
         //CUANDO ES APPWEB ES CONEXION.
         $conectar= parent::conexion();
         parent::set_names();
-
-        //QUERY
-
-            $sql="SELECT COUNT(*) AS N FROM owners WHERE id = '$ownerid'";
-
-        
+        ///QUERY
+            $sql="UPDATE users_table SET email  = ? WHERE id = ?";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
-        $sql->execute();
-        return ($sql->fetch(PDO::FETCH_ASSOC)['N']);
-        
-
+        $sql->bindValue(1, $email);
+        $sql->bindValue(2, $user);
+        return $sql->execute();
     }
 
-    public function savedata($nameowner,$phoneowner,$igowner,$ligowner,$nombre_img){
-        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
-        //CUANDO ES APPWEB ES CONEXION.
-		$conectar= parent::conexion();
-		parent::set_names();
-
- 		//QUERY
-
-			$sql="INSERT INTO owners (own,phone,igsocial,ligsocial,Oimage) VALUES(?,?,?,?,?)";
-
-		//PREPARACION DE LA CONSULTA PARA EJECUTARLA.
-		$sql = $conectar->prepare($sql);
-		$sql->bindValue(1, $nameowner);
-        $sql->bindValue(2, $nameowner);
-        $sql->bindValue(3, $igowner);
-        $sql->bindValue(4, $ligowner);
-        $sql->bindValue(5, $nombre_img);
-
-
-		return $sql->execute();
-
-	}
-
-    public function updatedata($ownerid,$nameowner,$phoneowner,$igowner,$ligowner){
+    public function ImgUserUpdateAll($user,$email,$passw,$imageu){
         //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
         //CUANDO ES APPWEB ES CONEXION.
         $conectar= parent::conexion();
         parent::set_names();
-
-
         ///QUERY
-
-        $sql="UPDATE owners  SET own  = '$nameowner', phone  = '$phoneowner', igsocial  = '$igowner', ligsocial = '$ligowner' WHERE id = '$ownerid'";
-
+            $sql="UPDATE users_table  SET email  = ?, passw  = ?, imguser  = ? WHERE id = ?";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
-            $sql = $conectar->prepare($sql);
-            $sql->execute();
-            return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $email);
+        $sql->bindValue(2, $passw);
+        $sql->bindValue(3, $imageu);
+        $sql->bindValue(4, $user);
+        return $sql->execute();
     }
 
-    public function updatedata1($ownerid,$nameowner,$phoneowner,$igowner,$ligowner,$nombre_img){
+    public function ImgUserUpdate($user,$email,$imageu){
         //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
         //CUANDO ES APPWEB ES CONEXION.
         $conectar= parent::conexion();
         parent::set_names();
-
-
         ///QUERY
-
-        $sql="UPDATE owners  SET own  = '$nameowner', phone  = '$phoneowner', igsocial  = '$igowner' , ligsocial = '$ligowner', Oimage  = '$nombre_img'  WHERE id = '$ownerid'";
-
+            $sql="UPDATE users_table SET email  = ?, imguser  = ? WHERE id = ?";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
-            $sql = $conectar->prepare($sql);
-            $sql->execute();
-            return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $email);
+        $sql->bindValue(2, $imageu);
+        $sql->bindValue(3, $user);
+        return $sql->execute();
+    }
+
+    public function UserDataUpdateAll($user,$name,$pdnil,$pdnin,$phone,$address){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        ///QUERY
+            $sql="UPDATE users_data_table SET nameu=?,address=?,phone=?,letter=?,dni=? WHERE user = ?";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $name);
+        $sql->bindValue(2, $address);
+        $sql->bindValue(3, $phone);
+        $sql->bindValue(4, $pdnil);
+        $sql->bindValue(5, $pdnin);
+        $sql->bindValue(6, $user);
+        return $sql->execute();
+    }
+
+    public function ImgUserDataUpdateAll($user,$name,$pdnil,$pdnin,$phone,$address,$idsupport){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        ///QUERY
+            $sql="UPDATE users_data_table SET nameu=?,address=?,phone=?,letter=?,dni=?,imgdni=? WHERE user = ?";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $name);
+        $sql->bindValue(2, $address);
+        $sql->bindValue(3, $phone);
+        $sql->bindValue(4, $pdnil);
+        $sql->bindValue(5, $pdnin);
+        $sql->bindValue(6, $idsupport);
+        $sql->bindValue(7, $user);
+        return $sql->execute();
     }
 
     public function deletedata($ownerid){

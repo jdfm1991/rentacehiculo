@@ -5,7 +5,17 @@ $(document).ready(function () {
     if (!session) {
         $(location).attr('href','./');
     }
-
+    //************************************************/
+    //***********Funcion para Validar solo************/
+    //**************Entrada de Numeros****************/
+    $(function() {
+        $("input[name='pdnin']").on('input',function (e) {
+            $(this).val($(this).val().replace(/[^0-9]/g,''));
+        });
+    });
+    //************************************************/
+    //**********Evento para Cargar Informacion********/
+    //**************en la pagina de profile***********/
     $.ajax({
         type: "POST",
         url: "assets/app/user/user_controller.php?op=show",
@@ -19,7 +29,7 @@ $(document).ready(function () {
                 if (opt.imguser) {
                     $('#imguser').append('<img class="d-block mx-auto mb-4" src="assets/img/user/'+opt.imguser+'" alt="" height="100">') 
                 } else {
-                    $('#imguser').append('<img class="d-block mx-auto mb-4" src="assets/img/user/testimonials-1.jpg" alt="" height="100">') 
+                    $('#imguser').append('<img class="d-block mx-auto mb-4" src="assets/img/user/perfil.png" alt="" height="100">') 
                 }
                 if (!opt.nameu) {
                     $('#pname').addClass('validate'); 
@@ -54,7 +64,7 @@ $(document).ready(function () {
                 } else {
                     $('#idsupport').append(
                         '<label for="pphone" class="form-label">Comprobante de Indentificacion </label>'+
-                        '<img class="d-block mx-auto mb-4" src="assets/img/identifications/testimonials-1.jpg" alt="" height="250">') 
+                        '<img class="d-block mx-auto mb-4" src="assets/img/identifications/documento.png" alt="" height="250">') 
                 }
 
                 if (opt.status==1) {
@@ -73,5 +83,51 @@ $(document).ready(function () {
                 
             });
         }
+    });
+    //************************************************/
+    //**********Evento para enviar Informacion********/
+    //************para actualizar de profile**********/
+    $('#formClient').submit(function (e) { 
+        e.preventDefault();
+        name = $.trim($('#pname').val());
+        pdnil = $.trim($('#pdnil').val());
+        pdnin = $.trim($('#pdnin').val());
+        email = $.trim($('#pemail').val());
+        passw = $.trim($('#ppassw').val());
+        phone = $.trim($('#pphone').val());
+        address = $.trim($('#paddress').val());
+        supportid  = $("#supportid")[0].files[0];
+        imageu  = $("#imageu")[0].files[0];
+
+        var datos = new FormData();
+        datos.append('user', session)
+        datos.append('name', name)
+        datos.append('pdnil', pdnil)
+        datos.append('pdnin', pdnin)
+        datos.append('email', email)
+        datos.append('passw', passw)
+        datos.append('phone', phone)
+        datos.append('address', address)
+        datos.append('supportid', supportid)
+        datos.append('imageu', imageu)
+
+        $.ajax({
+            url: "assets/app/user/user_controller.php?op=register",
+            type: "POST",
+            dataType:"json",    
+            data:  datos,
+            cache: false,
+            contentType: false,
+            processData: false, 
+            success: function(data) {
+                if (data.status1 && data.status2) {
+                    alert(data.messege1 + ' ' + data.messege2)
+                    location.reload(); 
+                } else {
+                    alert(data.messege1 + ' ' + data.messege2)
+                }
+            }
+        });
+        
     });
 });

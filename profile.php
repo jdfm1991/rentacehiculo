@@ -21,7 +21,7 @@ require_once("env.php");
             </div>
           </div>
         </div>
-        <form >
+        <form id="formClient">
           <div class="row g-3">
             <div class="col-sm-6">
               <label for="pname" class="form-label">Nombre y Apellido</label>
@@ -32,11 +32,14 @@ require_once("env.php");
               <div class="row">
                 <div class="col-sm-3">
                   <select id="pdnil" class="form-control">
-                    <option value="">V</option>
+                    <option value="V">V</option>
+                    <option value="E">E</option>
+                    <option value="G">G</option>
+                    <option value="J">J</option>
                   </select>
                 </div>
                 <div class="col-sm-9">
-                  <input  type="text" class="form-control" id="pdnin" placeholder="" required>
+                  <input  type="text" class="form-control" id="pdnin" name="pdnin" placeholder="Ingrese el Numero" required>
                 </div>
               </div>
             </div>
@@ -45,8 +48,12 @@ require_once("env.php");
               <input type="email" class="form-control" id="pemail" placeholder="you@example.com" required>
             </div>
             <div class="col-sm-6">
+              <label for="ppassw" class="form-label">Contraseña </label>
+              <input type="text" class="form-control" id="ppassw" placeholder="Ingrese Contrasenna">
+            </div>
+            <div class="col-sm-6">
               <label for="pphone" class="form-label">Telefono </label>
-              <input type="number" class="form-control" id="pphone" placeholder="you@example.com" required>
+              <input type="number" class="form-control" id="pphone" placeholder="Ingrese Numero de Telefono" required>
             </div>
             <div class="col-sm-12">
               <label for="paddress" class="form-label">Direccion</label>
@@ -54,7 +61,7 @@ require_once("env.php");
             </div>
             <div class="col-sm-6">
               <label for="supportid" class="form-label">Soporte de Indentificacion</label>
-              <input type="file" class="form-control" id="supportid" required>
+              <input type="file" class="form-control" id="supportid">
             </div>
             <div class="col-sm-6">
               <label for="imageu" class="form-label">Imagen de Usuario</label>

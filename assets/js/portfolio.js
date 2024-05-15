@@ -362,7 +362,7 @@ $(document).ready(function () {
 });
 
 //************************************************/
-//********Funcion para CargarVista Inicial********/
+//********Funcion para Cargar Vista Inicial********/
 //******************de Pagina*********************/
 function getProspect(index) {
     if (index==undefined) {
@@ -406,7 +406,9 @@ function getProspect(index) {
         }
     });   
 }
-
+//************************************************/
+//**********Funcion para Cargar Vista de**********/
+//**************Busqueda Avanzada*****************/
 function searchAdvance(region,brand,model,anno) {
 
     $.ajax({

@@ -1,11 +1,15 @@
 $(document).ready(function () {
-    
+    //************************************************/
+    //***********Funcion para Validar solo************/
+    //**************Entrada de Numeros****************/
     $(function() {
         $("input[name='phone']").on('input',function (e) {
             $(this).val($(this).val().replace(/[^0-9]/g,''));
         });
     });
-
+    //************************************************/
+    //***********Evento para Mostrar modal************/
+    //**************de inicio de sesion***************/
     $("#btnLogin").click(function (e) { 
         e.preventDefault();
         $(".modal-title").text("Inicio de Sesion")
@@ -18,12 +22,16 @@ $(document).ready(function () {
         $("#options").show();	
         $('#loginModal').modal('show');	
     });
-
+    //************************************************/
+    //***********Evento para cerrar sesion************/
+    //************************************************/
     $('#btnLogout').click(function (e) { 
         e.preventDefault();
         $(location).attr('href','logout.php');
     });
-
+    //************************************************/
+    //***********Evento para registrar un ************/
+    //******************nuevo usuario*****************/
     $('#lnkRegister').click(function (e) { 
         e.preventDefault();
         $("#btnStart").hide();
@@ -33,7 +41,9 @@ $(document).ready(function () {
         $("#phone").prop('required',true);
         $("#btnRegister").show();
     });
-
+    //************************************************/
+    //***********Evento para enviar infor*************/
+    //**************para iniciar sesion***************/
     $("#formLogin").submit(function (e) { 
         e.preventDefault();
         email = $.trim($('#email').val());
@@ -75,7 +85,9 @@ $(document).ready(function () {
             }
         });
     });
-
+    //************************************************/
+    //***********Evento para guardar infor************/
+    //**************de nuevo usuario******************/
     $("#btnRegister").click(function (e) { 
         e.preventDefault();
         name = $.trim($('#name').val());
@@ -112,7 +124,9 @@ $(document).ready(function () {
             }
         });
     });
-
+    //************************************************/
+    //***********Evento para abril modal**************/
+    //***********para recuperar contrasenna***********/
     $("#forget").click(function (e) { 
         e.preventDefault();
         $(".modal-title").text("Recuperar Contraseña")
@@ -120,7 +134,9 @@ $(document).ready(function () {
         $('#loginModal').modal('hide');
         $('#forgetModal').modal('show');	
     });
-
+    //************************************************/
+    //***********evento envio de informacion**********/
+    //***********para recuperar contrasenna***********/
     $("#formforget").submit(function (e) { 
         e.preventDefault();
         email = $.trim($('#emailf').val());
