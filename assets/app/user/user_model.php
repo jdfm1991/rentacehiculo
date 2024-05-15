@@ -23,7 +23,7 @@ class Client extends Conectar{
         $conectar= parent::conexion();
         parent::set_names();
         //QUERY
-            $sql="SELECT B.brand AS brand, C.model AS model, anno, plate  FROM cars_table AS A 
+            $sql="SELECT B.brand AS brand, C.model AS model, anno, plate, cost FROM cars_table AS A 
             INNER JOIN cars_brands_table AS B ON A.brand=B.id
             INNER JOIN cars_models_table AS C  ON A.model=C.id WHERE A.id=?";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.

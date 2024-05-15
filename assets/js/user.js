@@ -85,6 +85,31 @@ $(document).ready(function () {
         }
     });
     //************************************************/
+    //**********Evento para Cargar Informacion********/
+    //**************en la pagina de profile***********/
+    $.ajax({
+        type: "POST",
+        url: "assets/app/rent/rent_controller.php?op=request",
+        dataType: "json",
+        data:  {user:session},
+        success: function (data) {
+            $('#reqc').text(data.length);
+            $('#reqv').empty();
+            $.each(data, function(idx, opt) {
+                $('#reqv').append(
+                    '<a href="#" onclick="takeOption('+opt.car+')">'+
+                        '<li class="list-group-item d-flex justify-content-between lh-sm">'+
+                            '<div>'+
+                                '<h6 class="my-0">Por '+opt.day+' De Alquiler</h6>'+
+                                '<small class="text-body-secondary">'+opt.brand+' '+opt.model+' '+opt.anno+'</small>'+
+                            '</div>'+
+                            '<span class="text-body-secondary">$'+opt.mont+'</span>'+
+                        '</li>'+
+                    '</a>') 
+            });
+        }
+    });
+    //************************************************/
     //**********Evento para enviar Informacion********/
     //************para actualizar de profile**********/
     $('#formClient').submit(function (e) { 
@@ -128,6 +153,10 @@ $(document).ready(function () {
                 }
             }
         });
-        
     });
+
 });
+
+function takeOption(id) {
+    alert(id)
+}

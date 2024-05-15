@@ -11,6 +11,7 @@
   <script src="assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
+  <script src="assets/js/moment.min.js"></script>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/home.js"></script>
   <script src="assets/js/portfolio.js"></script>

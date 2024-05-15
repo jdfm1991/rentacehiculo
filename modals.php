@@ -1,3 +1,8 @@
+<?php
+$today = date('Y-m-d');
+$newday = strtotime('+1 day', strtotime($today));
+$tomorrow = date('Y-m-d', $newday);
+?>
 <!--
   *************************************************
   Modal Para Registro de Usuario e Inicio de Sesion
@@ -102,14 +107,16 @@
         <div class="row justify-content-center">
           <div class="col-sm-3">
             <div class="form-floating">
-              <select class="form-select" id="region"  aria-label="Default select example"> 
-            </select>
-            <label for="region">Selecione un Region</label>
+              <select class="form-select" id="region"  aria-label="Default select example">
+                <!-- ======= Carga a Traves de Ajax ======= --> 
+              </select>
+              <label for="region">Selecione un Region</label>
             </div>
           </div>
           <div id="cbrand" class="col-sm-3">
             <div class="form-floating">
               <select id="brand" class="form-select" aria-label="Default select example">
+                <!-- ======= Carga a Traves de Ajax ======= -->
               </select>
               <label for="brand">Selecione una Marca</label>
             </div>
@@ -117,6 +124,7 @@
           <div id="cmodel" class="col-sm-3">
             <div class="form-floating">
               <select id="model" class="form-select" aria-label="Default select example">
+                <!-- ======= Carga a Traves de Ajax ======= -->
               </select>
               <label for="model">Selecione un Modelo</label>
             </div>
@@ -124,6 +132,7 @@
           <div id="canno" class="col-sm-3">
             <div class="form-floating">
               <select id="anno" class="form-select" aria-label="Default select example">
+                <!-- ======= Carga a Traves de Ajax ======= -->
               </select>
               <label for="anno">Selecione un Año</label>
             </div>
@@ -133,10 +142,12 @@
       <div class="modal-body">
         <div id="alertma" class="alert" role="alert">
           <div id="messagema" class="row justify-content-sm-center mb-3">
+            <!-- ======= Carga a Traves de Ajax ======= -->
           </div>
         </div>
         <section class="portfolio section-bg">
           <div id="advancep" class="row" data-aos="fade-up" data-aos-delay="200">
+            <!-- ======= Carga a Traves de Ajax ======= -->
           </div>
         </section>
       </div>
@@ -198,19 +209,30 @@
                       <label for="rplate" class="form-label">Matricula</label>
                       <input type="text" class="form-control" id="rplate">
                     </div>
+                    <div class="mb-3 col-sm-6">
+                      <label for="rcost" class="form-label">Costo Por Dia</label>
+                      <input type="text" class="form-control" id="rcost">
+                    </div>
                     <strong><label for="" class="form-label">Infomacion de Alquiler</label></strong>
                     <div class="mb-3 col-sm-6">
                       <label for="fechar" class="form-label">Fecha Renta</label>
-                      <input type="date" class="form-control" id="fechar">
+                      <input id="fechar" type="date" class="form-control" value=<?php echo $today; ?> min=<?php echo $today; ?>>
                     </div>
                     <div class="mb-3 col-sm-6">
-                        <label for="fechae" class="form-label">Fecha Entrega</label>
-                        <input type="date" class="form-control" id="fechae">
+                      <label for="fechae" class="form-label">Fecha Entrega</label>
+                      <input id="fechae" type="date" class="form-control" value=<?php echo $tomorrow; ?> min=<?php echo $tomorrow; ?>>
+                    </div>
+                    <div class="mb-3 col-sm-6">
+                        <label for="diaa" class="form-label"> <strong>Dias de Alquiler: <span id="diaa"></span></strong> </label>
+                    </div>
+                    <div class="mb-3 col-sm-6">
+                        <label for="mont" class="form-label">Monto a Pagar</label>
+                        <input type="text" class="form-control" id="mont">
                     </div>
                   </div>
                   <div class="mb-3">
                       <label for="payment" class="form-label">Soporte de Pago</label>
-                      <input type="file" class="form-control" id="payment">
+                      <input type="file" class="form-control" id="payment" required>
                   </div>
                   <div id="messeger2" class="alert alert-warning" role="alert">
                     <p id="errorr2" class="mb-0">Alert Description</p>

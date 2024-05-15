@@ -19,7 +19,7 @@ require_once("env.php");
           </div>
           <div class="col-sm-4">
             <div class="portfolio-info">
-              <h3>informacion Del Vehiculo</h3>
+              <h3>informacion Del Vehiculo <?php echo $tomorrow ?></h3>
               <ul id="text_prospect">
                 <!-- ======= Se Carga A traves de Ajax ======= -->
               </ul>

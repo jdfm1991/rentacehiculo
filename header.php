@@ -2,6 +2,7 @@
 <?php 
 session_name('R3nt@k4r');
 session_start();
+date_default_timezone_set('America/Caracas')
 ?> <!DOCTYPE html>
 <html lang="en">
 

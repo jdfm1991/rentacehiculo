@@ -36,6 +36,7 @@ switch ($_GET["op"]) {
             $dato['model']  = $data2['model'];
             $dato['anno']   = $data2['anno'];
             $dato['plate']  = $data2['plate'];
+            $dato['cost']   = number_format($data2['cost'],2);
         }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE); 
         break;

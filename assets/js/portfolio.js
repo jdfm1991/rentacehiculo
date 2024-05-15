@@ -1,7 +1,13 @@
 $(document).ready(function () {
+    const nunberFormat = new Intl.NumberFormat('en-US');
     var url = $(location).attr('href').split("=")
-    var session = $.trim($('#session').val());
-    var option = url[1]
+    const session = $.trim($('#session').val());
+    const option = url[1]
+    var fechar = moment($('#fechar').val())
+    var fechae = moment($('#fechae').val())
+    var diff = 0
+    diff = fechae.diff(fechar,'days')
+    $('#diaa').text(diff);
     $('#cbrand').hide();
     $('#cmodel').hide();
     $('#canno').hide();
@@ -142,6 +148,11 @@ $(document).ready(function () {
                     $('#rmodel').val(data.model);
                     $('#ranno').val(data.anno);
                     $('#rplate').val(data.plate);
+                    $('#rcost').val(data.cost);
+                    fechar = moment($('#fechar').val())
+                    fechae = moment($('#fechae').val())
+                    diff = fechae.diff(fechar,'days')
+                    $('#mont').val(nunberFormat.format(diff*data.cost));
                     $('#rstatus').val(data.status);
                     if (data.status==1) {
                         $("#messeger").hide();
@@ -163,6 +174,8 @@ $(document).ready(function () {
                     $("#rmodel").prop('disabled',true);
                     $("#ranno").prop('disabled',true);
                     $("#rplate").prop('disabled',true);
+                    $("#rcost").prop('disabled',true);
+                    $('#mont').prop('disabled',true);
                     $('#rentModal').modal('show');
                 }
             });
@@ -341,11 +354,46 @@ $(document).ready(function () {
             searchAdvance(region,brand,model,anno)
         } 
     });
+
+    $('#fechar').change(function (e) { 
+        e.preventDefault();
+        fechar = moment($('#fechar').val())
+        fechae1 = moment($('#fechae').val())
+        cost = $('#rcost').val();
+        nextday = new Date(fechar)
+        nextday.setDate(nextday.getDate()+1)
+        diff = fechae1.diff(fechar,'days')
+        if (diff<1) {
+            tomorrow = new Date(nextday).toISOString().substring(0,10)
+            $('#fechae').val(tomorrow)
+            $('#fechae').attr('min', tomorrow);
+            fechae2 = moment($('#fechae').val())
+            diff = fechae2.diff(fechar,'days')
+            $('#mont').val(nunberFormat.format(diff*cost)); 
+            $('#diaa').text(diff);
+        } else {
+            tomorrow = new Date(nextday).toISOString().substring(0,10)
+            $('#fechae').attr('min', tomorrow);
+            $('#mont').val(nunberFormat.format(diff*cost)); 
+            $('#diaa').text(diff); 
+        }
+    });
+
+    $('#fechae').change(function (e) { 
+        e.preventDefault();
+        fechar = moment($('#fechar').val())
+        fechae = moment($('#fechae').val())
+        cost = $('#rcost').val();
+        diff = fechae.diff(fechar,'days')
+        $('#mont').val(nunberFormat.format(diff*cost));
+        $('#diaa').text(diff); 
+    });
     //************************************************/
     //**********Evento para enviar informacion********/
     //******************del Alquiler******************/
     $('#formRent').submit(function (e) { 
         e.preventDefault();
+        let dias = document.getElementById('diaa').textContent;
         name = $('#rname').val();
         phone = $('#rphone').val();
         dni = $('#rdni').val();
@@ -354,10 +402,45 @@ $(document).ready(function () {
             
         } else {
             $("#messeger2").show();
-            $("#errorr2").html('La informacion Del Usuario Esta Incompleta o Pendiente Por Verificar. <br> Si Desea Revisar La Informacion Suministrada haga Click <a href="profile.php"><label for=""><strong>Aqui</strong></label></a> <br> Si Desea Con Un El Departamento de Atencion Al Publico haga Click Aqui');
+            $("#errorr2").html('La informacion Del Usuario Esta Incompleta o Pendiente Por Verificar. <br> Si Desea Revisar La Informacion Suministrada haga Click <a id="btnprofile" href="#">Aqui</a> <br> Si Desea Con Un El Departamento de Atencion Al Publico haga Click Aqui');
         }
-        
-        
+    });
+    $(document).on("click", "#btnprofile", function(){
+        fechar  = $('#fechar').val();
+        fechae  = $('#fechae').val();
+        mont    = $('#mont').val();
+        payment = $("#payment")[0].files[0];
+        dias    = document.getElementById('diaa').textContent;
+        condition = 1 
+
+        var datos = new FormData();
+        datos.append('user', session)
+        datos.append('option', option)
+        datos.append('fechar', fechar)
+        datos.append('fechae', fechae)
+        datos.append('mont', mont)
+        datos.append('payment', payment)
+        datos.append('dias', dias)
+        datos.append('condition', condition)
+
+        $.ajax({
+            url: "assets/app/rent/rent_controller.php?op=register",
+            type: "POST",
+            dataType:"json",    
+            data:  datos,
+            cache: false,
+            contentType: false,
+            processData: false, 
+            success: function(data) {
+                if (data.status) {
+                    alert(data.messege)
+                    window.location.href="profile.php"; 
+                } else {
+                    alert(data.messege)
+                    window.location.href="profile.php"; 
+                }
+            }
+        });
     });    
 });
 
