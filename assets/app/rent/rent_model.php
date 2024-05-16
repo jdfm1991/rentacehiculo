@@ -31,18 +31,32 @@ class Rent extends Conectar{
         $conectar= parent::conexion();
         parent::set_names();
         //QUERY
-            $sql="SELECT A.car,D.brand, E.model, C.anno, daterent, mont, day FROM rent_table AS A 
+            $sql="SELECT A.id,D.brand, E.model, C.anno, daterent, mont, day FROM rent_table AS A 
 			INNER JOIN status_table AS B ON A.status = B.id
 			INNER JOIN cars_table AS C ON A.car = C.id
 			INNER JOIN cars_brands_table AS D ON D.id = C.brand
 			INNER JOIN cars_models_table AS E ON E.id = C.model
-			WHERE A.user=?
+			WHERE A.user=? And A.status=1
 			ORDER BY daterent DESC";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1, $user);
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function updateRequest($id,$condition){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        ///QUERY
+            $sql="UPDATE rent_table  SET status  = ? WHERE id = ?";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $condition);
+        $sql->bindValue(2, $id);
+        return $sql->execute();
     }
 
 

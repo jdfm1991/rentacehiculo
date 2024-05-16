@@ -2,6 +2,7 @@
 include_once("header.php");
 require_once("env.php");
 ?> 
+<input type="hidden" id="idreq">
 <div class="container">
     <section class="section-bg mt-3">
       <div class="container" data-aos="fade-up">

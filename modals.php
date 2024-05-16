@@ -248,3 +248,22 @@ $tomorrow = date('Y-m-d', $newday);
     </div>
   </div>
 </div>
+<!--
+  *************************************************
+  Toast para Actualizar Solicitudes de Rentas
+  *************************************************
+-->
+<div class="toast-container position-fixed top-0 end-0 p-5 m-5">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="..." class="rounded me-2" alt="...">
+      <strong class="me-auto">Por Favor Escoja Una Opcion</strong>
+      <small>Ahora</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      <button id="sendreq" type="button" class="btn btn-outline-success btn-sm">Enviar Solicitud</button>
+      <button id="cancreq" type="button" class="btn btn-outline-danger btn-sm">Cancelar Solicitud</button>
+  </div>
+  </div>
+</div>

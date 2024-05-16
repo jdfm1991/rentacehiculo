@@ -1,10 +1,12 @@
 $(document).ready(function () {
-
     var session = $.trim($('#session').val());
+    reqc = $('#reqc')
+    var option = ''
     $('#messegep').hide();
     if (!session) {
         $(location).attr('href','./');
     }
+    requestPend(session)
     //************************************************/
     //***********Funcion para Validar solo************/
     //**************Entrada de Numeros****************/
@@ -84,31 +86,7 @@ $(document).ready(function () {
             });
         }
     });
-    //************************************************/
-    //**********Evento para Cargar Informacion********/
-    //**************en la pagina de profile***********/
-    $.ajax({
-        type: "POST",
-        url: "assets/app/rent/rent_controller.php?op=request",
-        dataType: "json",
-        data:  {user:session},
-        success: function (data) {
-            $('#reqc').text(data.length);
-            $('#reqv').empty();
-            $.each(data, function(idx, opt) {
-                $('#reqv').append(
-                    '<a href="#" onclick="takeOption('+opt.car+')">'+
-                        '<li class="list-group-item d-flex justify-content-between lh-sm">'+
-                            '<div>'+
-                                '<h6 class="my-0">Por '+opt.day+' De Alquiler</h6>'+
-                                '<small class="text-body-secondary">'+opt.brand+' '+opt.model+' '+opt.anno+'</small>'+
-                            '</div>'+
-                            '<span class="text-body-secondary">$'+opt.mont+'</span>'+
-                        '</li>'+
-                    '</a>') 
-            });
-        }
-    });
+    
     //************************************************/
     //**********Evento para enviar Informacion********/
     //************para actualizar de profile**********/
@@ -155,8 +133,76 @@ $(document).ready(function () {
         });
     });
 
+    $('#sendreq').click(function (e) { 
+        e.preventDefault();
+        id= $('#idreq').val();
+    });
+
+    $('#cancreq').click(function (e) { 
+        e.preventDefault();
+        id= $('#idreq').val();
+        condition = 6
+        $.ajax({
+            type: "POST",
+            url: "assets/app/rent/rent_controller.php?op=requpd",
+            dataType: "json",
+            data:  {id:id,condition:condition},
+            success: function (data) {
+                if (data.status) {
+                    alert(data.messege)
+                    requestPend(session)
+                    const toastTrigger = document.getElementById('cancreq')
+                    const toastLiveExample = document.getElementById('liveToast')
+                    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+                    toastBootstrap.hide()
+                } else {
+                    alert(data.messege)
+                    requestPend(session)
+                    const toastTrigger = document.getElementById('cancreq')
+                    const toastLiveExample = document.getElementById('liveToast')
+                    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+                    toastBootstrap.hide() 
+                }
+            }
+        });
+    });
+
 });
 
 function takeOption(id) {
-    alert(id)
+   $('#idreq').val(id);
+    const toastTrigger = document.getElementById('btnoption')
+    const toastLiveExample = document.getElementById('liveToast')
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+    toastBootstrap.show()
 }
+
+//************************************************/
+    //**********Evento para Cargar Informacion********/
+    //**************en la pagina de profile***********/
+function requestPend(session) {
+    $.ajax({
+        type: "POST",
+        url: "assets/app/rent/rent_controller.php?op=request",
+        dataType: "json",
+        data:  {user:session},
+        success: function (data) {
+            $('#reqc').text(data.length);
+            $('#reqv').empty();
+            $.each(data, function(idx, opt) {
+                $('#reqv').append(
+                    '<a href="#" onclick="takeOption(`'+opt.id+'`)">'+
+                        '<li class="list-group-item d-flex justify-content-between lh-sm">'+
+                            '<div>'+
+                                '<h6 class="my-0">Por '+opt.day+' De Alquiler</h6>'+
+                                '<small class="text-body-secondary">'+opt.brand+' '+opt.model+' '+opt.anno+'</small>'+
+                            '</div>'+
+                            '<span class="text-body-secondary">$'+opt.mont+'</span>'+
+                        '</li>'+
+                    '</a>') 
+            });
+        }
+    });
+}
+    
+

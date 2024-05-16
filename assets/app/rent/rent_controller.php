@@ -10,7 +10,8 @@ require_once("rent_model.php");
 $rent = new Rent();
 
 $now = date('Y-m-d h:m:s');
-$user = (isset($_POST['user'])) ? $_POST['user'] : '663b951d5c993';
+$id = (isset($_POST['id'])) ? $_POST['id'] : '';
+$user = (isset($_POST['user'])) ? $_POST['user'] : '';
 $option = (isset($_POST['option'])) ? $_POST['option'] : '';
 $fechar = (isset($_POST['fechar'])) ? $_POST['fechar'] : '';
 $fechae = (isset($_POST['fechae'])) ? $_POST['fechae'] : '';
@@ -45,7 +46,7 @@ switch ($_GET["op"]) {
         $data = $rent->getRequest($user);
         foreach ($data as $data) {
             $sub_array = array();
-            $sub_array['car']   = $data['car'];
+            $sub_array['id']   = $data['id'];
             $sub_array['brand']   = $data['brand'];
             $sub_array['model'] = $data['model'];
             $sub_array['anno'] = $data['anno'];
@@ -54,6 +55,19 @@ switch ($_GET["op"]) {
             $sub_array['day']  = $data['day'];
             $dato[] = $sub_array;
         }
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
+        break;
+
+    case 'requpd':
+        $dato = array();
+        $data = $rent->updateRequest($id,$condition);
+        if ($data) {
+            $dato['status'] = true;
+            $dato['messege'] = 'Se Actualizo Infomacion de Manera Exitosa';
+        } else {
+            $dato['status'] = false;
+            $dato['messege'] = 'Error al Actualizar Infomacion';
+        }   
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
 
