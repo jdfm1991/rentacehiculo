@@ -5,7 +5,7 @@ require_once("env.php");
   <!-- ======= Hero Section ======= --> 
   <section id="hero" class="d-flex flex-column justify-content-center">
     <div class="container" data-aos="zoom-in" data-aos-delay="100">
-      <h1>Nombre de la Empresa <?php echo $_SESSION['email'] ?></h1>
+      <h1>Nombre de la Empresa</h1>
       <p>Somos tu mejor opcion en alquiler de <span class="typed" data-typed-items="carros, camiones, pick up y mas"></span></p>
       <div class="social-links">
         <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
