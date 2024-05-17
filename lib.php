@@ -15,4 +15,5 @@
   <script src="assets/js/main.js"></script>
   <script src="assets/js/home.js"></script>
   <script src="assets/js/portfolio.js"></script>
+  <script src="assets/js/user.js"></script>
   

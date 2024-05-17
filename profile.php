@@ -102,7 +102,7 @@ if (URI<>$_SERVER["REQUEST_URI"] ) {
 include_once("lib.php");
 include_once("modals.php")
 ?>
-<script src="assets/js/user.js"></script>
+
 </body>
 
 </html>

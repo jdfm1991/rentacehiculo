@@ -1,11 +1,8 @@
 $(document).ready(function () {
     var session = $.trim($('#session').val());
+    $('#send').hide();
     reqc = $('#reqc')
-    var option = ''
     $('#messegep').hide();
-    if (!session) {
-        $(location).attr('href','./');
-    }
     requestPend(session)
     //************************************************/
     //***********Funcion para Validar solo************/
@@ -136,6 +133,55 @@ $(document).ready(function () {
     $('#sendreq').click(function (e) { 
         e.preventDefault();
         id= $('#idreq').val();
+        $.ajax({
+            type: "POST",
+            url: "assets/app/rent/rent_controller.php?op=showreq",
+            dataType: "json",
+            data:  {id:id},
+            success: function (data) {
+                $(".modal-title").text("Informacion de registro")
+                $("#rname").prop('disabled',true);
+                $("#rphone").prop('disabled',true);
+                $("#rdni").prop('disabled',true);
+                $("#rbrand").prop('disabled',true);
+                $("#rmodel").prop('disabled',true);
+                $("#ranno").prop('disabled',true);
+                $("#rplate").prop('disabled',true);
+                $("#rcost").prop('disabled',true);
+                $('#mont').prop('disabled',true);
+                $('#fechar').prop('disabled',true);
+                $('#fechae').prop('disabled',true);
+                $('#payment').hide();
+                $("#messeger").hide();
+                $('#messeger2').hide();
+                $('#save').hide();
+                $('#send').show();
+                $('#payment').prop('required',false);
+                $.each(data, function(idx, opt) {
+                    fechar = new Date(opt.datein).toISOString().substring(0,10)
+                    fechae = new Date(opt.dateout).toISOString().substring(0,10)
+                    $('#rname').val(opt.nameu);
+                    $('#rphone').val(opt.phone);
+                    $('#rdnl').val(opt.letter);
+                    $('#rdni').val(opt.dni);
+                    $('#rbrand').val(opt.brand);
+                    $('#rmodel').val(opt.model);
+                    $('#ranno').val(opt.anno);
+                    $('#rplate').val(opt.plate);
+                    $('#rcost').val(opt.cost);
+                    $('#fechar').val(fechar)
+                    $('#fechae').val(fechae)
+                    $('#mont').val(opt.mont);
+                    $('#diass').text(opt.day);
+                    $('#paymentimg').empty();
+                    $('#paymentimg').append('<img class="d-block mx-auto mb-4" src="assets/img/payment/'+opt.payment+'" alt="" height="250">')
+                });                
+                $('#rentModal').modal('show');
+                const flag = document.getElementById('liveToast')
+                const toastflag = bootstrap.Toast.getOrCreateInstance(flag)
+                toastflag.hide()
+            }
+        });
     });
 
     $('#cancreq').click(function (e) { 
@@ -167,6 +213,29 @@ $(document).ready(function () {
         });
     });
 
+    $('#send').click(function (e) { 
+        e.preventDefault();
+        id= $('#idreq').val();
+        condition = 2
+        $.ajax({
+            type: "POST",
+            url: "assets/app/rent/rent_controller.php?op=requpd",
+            dataType: "json",
+            data:  {id:id,condition:condition},
+            success: function (data) {
+                if (data.status) {
+                    alert(data.messege)
+                    requestPend(session)
+                    $('#rentModal').modal('hide');
+                } else {
+                    alert(data.messege)
+                    requestPend(session)
+                    $('#rentModal').modal('hide');
+                }
+            }
+        });
+    });
+
 });
 
 function takeOption(id) {
@@ -188,6 +257,7 @@ function requestPend(session) {
         data:  {user:session},
         success: function (data) {
             $('#reqc').text(data.length);
+            $('#reqc2').text(data.length);
             $('#reqv').empty();
             $.each(data, function(idx, opt) {
                 $('#reqv').append(

@@ -3,7 +3,7 @@ include_once("header.php");
 require_once("env.php");
 ?> 
     <!-- ======= Portfolio Section ======= -->
-    <button id="search" type="button" class="btn btn-primary btnsearch radius" data-bs-toggle="modal" data-bs-target="#advanceModal"><i class="bi bi-search"></i>
+    <button id="search" type="button" class="btn btn-primary btnsearch" data-bs-toggle="modal" data-bs-target="#advanceModal"><i class="bi bi-search"></i>
       <span class="tsearch">Busqueda Avanzada</span>
     </button>
     <section id="portfolio" class="portfolio section-bg">

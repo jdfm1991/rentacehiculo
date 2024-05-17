@@ -12,6 +12,7 @@ $(document).ready(function () {
     $('#cmodel').hide();
     $('#canno').hide();
     $('#alertma').hide();
+    $('#send').hide();
     //************************************************/
     //*********Llamda de Funcion para Cargar**********/
     //************Vista Inicial de Pagina*************/
@@ -143,6 +144,7 @@ $(document).ready(function () {
                     $("#messeger2").hide();
                     $('#rname').val(data.nameu);
                     $('#rphone').val(data.phone);
+                    $('#rdnl').val(data.letter);
                     $('#rdni').val(data.dni);
                     $('#rbrand').val(data.brand);
                     $('#rmodel').val(data.model);
@@ -411,14 +413,16 @@ $(document).ready(function () {
         mont    = $('#mont').val();
         payment = $("#payment")[0].files[0];
         dias    = document.getElementById('diaa').textContent;
-        condition = 1 
+        condition = 1
+        
+        newmont = mont.replace(",","")
 
         var datos = new FormData();
         datos.append('user', session)
         datos.append('option', option)
         datos.append('fechar', fechar)
         datos.append('fechae', fechae)
-        datos.append('mont', mont)
+        datos.append('mont', newmont)
         datos.append('payment', payment)
         datos.append('dias', dias)
         datos.append('condition', condition)

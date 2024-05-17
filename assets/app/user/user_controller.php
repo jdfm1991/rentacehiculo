@@ -27,6 +27,7 @@ switch ($_GET["op"]) {
         foreach ($data as $data) {
             $dato['nameu']  = $data['nameu'];
             $dato['phone']  = $data['phone'];
+            $dato['letter'] = $data['letter'];
             $dato['dni']    = $data['dni'];
             $dato['imgdni'] = $data['imgdni'];
             $dato['status'] = $data['status'];

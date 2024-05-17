@@ -233,6 +233,7 @@ $tomorrow = date('Y-m-d', $newday);
                   <div class="mb-3">
                       <label for="payment" class="form-label">Soporte de Pago</label>
                       <input type="file" class="form-control" id="payment" required>
+                      <div id="paymentimg"></div>
                   </div>
                   <div id="messeger2" class="alert alert-warning" role="alert">
                     <p id="errorr2" class="mb-0">Alert Description</p>
@@ -240,7 +241,8 @@ $tomorrow = date('Y-m-d', $newday);
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
-                    <button type="submit" class="btn btn-outline-primary">Registar</button>
+                    <button id="save" type="submit" class="btn btn-outline-primary">Registar</button>
+                    <button id="send" type="button" class="btn btn-outline-primary">Enviar</button>
                 </div>
             </form>  
         </div>
@@ -256,7 +258,7 @@ $tomorrow = date('Y-m-d', $newday);
 <div class="toast-container position-fixed top-0 end-0 p-5 m-5">
   <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
-      <img src="..." class="rounded me-2" alt="...">
+      <img src="assets/img/exclamacion.png" class="rounded me-2" height=20>
       <strong class="me-auto">Por Favor Escoja Una Opcion</strong>
       <small>Ahora</small>
       <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>

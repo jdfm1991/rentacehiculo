@@ -82,3 +82,13 @@ date_default_timezone_set('America/Caracas')
         ?>
       </div>
     </div>
+<?php
+if ($_SESSION) { ?>
+<button id="viewreq" type="button" class="btn btn-outline-info btnreq">
+  <i class="bi bi-cart-check-fill"></i>
+  <span id="reqc2" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+    <!-- ======= Carga a Traves de Ajax ======= --> 
+  </span>
+</button>
+
+<?php } ?>

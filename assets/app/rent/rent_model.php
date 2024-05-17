@@ -45,6 +45,26 @@ class Rent extends Conectar{
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getRequestId($id){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT A.id,nameu,phone,letter,dni,D.brand, E.model,anno,plate,cost,datein,dateout,mont,day,payment FROM rent_table AS A 
+			INNER JOIN status_table AS B ON A.status = B.id
+			INNER JOIN cars_table AS C ON A.car = C.id
+			INNER JOIN cars_brands_table AS D ON D.id = C.brand
+			INNER JOIN cars_models_table AS E ON E.id = C.model
+            INNER JOIN users_data_table AS F ON A.user = F.user
+			WHERE A.id=?";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $id);
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function updateRequest($id,$condition){
         //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
         //CUANDO ES APPWEB ES CONEXION.
