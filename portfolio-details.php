@@ -1,6 +1,10 @@
 <?php 
 include_once("header.php");
 require_once("env.php");
+if (!$_SESSION) {
+  header("Location: ./");
+  die();
+}
 ?> 
 
   <main id="main">
@@ -19,7 +23,7 @@ require_once("env.php");
           </div>
           <div class="col-sm-4">
             <div class="portfolio-info">
-              <h3>informacion Del Vehiculo <?php echo $tomorrow ?></h3>
+              <h3>informacion Del Vehiculo</h3>
               <ul id="text_prospect">
                 <!-- ======= Se Carga A traves de Ajax ======= -->
               </ul>
@@ -40,11 +44,11 @@ require_once("env.php");
   </main><!-- End #main -->
 
   <?php 
+include_once("modals.php");
 if (URI<>$_SERVER["REQUEST_URI"] ) {
-    include_once("footer.php");
+  include_once("footer.php");
 }
 include_once("lib.php");
-include_once("modals.php")
 ?>
 </body>
 

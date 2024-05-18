@@ -1,6 +1,10 @@
 <?php 
 include_once("header.php");
 require_once("env.php");
+if (!$_SESSION) {
+  header("Location: ./");
+  die();
+}
 ?> 
     <!-- ======= Portfolio Section ======= -->
     <button id="search" type="button" class="btn btn-primary btnsearch" data-bs-toggle="modal" data-bs-target="#advanceModal"><i class="bi bi-search"></i>
@@ -43,11 +47,11 @@ require_once("env.php");
       </div>
     </section>
 <?php 
+include_once("modals.php");
 if (URI<>$_SERVER["REQUEST_URI"] ) {
-    include_once("footer.php");
+  include_once("footer.php");
 }
 include_once("lib.php");
-include_once("modals.php")
 ?>
 </body>
 

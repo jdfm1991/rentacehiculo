@@ -1,5 +1,5 @@
 <?php
-    const URI="/MyResume/";
+    const URI="/rentvehiculo/";
     const SERVER_BD_1 = "localhost";
     const NAME_BD_1 = "rentavehiculos";
     const USER_BD_1 = "root";

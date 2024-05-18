@@ -96,6 +96,31 @@ switch ($_GET["op"]) {
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
 
+    case 'showallreq':
+        $dato = array();
+        $data = $rent->getRequestUser($user);
+        foreach ($data as $data) {
+            $sub_array = array();
+            $sub_array['id']  = $data['id'];
+            $sub_array['nameu']  = $data['nameu'];
+            $sub_array['phone']  = $data['phone'];
+            $sub_array['letter'] = $data['letter'];
+            $sub_array['dni']    = $data['dni'];
+            $sub_array['brand']  = $data['brand'];
+            $sub_array['model']  = $data['model'];
+            $sub_array['anno'] = $data['anno'];
+            $sub_array['plate']    = $data['plate'];
+            $sub_array['cost']    = $data['cost'];
+            $sub_array['datein']  = $data['datein'];
+            $sub_array['dateout']  = $data['dateout'];
+            $sub_array['mont'] = $data['mont'];
+            $sub_array['day']    = $data['day'];
+            $sub_array['payment']    = $data['payment'];
+            $dato[] = $sub_array;
+        }
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
+        break;
+
     default:
         # code...
         break;

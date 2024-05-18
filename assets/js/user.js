@@ -83,6 +83,28 @@ $(document).ready(function () {
             });
         }
     });
+
+    //************************************************/
+    //**********Evento para Cargar Informacion********/
+    //**************en la pagina de profile***********/
+
+    requsertable = $('#requsertable').DataTable({  
+        "pageLength": 50,
+        "ajax":{            
+            "url": "assets/app/rent/rent_controller.php?op=showallreq", 
+            "method": 'POST', //usamos el metodo POST
+            "data":  {'user':session},
+            "dataSrc":""
+        },
+        "columns":[
+            {"data": "nameu"},
+            {"data": "nameu"},
+            {"data": "nameu"},
+            {"data": "nameu"},
+            {"data": "nameu"},
+        ],
+
+    });
     
     //************************************************/
     //**********Evento para enviar Informacion********/

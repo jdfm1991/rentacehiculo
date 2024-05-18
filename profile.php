@@ -1,6 +1,10 @@
 <?php 
 include_once("header.php");
 require_once("env.php");
+if (!$_SESSION) {
+  header("Location: ./");
+  die();
+}
 ?> 
 <input type="hidden" id="idreq">
 <div class="container">
@@ -96,11 +100,11 @@ require_once("env.php");
     </section>
 </div>
 <?php 
+include_once("modals.php");
 if (URI<>$_SERVER["REQUEST_URI"] ) {
-    include_once("footer.php");
+  include_once("footer.php");
 }
 include_once("lib.php");
-include_once("modals.php")
 ?>
 
 </body>

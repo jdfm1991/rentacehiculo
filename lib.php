@@ -1,5 +1,5 @@
   <!-- Vendor JS Files -->
-  <script src="assets/js/jquery-3.7.0.min.js"></script>
+
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

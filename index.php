@@ -17,11 +17,11 @@ require_once("env.php");
     </div>
   </section><!-- End Hero -->
   <?php 
-if (URI!=$_SERVER["REQUEST_URI"] ) {
-    include_once("footer.php");
+include_once("modals.php");
+if (URI<>$_SERVER["REQUEST_URI"] ) {
+  include_once("footer.php");
 }
 include_once("lib.php");
-include_once("modals.php")
 ?>
 
 </body>

@@ -9,7 +9,7 @@ date_default_timezone_set('America/Caracas')
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>MyResume Bootstrap Template - Index</title>
+  <title>Demo - Sistema de Renta de Vehiculos</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -30,6 +30,17 @@ date_default_timezone_set('America/Caracas')
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- File jquery v3.7.0 -->
+  <script src="assets/js/jquery-3.7.0.min.js"></script>
+  <!-- File Datatables -->
+  <link href="assets/dataTables/datatables.min.css" rel="stylesheet">
+  <script src="assets/dataTables/datatables.min.js"></script>
+  <script src="assets/dataTables/dataTables.responsive.min.js"></script>
+
+  <!-- File sweetalert2 -->
+  <script src="assets/sweetalert2/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="assets/sweetalert2/sweetalert2.min.css">
 
   <!-- =======================================================
   * Template Name: MyResume
@@ -61,7 +72,10 @@ date_default_timezone_set('America/Caracas')
         <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
         <?php
         if ($_SESSION) {
-          echo '<li><a href="profile.php" class="nav-link scrollto"><i class="bi bi-person-gear"></i> <span>Mi Perfil</span></a></li>';
+          echo '
+          <li><a href="profile.php" class="nav-link scrollto"><i class="bi bi-person-gear"></i> <span>Mi Perfil</span></a></li>
+          <li><a href="myrequest.php" class="nav-link scrollto"><i class="bi bi-send-arrow-up"></i> <span>Mis Solicitudes</span></a></li>
+          ';
         }
         ?>
       </ul>

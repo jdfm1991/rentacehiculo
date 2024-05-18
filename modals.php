@@ -162,7 +162,7 @@ $tomorrow = date('Y-m-d', $newday);
   Modal Para Registro de Renta de Vehiculo
   *************************************************
 -->
-<div class="modal fade" id="rentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade mt-5" id="rentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
     <div class="modal-content">
       <div class="modal-header">
