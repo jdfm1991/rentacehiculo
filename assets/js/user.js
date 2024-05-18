@@ -1,5 +1,7 @@
 $(document).ready(function () {
     var session = $.trim($('#session').val());
+    var windowsScreen = window.matchMedia("(max-width: 992px)")
+    console.log(windowsScreen);
     $('#send').hide();
     reqc = $('#reqc')
     $('#messegep').hide();
@@ -88,23 +90,30 @@ $(document).ready(function () {
     //**********Evento para Cargar Informacion********/
     //**************en la pagina de profile***********/
 
-    requsertable = $('#requsertable').DataTable({  
-        "pageLength": 50,
-        "ajax":{            
-            "url": "assets/app/rent/rent_controller.php?op=showallreq", 
-            "method": 'POST', //usamos el metodo POST
-            "data":  {'user':session},
-            "dataSrc":""
+    requsertable = $('#requsertable').DataTable({
+        responsive: true,  
+        pageLength: 50,
+        ajax:{            
+            url: "assets/app/rent/rent_controller.php?op=showallreq", 
+            method: 'POST', //usamos el metodo POST
+            data:  {'user':session},
+            dataSrc:""
         },
-        "columns":[
-            {"data": "nameu"},
-            {"data": "nameu"},
-            {"data": "nameu"},
-            {"data": "nameu"},
-            {"data": "nameu"},
+        columns:[
+            {data: "id"},
+            {data: "daterent"},
+            {data: "brand"},
+            {data: "model"},
+            {data: "mont"},
+            {data: "status"},
+            {defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm BtnEditComm'>Subir Imagen</div></div>"}
         ],
 
     });
+
+    if (windowsScreen.matches) {
+        requsertable.columns([2,3,4,5]).visible(false)
+    }
     
     //************************************************/
     //**********Evento para enviar Informacion********/

@@ -6,7 +6,7 @@ if (!$_SESSION) {
   die();
 }
 ?> 
-<div class="container">
+<div class="container" style="min-width: 540px;height: auto;">
     <section class="section-bg mt-3">
       <div class="container" data-aos="fade-up">
         <div class="section-title content-header">
@@ -15,32 +15,36 @@ if (!$_SESSION) {
         <div class="content-wrapper">
             <!-- ======= Services Section ======= -->
             <div class="container" data-aos="fade-up">
-                <div class="table-responsive col-sm">
+                <div>
                     <!--begin::Table Widget 6-->
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-lg-12">
                                   <div class="table-responsive">        
                                       <table id="requsertable" class="table table-hover table-condensed table-bordered table-striped text-center" style="width:100%" >
                                           <thead class="text-center" style="background-color: #17A2B8;color: white;">
                                               <tr>
-                                                  <th>Cod</th>
-                                                  <th>Producto</th>
-                                                  <th>Referencia</th>
-                                                  <th>Marca</th>
-                                                  <th>Disp.</th>
+                                                <th>Cod. Solicitud</th>
+                                                <th>Fec. Solicitud</th>
+                                                <th>Marca de Vehiculo</th>
+                                                <th>Modelo de Vehiculo</th>
+                                                <th>Monto Pagado</th>
+                                                <th>Estado</th>
+                                                <th>Comprobante</th>
                                               </tr>
                                           </thead>
                                           <tbody>                           
                                           </tbody>
                                           <tfoot style="background-color: #ccc;color: white;">
                                               <tr>
-                                                  <th>Cod</th>
-                                                  <th>Producto</th>
-                                                  <th>Referencia</th>
-                                                  <th>Marca</th>
-                                                  <th>Disp.</th>
+                                                <th>Cod. Solicitud</th>
+                                                <th>Fec. Solicitud</th>
+                                                <th>Marca de Vehiculo</th>
+                                                <th>Modelo de Vehiculo</th>
+                                                <th>Monto Pagado</th>
+                                                <th>Estado</th>
+                                                <th>Comprobante</th>
                                               </tr>
                                           </tfoot>        
                                       </table>               

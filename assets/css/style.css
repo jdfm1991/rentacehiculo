@@ -130,6 +130,9 @@ h6 {
   z-index: 9998;
   transition: all 0.5s;
 }
+.mobileon{
+  display: flex;
+}
 
 .btnsearch {
   position: fixed;
@@ -151,8 +154,6 @@ h6 {
   z-index: 9998;
   transition: all 0.5s;
   border-radius: 50px;
-
-  
 }
 
 @media (max-width: 992px) {
@@ -169,6 +170,7 @@ h6 {
     display: flex;
     margin-top: -160px;
   }
+
   
 }
 
@@ -185,6 +187,7 @@ h6 {
   .btnreq{
     display: none;
   }
+  
 }
 
 /*--------------------------------------------------------------

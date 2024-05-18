@@ -113,9 +113,11 @@ switch ($_GET["op"]) {
             $sub_array['cost']    = $data['cost'];
             $sub_array['datein']  = $data['datein'];
             $sub_array['dateout']  = $data['dateout'];
+            $sub_array['daterent']  = $data['daterent'];
             $sub_array['mont'] = $data['mont'];
             $sub_array['day']    = $data['day'];
             $sub_array['payment']    = $data['payment'];
+            $sub_array['status']    = $data['status'];
             $dato[] = $sub_array;
         }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
