@@ -1,7 +1,6 @@
 $(document).ready(function () {
     var session = $.trim($('#session').val());
     var windowsScreen = window.matchMedia("(max-width: 992px)")
-    console.log(windowsScreen);
     $('#send').hide();
     reqc = $('#reqc')
     $('#messegep').hide();
@@ -106,7 +105,11 @@ $(document).ready(function () {
             {data: "model"},
             {data: "mont"},
             {data: "status"},
-            {defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm BtnEditComm'>Subir Imagen</div></div>"}
+            {data: "id",
+                    "render":function(data,type,row) {
+                        return "<div class='text-center'><a href='assets/app/rent/pdf.php?id="+data+"' class='btn btn-outline-info' target='_blank' rel='noopener noreferrer'><i class='bi bi-printer'></i><span>Visualizar</span></a></div>"
+                    }
+                },
         ],
 
     });
@@ -221,7 +224,7 @@ $(document).ready(function () {
         condition = 6
         $.ajax({
             type: "POST",
-            url: "assets/app/rent/rent_controller.php?op=requpd",
+            url: "assets/app/rent/rent_controller.php?op=register",
             dataType: "json",
             data:  {id:id,condition:condition},
             success: function (data) {
@@ -250,7 +253,7 @@ $(document).ready(function () {
         condition = 2
         $.ajax({
             type: "POST",
-            url: "assets/app/rent/rent_controller.php?op=requpd",
+            url: "assets/app/rent/rent_controller.php?op=register",
             dataType: "json",
             data:  {id:id,condition:condition},
             success: function (data) {

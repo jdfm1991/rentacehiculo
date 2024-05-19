@@ -51,12 +51,13 @@ class Rent extends Conectar{
         $conectar= parent::conexion();
         parent::set_names();
         //QUERY
-            $sql="SELECT A.id,nameu,phone,letter,dni,D.brand, E.model,anno,plate,cost,datein,dateout,mont,day,payment FROM rent_table AS A 
+            $sql="SELECT daterent,nameu,phone,letter,dni,email,address,D.brand, E.model,anno,plate,cost,datein,dateout,mont,day,payment,B.status FROM rent_table AS A 
 			INNER JOIN status_table AS B ON A.status = B.id
 			INNER JOIN cars_table AS C ON A.car = C.id
 			INNER JOIN cars_brands_table AS D ON D.id = C.brand
 			INNER JOIN cars_models_table AS E ON E.id = C.model
             INNER JOIN users_data_table AS F ON A.user = F.user
+            INNER JOIN users_table AS G ON A.user = G.id
 			WHERE A.id=?";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);

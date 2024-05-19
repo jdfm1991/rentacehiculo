@@ -21,22 +21,34 @@ $condition = (isset($_POST['condition'])) ? $_POST['condition'] : '';
 
 switch ($_GET["op"]) {
     case 'register':
-        $id = uniqid();
-        $path1 = "../../img/payment/"; 
-        $payment = $_FILES['payment']['name'];
-        $moved = move_uploaded_file($_FILES['payment']['tmp_name'], $path1.'/'.$payment);
-        if ($moved) {
-            $data = $rent->DataRent($id,$user,$option,$fechar,$fechae,$dias,$mont,$payment,$condition,$now);
+        $dato = array();
+        if ($id ) {
+            $data = $rent->updateRequest($id,$condition);
             if ($data) {
                 $dato['status'] = true;
-                $dato['messege'] = 'Se Actualizo Infomacion de Manera Exitosa (Usuario)';
+                $dato['messege'] = 'Se Actualizo Infomacion de Manera Exitosa';
             } else {
                 $dato['status'] = false;
-                $dato['messege'] = 'Error al Guardar Infomacion';
-            }   
-        }else {
-            $dato['status'] = false;
-            $dato['messege'] = 'Error al Cargar Imagen';
+                $dato['messege'] = 'Error al Actualizar Infomacion';
+            } 
+        } else {
+            $id = uniqid();
+            $path1 = "../../img/payment/"; 
+            $payment = $_FILES['payment']['name'];
+            $moved = move_uploaded_file($_FILES['payment']['tmp_name'], $path1.'/'.$payment);
+            if ($moved) {
+                $data = $rent->DataRent($id,$user,$option,$fechar,$fechae,$dias,$mont,$payment,$condition,$now);
+                if ($data) {
+                    $dato['status'] = true;
+                    $dato['messege'] = 'Se Actualizo Infomacion de Manera Exitosa (Usuario)';
+                } else {
+                    $dato['status'] = false;
+                    $dato['messege'] = 'Error al Guardar Infomacion';
+                }   
+            }else {
+                $dato['status'] = false;
+                $dato['messege'] = 'Error al Cargar Imagen';
+            }
         }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
@@ -59,7 +71,7 @@ switch ($_GET["op"]) {
         break;
 
     case 'requpd':
-        $dato = array();
+        
         $data = $rent->updateRequest($id,$condition);
         if ($data) {
             $dato['status'] = true;
@@ -76,11 +88,13 @@ switch ($_GET["op"]) {
         $data = $rent->getRequestId($id);
         foreach ($data as $data) {
             $sub_array = array();
-            $sub_array['id']  = $data['id'];
+            $sub_array['daterent']  = $data['daterent'];
             $sub_array['nameu']  = $data['nameu'];
-            $sub_array['phone']  = $data['phone'];
             $sub_array['letter'] = $data['letter'];
             $sub_array['dni']    = $data['dni'];
+            $sub_array['phone']  = $data['phone'];
+            $sub_array['email'] = $data['email'];
+            $sub_array['address']    = $data['address'];
             $sub_array['brand']  = $data['brand'];
             $sub_array['model']  = $data['model'];
             $sub_array['anno'] = $data['anno'];
@@ -91,6 +105,7 @@ switch ($_GET["op"]) {
             $sub_array['mont'] = $data['mont'];
             $sub_array['day']    = $data['day'];
             $sub_array['payment']    = $data['payment'];
+            $sub_array['status']    = $data['status'];
             $dato[] = $sub_array;
         }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);

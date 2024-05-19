@@ -1,10 +1,6 @@
 <?php 
 include_once("header.php");
 require_once("env.php");
-if (!$_SESSION) {
-  header("Location: ./");
-  die();
-}
 ?> 
     <!-- ======= Portfolio Section ======= -->
     <button id="search" type="button" class="btn btn-primary btnsearch" data-bs-toggle="modal" data-bs-target="#advanceModal"><i class="bi bi-search"></i>
