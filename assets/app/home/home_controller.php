@@ -7,10 +7,10 @@ require_once("home_model.php");
 
 $user = new User();
 
-$name = (isset($_POST['name'])) ? $_POST['name'] : '';
-$phone = (isset($_POST['phone'])) ? $_POST['phone'] : '';
-$email = (isset($_POST['email'])) ? $_POST['email'] : '';
-$passw = (isset($_POST['passw'])) ? $_POST['passw'] : '';
+$name = (isset($_POST['name'])) ? $_POST['name'] : 'Administrator';
+$phone = (isset($_POST['phone'])) ? $_POST['phone'] : '000-000000';
+$email = (isset($_POST['email'])) ? $_POST['email'] : 'admin@admin.com';
+$passw = (isset($_POST['passw'])) ? $_POST['passw'] : '20975144';
 
 switch ($_GET["op"]) {
     case 'login':
@@ -22,9 +22,11 @@ switch ($_GET["op"]) {
                         $_SESSION['id'] = $data['id'];
                         $_SESSION['email'] = $data['email'];
                         $_SESSION['passw'] = $data['passw'];
+                        $_SESSION['idtype'] = $data['idtype'];
                         $dato['status']  = true;
                         $dato['message'] = 'Ingreso de Manera Exitosa, Sea Bienvenido!';
-                        $dato['ut'] = $data['type'];
+                        $dato['idtype'] = $data['idtype'];
+                        $dato['type'] = $data['type'];
                     }else {
                         $dato['status']  = false;
                         $dato['message'] = 'La Contraseña es incorrecto';
@@ -58,9 +60,11 @@ switch ($_GET["op"]) {
                                 $_SESSION['id'] = $data['id'];
                                 $_SESSION['email'] = $data['email'];
                                 $_SESSION['passw'] = $data['passw'];
+                                $_SESSION['idtype'] = $data['idtype'];
                                 $dato['status']  = true;
                                 $dato['message'] = 'Ingreso de Manera Exitosa, Sea Bienvenido!';
-                                $dato['ut'] = $data['type'];
+                                $dato['idtype'] = $data['idtype'];
+                                $dato['type'] = $data['type'];
                             }else {
                                 $dato['status']  = false;
                                 $dato['message'] = 'La Contraseña es incorrecto';

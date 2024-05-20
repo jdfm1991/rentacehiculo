@@ -9,7 +9,7 @@ class User extends Conectar{
         $conectar= parent::conexion();
         parent::set_names();
         //QUERY
-            $sql="SELECT A.id AS id,email, passw, type FROM users_table AS A INNER JOIN user_type_table AS B ON A.idtype=B.id WHERE email=?";
+            $sql="SELECT A.id AS id,email, passw, idtype, type FROM users_table AS A INNER JOIN user_type_table AS B ON A.idtype=B.id WHERE email=?";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1, $email);

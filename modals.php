@@ -269,3 +269,85 @@ $tomorrow = date('Y-m-d', $newday);
   </div>
   </div>
 </div>
+
+<!--
+  *************************************************
+  Modal Para Registro de Registro de Vehiculo
+  *************************************************
+-->
+<div class="modal fade mt-5" id="VehicleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Informacion</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+            <form id="formVehicle">    
+                <div class="modal-body">
+                  <input type="hidden" id="id">
+                  <div class="row justify-content-md-center">
+                    <strong><label for="" class="form-label">Infomacion del Vehiculo</label></strong>
+                    <div class="mb-3 col-sm-6">
+                        <label for="plate" class="form-label">Placa / Matricula</label>
+                        <input type="text" class="form-control" id="plate" placeholder="Ingrese el Numero de Placa / Matricula" required>
+                    </div>
+                    <div class="mt-3 mb-3 col-sm-6">
+                      <div class="form-floating">
+                        <select class="form-select" id="vregion"  aria-label="Default select example" required>
+                          <!-- ======= Carga a Traves de Ajax ======= --> 
+                        </select>
+                        <label for="vregion">Selecione un Region</label>
+                      </div>
+                    </div>
+                    <div class="mb-3 col-sm-6">
+                      <div class="form-floating">
+                        <select class="form-select" id="vbrand"  aria-label="Default select example" required>
+                          <!-- ======= Carga a Traves de Ajax ======= --> 
+                        </select>
+                        <label for="vbrand">Selecione una Marca</label>
+                      </div>
+                    </div>
+                    <div class="mb-3 col-sm-6">
+                      <div class="form-floating">
+                        <select class="form-select" id="vmodel"  aria-label="Default select example" required>
+                          <!-- ======= Carga a Traves de Ajax ======= --> 
+                        </select>
+                        <label for="vmodel">Selecione un Modelo</label>
+                      </div>
+                    </div>
+                    <div class="mb-3 col-sm-3">
+                      <label for="vanno" class="form-label">Annio</label>
+                      <input type="text" class="form-control" id="vanno" required>
+                    </div>
+                    <div class="mb-3 col-sm-3">
+                      <label for="vcost" class="form-label">Costo Por Dia</label>
+                      <input type="text" class="form-control" id="vcost" required>
+                    </div>
+                    <div class="mt-3 mb-3 col-sm-6">
+                      <div class="form-floating">
+                        <select class="form-select" id="vstatus"  aria-label="Default select example" required>
+                          <!-- ======= Carga a Traves de Ajax ======= --> 
+                        </select>
+                        <label for="vstatus">Selecione un Estado</label>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="carimg" class="form-label">Soporte de Pago</label>
+                        <input type="file" class="form-control" id="carimg" accept="image/x-png,image/gif,image/jpeg" multiple required>
+                    </div>
+                    <div id="messegev" class="alert alert-warning" role="alert">
+                      <p id="errorv" class="mb-0">Alert Description</p>
+                    </div>                                 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-primary">Registar</button>
+                </div>
+            </form>  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

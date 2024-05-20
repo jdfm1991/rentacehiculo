@@ -1,6 +1,10 @@
 <?php
 include_once("header.php");
 require_once("env.php");
+if (!$_SESSION) {
+  header("Location: ./");
+  die();
+}
 ?>
   <!-- ======= Facts Section ======= -->
     <section id="facts" class="facts">
@@ -9,7 +13,6 @@ require_once("env.php");
         <div class="section-title">
           <h2>Contador Iniciales</h2>
         </div>
-
         <div class="row justify-content-center">
 
           <div class="col-lg-3 col-md-6">
@@ -45,24 +48,17 @@ require_once("env.php");
           </div>
 
         </div>
-
       </div>
     </section><!-- End Facts Section -->
 
     <!-- ======= Skills Section ======= -->
     <section id="skills" class="skills section-bg">
       <div class="container" data-aos="fade-up">
-
         <div class="section-title">
           <h2>Indicadores</h2>
         </div>
-
-        
         <div id="solicitud" class="row skills-content justify-content-center">
-
         </div>
-        
-
       </div>
     </section><!-- End Skills Section -->
 <?php 
@@ -72,7 +68,5 @@ if (URI<>$_SERVER["REQUEST_URI"] ) {
 }
 include_once("lib.php");
 ?>
-
 </body>
-
 </html>

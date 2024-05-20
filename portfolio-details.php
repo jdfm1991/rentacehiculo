@@ -6,7 +6,6 @@ if (!$_SESSION) {
   die();
 }
 ?> 
-<a href="http://" target="_blank" rel="noopener noreferrer"><i class="bi bi-printer"></i><span>Visualizar</span></a>
   <main id="main">
 
     <!-- ======= Portfolio Details Section ======= -->

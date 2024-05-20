@@ -67,15 +67,39 @@ date_default_timezone_set('America/Caracas')
     <nav id="navbar" class="navbar nav-menu">
       <ul>
         <li><a href="./" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-        <li><a href="./portfolio.php" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
-        <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
-        <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
         <?php
         if ($_SESSION) {
+          if ($_SESSION['idtype']==1) {
+            echo '
+            <li><a href="admin.php" class="nav-link scrollto"><i class="bi bi-person-gear"></i> <span>Dashboard</span></a></li>
+            ';
+          }
+        }
+        ?>
+        <li><a href="./portfolio.php" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+        <?php
+        if ($_SESSION) {
+          if ($_SESSION['idtype']==1) {
+            echo '
+            <li><a href="vehicle.php" class="nav-link scrollto"><i class="bi bi-person-gear"></i> <span>Lista de Vehiculos</span></a></li>
+            <li><a href="allrequest.php" class="nav-link scrollto"><i class="bi bi-send-arrow-up"></i> <span>Lista de Solicitudes Solicitudes</span></a></li>
+            ';
+          }
+          if ($_SESSION['idtype']==2) {
+            echo '
+            <li><a href="profile.php" class="nav-link scrollto"><i class="bi bi-person-gear"></i> <span>Mi Perfil</span></a></li>
+            <li><a href="myrequest.php" class="nav-link scrollto"><i class="bi bi-send-arrow-up"></i> <span>Mis Solicitudes</span></a></li>
+            <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
+            <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+            ';
+          }
+          
+        }else {
           echo '
-          <li><a href="profile.php" class="nav-link scrollto"><i class="bi bi-person-gear"></i> <span>Mi Perfil</span></a></li>
-          <li><a href="myrequest.php" class="nav-link scrollto"><i class="bi bi-send-arrow-up"></i> <span>Mis Solicitudes</span></a></li>
-          ';
+            <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
+            <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+            ';
+          # code...
         }
         ?>
       </ul>
