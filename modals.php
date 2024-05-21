@@ -291,7 +291,7 @@ $tomorrow = date('Y-m-d', $newday);
                     <strong><label for="" class="form-label">Infomacion del Vehiculo</label></strong>
                     <div class="mb-3 col-sm-6">
                         <label for="plate" class="form-label">Placa / Matricula</label>
-                        <input type="text" class="form-control" id="plate" placeholder="Ingrese el Numero de Placa / Matricula" required>
+                        <input type="text" class="form-control" id="plate" placeholder="Ingrese el Numero de Placa / Matricula" style="text-transform:uppercase" required>
                     </div>
                     <div class="mt-3 mb-3 col-sm-6">
                       <div class="form-floating">
@@ -319,11 +319,11 @@ $tomorrow = date('Y-m-d', $newday);
                     </div>
                     <div class="mb-3 col-sm-3">
                       <label for="vanno" class="form-label">Annio</label>
-                      <input type="text" class="form-control" id="vanno" required>
+                      <input type="text" class="form-control" id="vanno" name="vanno" required>
                     </div>
                     <div class="mb-3 col-sm-3">
                       <label for="vcost" class="form-label">Costo Por Dia</label>
-                      <input type="text" class="form-control" id="vcost" required>
+                      <input type="text" class="form-control" id="vcost" name="vcost" required>
                     </div>
                     <div class="mt-3 mb-3 col-sm-6">
                       <div class="form-floating">
@@ -337,8 +337,8 @@ $tomorrow = date('Y-m-d', $newday);
                         <label for="carimg" class="form-label">Soporte de Pago</label>
                         <input type="file" class="form-control" id="carimg" accept="image/x-png,image/gif,image/jpeg" multiple required>
                     </div>
-                    <div id="messegev" class="alert alert-warning" role="alert">
-                      <p id="errorv" class="mb-0">Alert Description</p>
+                    <div id="messegev" class="alert" role="alert">
+                      <p id="errorv" class="mb-0"></p>
                     </div>                                 
                 </div>
                 <div class="modal-footer">

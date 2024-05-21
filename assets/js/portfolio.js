@@ -194,21 +194,7 @@ $(document).ready(function () {
             $('#loginModal').modal('show');
         }
     });
-    //************************************************/
-    //*********Cargar Selector de Regiones************/
-    //************************************************/
-    $.ajax({
-        url: "assets/app/portfolio/portfolio_controller.php?op=region",
-        method: "POST",
-        dataType: "json",  
-        success: function(data) {
-            $('#region').append('<option value="">-*_-*-_-*</option>');
-            $.each(data, function(idx, opt) {
-                //se itera con each para llenar el select en la vista
-                $('#region').append('<option value="' + opt.id +'">' + opt.region + '</option>');
-            });
-        }
-    });
+    
     //************************************************/
     //**********Evento Si Cambia el Selector**********/
     //*****************de Regiones********************/
@@ -274,22 +260,9 @@ $(document).ready(function () {
             }, 3000);
         } else {
             //************************************************/
-            //**********Mostras Selector de Modelos***********/
-            //************************************************/
-            $.ajax({
-                url: "assets/app/portfolio/portfolio_controller.php?op=model",
-                method: "POST",
-                dataType: "json", 
-                data:  {brand:brand},  
-                success: function(data) {
-                    $('#model').empty();
-                    $('#model').append('<option value="">-*_-*-_-*</option>');
-                    $.each(data, function(idx, opt) {
-                        //se itera con each para llenar el select en la vista
-                        $('#model').append('<option name="" value="' + opt.id +'">' + opt.model + '</option>');
-                    });
-                }
-            });
+            //**********Llamada de funcion para cargar********/
+            //***********los modelos en el formulario*********/
+            getDataModel(brand)
             $('#cmodel').show();
             searchAdvance(region,brand,model,anno)
         } 

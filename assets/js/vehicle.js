@@ -2,6 +2,19 @@ $(document).ready(function () {
     $('#messegev').hide();
 
     //************************************************/
+    //***********Funcion para Validar solo************/
+    //**************Entrada de Numeros****************/
+    $(function() {
+        $("input[name='vanno']").on('input',function (e) {
+            $(this).val($(this).val().replace(/[^0-9]/g,''));
+        });
+    });
+    $(function() {
+        $("input[name='vcost']").on('input',function (e) {
+            $(this).val($(this).val().replace(/[^0-9,]/g,''));
+        });
+    });
+    //************************************************/
     //********Accion para cargar la informacion*******/
     //**************el Datatable de Vehiculo**********/
     vehicletable = $('#vehicletable').DataTable({
@@ -36,7 +49,26 @@ $(document).ready(function () {
         $(".modal-title").text("Registro de Nuevo Vehiculo")
         $('#VehicleModal').modal('show');
         
-    });$('#formVehicle').submit(function (e) { 
+    });
+    //************************************************/
+    //*********Cargar Estado de los Vehiculos*********/
+    //************************************************/
+    $.ajax({
+        url: "assets/app/vehicle/vehicle_controller.php?op=status",
+        method: "POST",
+        dataType: "json",  
+        success: function(data) {
+            $('#vstatus').append('<option value="">-*_-*-_-*</option>');
+            $.each(data, function(idx, opt) {
+                //se itera con each para llenar el select en la vista
+                $('#vstatus').append('<option value="' + opt.id +'">' + opt.status + '</option>');
+            });
+        }
+    });
+    //************************************************/
+    //*********Envio de informacion Vehiculos*********/
+    //***************para ser guardada****************/
+    $('#formVehicle').submit(function (e) { 
         e.preventDefault();
         plate = $('#plate').val();
         region = $('#vregion').val();

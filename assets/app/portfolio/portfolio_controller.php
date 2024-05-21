@@ -9,7 +9,6 @@ $portfolio = new Portfolio();
 $index  = (isset($_POST['index'])) ? $_POST['index'] : '';
 $id     = (isset($_POST['id'])) ? $_POST['id'] : '';
 $region = (isset($_POST['region'])) ? $_POST['region'] : '';
-$brand  = (isset($_POST['brand'])) ? $_POST['brand'] : '';
 $model  = (isset($_POST['model'])) ? $_POST['model'] : '';
 $anno   = (isset($_POST['anno'])) ? $_POST['anno'] : '';
 
@@ -102,18 +101,6 @@ switch($_GET["op"]){
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
 
-    case 'model':
-        $dato = array();
-        $data = $portfolio->getDataModel($brand);
-        foreach ($data as $data) {
-            $sub_array = array();
-            $sub_array['id']    = $data['id'];
-            $sub_array['model'] = $data['model'];
-            $dato[] = $sub_array;
-        }
-        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
-        break;
-
     case 'brand':
         $dato = array();
         $data = $portfolio->getDataBrand($region);
@@ -137,17 +124,7 @@ switch($_GET["op"]){
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
 
-    case 'region':
-        $dato = array();
-        $data = $portfolio->getDataRegion();
-        foreach ($data as $data) {
-            $sub_array = array();
-            $sub_array['id']     = $data['id'];
-            $sub_array['region'] = $data['region'];
-            $dato[] = $sub_array;
-        }
-        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
-        break;
+   
 }
 
 
