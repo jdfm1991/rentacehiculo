@@ -68,6 +68,8 @@ $(document).ready(function () {
                         icon: 'success',
                         title: 'Bienvenido...',
                         html: '<h2>¡Estimado '+data['type']+'!</h2><br><h4>Usted '+data['message']+'</h4>',
+                        showConfirmButton: false,
+                        timer: 2000,
                         });
                     setTimeout(() => {
                         if (data['idtype']==1) {

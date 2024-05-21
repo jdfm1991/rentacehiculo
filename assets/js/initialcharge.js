@@ -36,7 +36,6 @@ $(document).ready(function () {
         e.preventDefault();
         brand=$.trim($('#vbrand').val());
         if (!brand) {
-            $('#vbrand').addClass('validate'); 
             $('#messegev').show();
             $('#messegev').addClass('alert-danger');
             $('#errorv').text('Por Favor Selecciones Una Marca');

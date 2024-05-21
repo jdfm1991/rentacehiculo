@@ -286,12 +286,12 @@ $tomorrow = date('Y-m-d', $newday);
         <div class="container-fluid">
             <form id="formVehicle">    
                 <div class="modal-body">
-                  <input type="hidden" id="id">
+                  <input type="hidden" id="idv">
                   <div class="row justify-content-md-center">
                     <strong><label for="" class="form-label">Infomacion del Vehiculo</label></strong>
                     <div class="mb-3 col-sm-6">
                         <label for="plate" class="form-label">Placa / Matricula</label>
-                        <input type="text" class="form-control" id="plate" placeholder="Ingrese el Numero de Placa / Matricula" style="text-transform:uppercase" required>
+                        <input type="text" class="form-control" id="plate" name="plate" placeholder="Ingrese el Numero de Placa / Matricula" style="text-transform:uppercase" required>
                     </div>
                     <div class="mt-3 mb-3 col-sm-6">
                       <div class="form-floating">
@@ -333,8 +333,14 @@ $tomorrow = date('Y-m-d', $newday);
                         <label for="vstatus">Selecione un Estado</label>
                       </div>
                     </div>
+                    <div class="mb-3 form-floating">
+                      <textarea class="form-control" placeholder="Breve Descripcion de Vehiculo (Menos de 500 Caracteres)" id="vdescrip" maxlength=500 style="height: 150px" maxlength=500></textarea>
+                      <label for="vdescrip" class="mx-3">Descripcion</label>
+                      <p>Breve Descripcion de Vehiculo (Menos de 500 Caracteres) <strong><span id="textcount">0/500</span></strong></p>
+                    </div>
+
                     <div class="mb-3">
-                        <label for="carimg" class="form-label">Soporte de Pago</label>
+                        <label for="carimg" class="form-label">Imagenes del Vehiculo</label>
                         <input type="file" class="form-control" id="carimg" accept="image/x-png,image/gif,image/jpeg" multiple required>
                     </div>
                     <div id="messegev" class="alert" role="alert">

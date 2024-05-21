@@ -11,7 +11,12 @@ $(document).ready(function () {
     });
     $(function() {
         $("input[name='vcost']").on('input',function (e) {
-            $(this).val($(this).val().replace(/[^0-9,]/g,''));
+            $(this).val($(this).val().replace(/[^0-9.]/g,''));
+        });
+    });
+    $(function() {
+        $("input[name='plate']").on('input',function (e) {
+            $(this).val($(this).val().replace(/[^0-9a-zA-Z]/g,''));
         });
     });
     //************************************************/
@@ -77,6 +82,7 @@ $(document).ready(function () {
         anno = $('#vanno').val();
         cost = $('#vcost').val();
         status = $('#vstatus').val();
+        descrip= $('#vdescrip').val();
         carimg = document.getElementById('carimg').files.length;
 
         var datos = new FormData();
@@ -87,12 +93,13 @@ $(document).ready(function () {
         datos.append('anno', anno)
         datos.append('cost', cost)
         datos.append('status', status)
+        datos.append('descrip', descrip)
         for (var index = 0; index < carimg; index++) {
           datos.append("carimg[]", document.getElementById('carimg').files[index]);
         }
 
         $.ajax({
-            url: "resources/vehicle/vehicle_controller.php?op=register",
+            url: "assets/app/vehicle/vehicle_controller.php?op=register",
             type: "POST",
             dataType:"json",    
             data:  datos,
@@ -100,13 +107,45 @@ $(document).ready(function () {
             contentType: false,
             processData: false,  
             success: function(data) {
-                setTimeout(() => {
-                    vehicletable.ajax.reload(null, false);
-                }, 1000);
+                console.log(data);
+                if (data.status==true) {
+                    Swal.fire({
+                        icon: 'success',
+                        html: '<h2>¡'+data.message+'!</h2><br><h4>¡'+data.messagei+'!</h4>',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        })
+                    setTimeout(() => {
+                        vehicletable.ajax.reload(null, false);
+                    }, 1500);
+                    $('#VehicleModal').modal('hide');
+                    
+                } else {
+                    $('#messegev').show();
+                    $('#messegev').addClass('alert-danger');
+                    $('#errorv').text(data.message +' ' +data.messagei);
+                    setTimeout(() => {
+                        $("#errorv").text("");
+                        $("#messegev").hide();
+                    }, 3000);
+                }
             }
     
           });
         
     });
 
+    $('#vdescrip').keyup(function (e) { 
+        descrip= $('#vdescrip').val();
+        if (descrip.length<250) {
+            $('#textcount').css('color', 'green');
+        }
+        if (descrip.length>=250 && descrip.length<499) {
+            $('#textcount').css('color', 'orange');
+        }
+        if (descrip.length>=499) {
+            $('#textcount').css('color', 'red');
+        }
+        $('#textcount').text(descrip.length+'/500');
+    });
 });
