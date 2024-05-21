@@ -1,6 +1,5 @@
 $(document).ready(function () {
     $('#messegev').hide();
-
     //************************************************/
     //***********Funcion para Validar solo************/
     //**************Entrada de Numeros****************/
@@ -24,7 +23,8 @@ $(document).ready(function () {
     //**************el Datatable de Vehiculo**********/
     vehicletable = $('#vehicletable').DataTable({
         responsive: true,  
-        pageLength: 50,
+        pageLength: 10,
+        columnDefs: [{ width: '15%', targets: 7 }],
         ajax:{            
             url: "assets/app/vehicle/vehicle_controller.php?op=showall", 
             method: 'POST', 
@@ -40,7 +40,11 @@ $(document).ready(function () {
             {data: "status"},
             {data: "id",
                     "render":function(data,type,row) {
-                        return "<div class='text-center'><a href='assets/app/rent/pdf.php?id="+data+"' class='btn btn-outline-info' target='_blank' rel='noopener noreferrer'><i class='bi bi-printer'></i><span>Visualizar</span></a></div>"
+                        return "<div class='text-center'>"+
+                        "<a href='#' onclick='takeIdV(`"+data+"`)' class='btn btn-outline-info btn-sm btnedit'><i class='bi bi-pencil-square'></i></a>"+
+                        "<a href='#' onclick='takeIdV(`"+data+"`)' class='btn btn-outline-danger btn-sm btncancel'><i class='bi bi-x-octagon'></i></a>"+
+                        "<a href='#' onclick='takeIdV(`"+data+"`)' class='btn btn-outline-success btn-sm btnpicture'><i class='bi bi-images'></i></a>"+
+                        "</div>"
                     }
                 },
         ],
@@ -75,6 +79,7 @@ $(document).ready(function () {
     //***************para ser guardada****************/
     $('#formVehicle').submit(function (e) { 
         e.preventDefault();
+        id = $('#idv').val();
         plate = $('#plate').val();
         region = $('#vregion').val();
         brand = $('#vbrand').val();
@@ -86,6 +91,7 @@ $(document).ready(function () {
         carimg = document.getElementById('carimg').files.length;
 
         var datos = new FormData();
+        datos.append('id', id)
         datos.append('plate', plate)
         datos.append('region', region)
         datos.append('brand', brand)
@@ -134,7 +140,9 @@ $(document).ready(function () {
           });
         
     });
-
+    //************************************************/
+    //*********Contador de Caracteres de text*********/
+    //***************area con indicador***************/
     $('#vdescrip').keyup(function (e) { 
         descrip= $('#vdescrip').val();
         if (descrip.length<250) {
@@ -148,4 +156,119 @@ $(document).ready(function () {
         }
         $('#textcount').text(descrip.length+'/500');
     });
+    //************************************************/
+    //******Opcion para actualizar la informacion*****/
+    //*******************del Vehiculo*****************/
+    $(document).on("click", ".btnedit", function(){	            
+        id = $('#idv').val();
+        $.ajax({
+            url: "assets/app/vehicle/vehicle_controller.php?op=show",
+            type: "POST",
+            dataType:"json",    
+            data:  {id:id},
+            success: function(data) {
+                console.log(data);
+                $.each(data, function(idx, opt) {  
+                    $('#plate').val(opt.plate);
+                    $('#vregion').val(opt.region);
+                    $('#vbrand').val(opt.brand);
+                    $('#vmodel').val(opt.model);
+                    $('#vanno').val(opt.anno);
+                    $('#vcost').val(opt.cost);
+                    $('#vstatus').val(opt.status);
+                    $('#vdescrip').val(opt.descrip);                   
+                });
+                $("#carimg").prop('required',false);
+                $(".modal-title").text("Editar infomacion Vehiculo")
+                $('#VehicleModal').modal('show'); 
+              
+            }
+          });
+
+
+    });
+    //************************************************/
+    //*******Opcion para Inhabilitar el Vehidulo******/
+    //***************para que sea no visible**********/
+    $(document).on("click", ".btncancel", function(){
+        id = $('#idv').val();
+        active = 0
+        Swal.fire({
+            title: "¿Está seguro de borrar esta informacion?",
+            showCancelButton: true,
+            confirmButtonText: "Si",
+          }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "assets/app/vehicle/vehicle_controller.php?op=newactive",
+                    type: "POST",
+                    dataType:"json",    
+                    data:  {id:id,active:active},
+                    success: function(data) {
+                      if (data.status == true) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: data.message,
+                            showConfirmButton: false,
+                            timer: 2000,
+                            });         
+                        setTimeout(() => {
+                            vehicletable.ajax.reload(null, false);
+                        }, 1000);
+                      } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: data.message,
+                            showConfirmButton: false,
+                            timer: 2000,
+                            }); 
+                      }                   
+                    }
+                  });
+            }
+        });        
+    });
+    //************************************************/
+    //*******Opcion para visualizar las imagenes******/
+    //***************de los vehiculos activo**********/
+    $(document).on("click", ".btnpicture", function(){
+        id = $('#idv').val();
+        $.ajax({
+            url: "assets/app/vehicle/vehicle_controller.php?op=showimage",
+            type: "POST",
+            dataType:"json",    
+            data:  {id:id},
+            success: function(data) {
+                $('#galeryv').empty();
+                $.each(data, function(idx, opt) {
+                    $("#galeryv").append(
+                        '<div class="col">'+
+                            '<div class="card mb-4 rounded-3 shadow-sm">'+
+                                '<div class="card-body">'+
+                                    '<picture>'+
+                                        '<img src="assets/img/hero-bg1.jpg" class="img-fluid" alt="Galeria de vehiculos"/>'+
+                                    '</picture>'+
+                                    '<ul class="list-unstyled mt-2 mb-2">'+
+                                        '<li>20 users included</li>'+
+                                        '<li>10 GB of storage</li>'+
+                                        '<li>Priority email support</li>'+
+                                        '<li>Help center access</li>'+
+                                    '</ul>'+
+                                    '<button type="button" class="btn btn-sm btn-outline-primary">top</button>'+
+                                    '<button type="button" class="btn btn-sm btn-outline-danger">Eliminar</button>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'
+                    );
+                });               
+            }
+          });
+        $(".modal-title").text("Imagenes de Vehiculo")
+        $('#exampleModal').modal('show');
+        
+    });
 });
+
+function takeIdV(id) {
+    $('#idv').val(id);
+}

@@ -13,9 +13,24 @@ class Vehicle extends Conectar{
             INNER JOIN cars_status_table AS B ON A.status=B.id
             INNER JOIN cars_regions_table AS C ON A.region=C.id
             INNER JOIN cars_brands_table AS D ON A.brand=D.id
-            INNER JOIN cars_models_table AS E ON A.model=e.id";
+            INNER JOIN cars_models_table AS E ON A.model=e.id
+            WHERE active=1";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getDataVehicleById($id){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT * FROM cars_table WHERE id=?";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $id);
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -83,5 +98,54 @@ class Vehicle extends Conectar{
 		$sql->bindValue(9, $status);
 		return $sql->execute();
 	}
+
+    public function setNewStatusActive($id,$active){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        ///QUERY
+            $sql="UPDATE cars_table SET active=? WHERE id = ?";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $active);
+        $sql->bindValue(2, $id);
+        return $sql->execute();
+    }
+
+    public function setNewDataVehicle($id,$plate,$region,$brand,$model,$anno,$cost,$status,$descrip){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        ///QUERY
+            $sql="UPDATE cars_table SET region=?,brand=?,model=?,anno=?,plate=?,cost=?,description=?,status=? WHERE id = ?";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $region);
+		$sql->bindValue(2, $brand);
+        $sql->bindValue(3, $model);
+        $sql->bindValue(4, $anno);
+		$sql->bindValue(5, $plate);
+        $sql->bindValue(6, $cost);
+        $sql->bindValue(7, $descrip);
+		$sql->bindValue(8, $status);
+		$sql->bindValue(9, $id);
+        return $sql->execute();
+    }
+
+    public function getDataVehicleImageById($id){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT * FROM cars_images_table WHERE car=?";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $id);
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 

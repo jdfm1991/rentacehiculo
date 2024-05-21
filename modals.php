@@ -8,7 +8,7 @@ $tomorrow = date('Y-m-d', $newday);
   Modal Para Registro de Usuario e Inicio de Sesion
   *************************************************
 -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade mt-5" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -62,7 +62,7 @@ $tomorrow = date('Y-m-d', $newday);
   Modal Para Opcion de Olvide Contrase#a
   *************************************************
 -->
-<div class="modal fade" id="forgetModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade mt-5" id="forgetModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -96,7 +96,7 @@ $tomorrow = date('Y-m-d', $newday);
   Modal Para Opcion de Busqueda Avanzada
   *************************************************
 -->
-<div class="modal fade" id="advanceModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade mt-5" id="advanceModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -269,7 +269,48 @@ $tomorrow = date('Y-m-d', $newday);
   </div>
   </div>
 </div>
+<!--
+  *************************************************
+  Modal Para Visualizar las fotos de los Vehiculos
+  *************************************************
+-->
+<div class="modal fade mt-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
 
+
+        <div id="galeryv" class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-body">
+                <picture>
+                  <img src="assets/img/hero-bg1.jpg" class="img-fluid" alt="Galeria de vehiculos"/>
+                </picture>
+                <ul class="list-unstyled mt-2 mb-2">
+                  <li>20 users included</li>
+                  <li>10 GB of storage</li>
+                  <li>Priority email support</li>
+                  <li>Help center access</li>
+                </ul>
+                <button type="button" class="btn btn-sm btn-outline-primary">top</button>
+                <button type="button" class="btn btn-sm btn-outline-danger">Eliminar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!--
   *************************************************
   Modal Para Registro de Registro de Vehiculo
@@ -339,7 +380,7 @@ $tomorrow = date('Y-m-d', $newday);
                       <p>Breve Descripcion de Vehiculo (Menos de 500 Caracteres) <strong><span id="textcount">0/500</span></strong></p>
                     </div>
 
-                    <div class="mb-3">
+                    <div id="vimgcontent" class="mb-3">
                         <label for="carimg" class="form-label">Imagenes del Vehiculo</label>
                         <input type="file" class="form-control" id="carimg" accept="image/x-png,image/gif,image/jpeg" multiple required>
                     </div>

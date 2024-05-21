@@ -35,7 +35,8 @@ switch ($_GET["op"]) {
 
     case 'model':
         $dato = array();
-        $data = $ic->getDataModel($brand);
+        $condition = ($brand) ? ' WHERE A.brand='.$brand : '' ;
+        $data = $ic->getDataModel($condition);
         foreach ($data as $data) {
             $sub_array = array();
             $sub_array['id']    = $data['id'];

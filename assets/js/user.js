@@ -84,11 +84,9 @@ $(document).ready(function () {
             });
         }
     });
-
     //************************************************/
     //**********Evento para Cargar Informacion********/
     //**************en la pagina de profile***********/
-
     requsertable = $('#requsertable').DataTable({
         responsive: true,  
         pageLength: 50,

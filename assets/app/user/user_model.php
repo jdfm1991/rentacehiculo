@@ -146,24 +146,5 @@ class Client extends Conectar{
         return $sql->execute();
     }
 
-    public function deletedata($ownerid){
-        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
-        //CUANDO ES APPWEB ES CONEXION.
-        $conectar= parent::conexion();
-        parent::set_names();
-
-        //QUERY
-
-            $sql="DELETE FROM owners WHERE id ='$ownerid'";
-
-        
-        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
-        $sql = $conectar->prepare($sql);
-        $sql->execute();
-
-        return $sql;
-
-    }
-
 }
 

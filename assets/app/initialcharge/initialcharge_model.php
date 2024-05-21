@@ -29,19 +29,18 @@ class InitialCharge extends Conectar{
         return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getDataModel($brand){
+    public function getDataModel($condition){
         //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
         //CUANDO ES APPWEB ES CONEXION.
         $conectar= parent::conexion();
         parent::set_names();
         //QUERY
-            $sql="SELECT DISTINCT B.id AS id, B.model AS model FROM cars_table AS A 
-            INNER JOIN cars_models_table AS B ON A.model=B.id
-            WHERE A.brand=?
+            $sql="SELECT DISTINCT A.id, model FROM cars_models_table AS A 
+            INNER JOIN cars_brands_table AS B ON A.brand=B.id
+            $condition
             ORDER BY B.brand ASC";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
-        $sql->bindValue(1, $brand);
         $sql->execute();
         return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
     }

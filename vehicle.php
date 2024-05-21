@@ -30,28 +30,28 @@ if (!$_SESSION) {
                                     <table id="vehicletable" class="table table-hover table-condensed table-bordered table-striped text-center" style="width:100%" >
                                         <thead class="text-center" style="background-color: #17A2B8;color: white;">
                                             <tr>
-                                            <th>N# Placa</th>
-                                            <th>Region</th>
-                                            <th>Marca de Vehiculo</th>
-                                            <th>Modelo de Vehiculo</th>
-                                            <th>Año</th>
-                                            <th>Costo Por Dia</th>
-                                            <th>Estatus</th>
-                                            <th>Accion</th>
+                                              <th>N# Placa</th>
+                                              <th>Region</th>
+                                              <th>Marca de Vehiculo</th>
+                                              <th>Modelo de Vehiculo</th>
+                                              <th>Año</th>
+                                              <th>Costo Por Dia</th>
+                                              <th>Estatus</th>
+                                              <th>Accion</th>
                                             </tr>
                                         </thead>
                                         <tbody>                           
                                         </tbody>
                                         <tfoot style="background-color: #ccc;color: white;">
                                             <tr>
-                                            <th>N# Placa</th>
-                                            <th>Region</th>
-                                            <th>Marca de Vehiculo</th>
-                                            <th>Modelo de Vehiculo</th>
-                                            <th>Año</th>
-                                            <th>Costo Por Dia</th>
-                                            <th>Estatus</th>
-                                            <th>Accion</th>
+                                              <th>N# Placa</th>
+                                              <th>Region</th>
+                                              <th>Marca de Vehiculo</th>
+                                              <th>Modelo de Vehiculo</th>
+                                              <th>Año</th>
+                                              <th>Costo Por Dia</th>
+                                              <th>Estatus</th>
+                                              <th>Accion</th>
                                             </tr>
                                         </tfoot>        
                                     </table>               
