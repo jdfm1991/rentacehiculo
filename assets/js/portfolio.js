@@ -32,7 +32,7 @@ $(document).ready(function () {
                     '<div class="swiper-slide justify-content-center">'+
                         '<div class="swiper-slide">'+
                             '<div class="portfolio-wrap">'+
-                                '<img class="img_detail" src="assets/img/portfolio/'+opt.imgc+'" alt="">'+
+                                '<img class="img_detail" src="assets/img/vehicle/'+opt.imgc+'" alt="">'+
                                 '<div class="portfolio-info">'+
                                     '<h4>'+opt.model+'</h4>'+
                                     '<p>'+opt.brand+'</p>'+
@@ -79,6 +79,7 @@ $(document).ready(function () {
         dataType: "json",
         data:  {id:option},
         success: function (data) {
+            console.log(data);
             //Colocacion de Fotos de Muestra
             $('#img_propect').empty();
             $('#img_propect').append('<div>')
@@ -102,7 +103,7 @@ $(document).ready(function () {
                     '<li><strong>Modelo</strong>: '+opt.model+'</li>'+
                     '<li><strong>Año</strong>: '+opt.anno+'</li>'
                     );
-                if (opt.available==true) {
+                if (opt.status==1) {
                     $('#avail_prospect').append('<button id="btnrent" class="btn btn-outline-primary">Alquilar</button>')
                     $("#messeged").hide();
                 } else {

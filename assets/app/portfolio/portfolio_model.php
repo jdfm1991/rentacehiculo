@@ -58,12 +58,11 @@ class Portfolio extends Conectar{
         $conectar= parent::conexion();
         parent::set_names();
         //QUERY
-            $sql="SELECT DISTINCT A.id,anno,B.model AS model, C.brand AS brand, A.description AS descrip, A.available AS available FROM cars_table AS A 
+            $sql="SELECT DISTINCT A.id,anno,B.model, C.brand, A.description, A.status FROM cars_table AS A 
             INNER JOIN cars_models_table AS B ON A.model=B.id
             INNER JOIN cars_brands_table AS C ON A.brand=C.id
             INNER JOIN cars_images_table AS D ON A.id=D.car
-            WHERE A.id=?
-            ORDER BY A.id ASC";
+            WHERE A.id=? AND A.active=1";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1, $id);
@@ -77,7 +76,7 @@ class Portfolio extends Conectar{
         $conectar= parent::conexion();
         parent::set_names();
         //QUERY
-            $sql="SELECT image FROM cars_images_table WHERE car = ?";
+            $sql="SELECT imgcar FROM cars_images_table WHERE car = ?";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1, $id);

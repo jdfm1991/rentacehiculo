@@ -6,8 +6,8 @@ require_once("portfolio_model.php");
 
 $portfolio = new Portfolio();
 
-$index  = (isset($_POST['index'])) ? $_POST['index'] : '1';
-$id     = (isset($_POST['id'])) ? $_POST['id'] : '';
+$index  = (isset($_POST['index'])) ? $_POST['index'] : '';
+$id     = (isset($_POST['id'])) ? $_POST['id'] : '664d42468a036';
 $region = (isset($_POST['region'])) ? $_POST['region'] : '';
 $model  = (isset($_POST['model'])) ? $_POST['model'] : '';
 $anno   = (isset($_POST['anno'])) ? $_POST['anno'] : '';
@@ -59,11 +59,11 @@ switch($_GET["op"]){
             $sub_array['model']     = $data['model'];
             $sub_array['brand']     = $data['brand'];
             $sub_array['anno']      = $data['anno'];
-            $sub_array['descrip']   = $data['descrip'];
-            $sub_array['available'] = $data['available'];
+            $sub_array['descrip']   = $data['description'];
+            $sub_array['status']    = $data['status'];
             $image = array();
             foreach ($data2 as $data2) {
-                array_push($image, $data2['image']);
+                array_push($image, $data2['imgcar']);
                 $sub_array['image'] = $image;
             }
             $dato[] = $sub_array;
