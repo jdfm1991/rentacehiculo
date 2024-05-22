@@ -149,7 +149,7 @@ h6 {
 
 .btnreq{
   position: fixed;
-  right: 120px;
+  right: 210px;
   top: 10px;
   z-index: 9998;
   transition: all 0.5s;
@@ -170,8 +170,9 @@ h6 {
     display: flex;
     margin-top: -160px;
   }
-
-  
+  .btnreq{
+    right: 120px;
+  }
 }
 
 @media (min-width: 992px) {
@@ -183,11 +184,7 @@ h6 {
   }
   #mobile{
     display: none;
-  }
-  .btnreq{
-    display: none;
-  }
-  
+  }  
 }
 
 /*--------------------------------------------------------------

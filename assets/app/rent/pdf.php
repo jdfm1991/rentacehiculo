@@ -13,7 +13,7 @@ $rent = new Rent();
 
 $id = (isset($_GET['id'])) ? $_GET['id'] : '';
 
-$data = $rent->getRequestId($id);
+$data = $rent->getDataRequestById($id);
 
 foreach ($data as $data) {
     $daterent = $data['daterent'];

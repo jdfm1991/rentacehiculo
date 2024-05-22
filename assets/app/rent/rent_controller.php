@@ -11,7 +11,7 @@ $rent = new Rent();
 
 $now = date('Y-m-d h:m:s');
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
-$user = (isset($_POST['user'])) ? $_POST['user'] : '';
+$user = (isset($_POST['user'])) ? $_POST['user'] : '664dd5260e7e7';
 $option = (isset($_POST['option'])) ? $_POST['option'] : '';
 $fechar = (isset($_POST['fechar'])) ? $_POST['fechar'] : '';
 $fechae = (isset($_POST['fechae'])) ? $_POST['fechae'] : '';
@@ -45,7 +45,7 @@ switch ($_GET["op"]) {
     case 'register':
         $dato = array();
         if ($id ) {
-            $data = $rent->updateRequest($id,$condition);
+            $data = $rent->updateDataRequest($id,$condition);
             if ($data) {
                 $dato['status'] = true;
                 $dato['messege'] = 'Se Actualizo Infomacion de Manera Exitosa';
@@ -59,7 +59,7 @@ switch ($_GET["op"]) {
             $payment = $_FILES['payment']['name'];
             $moved = move_uploaded_file($_FILES['payment']['tmp_name'], $path1.'/'.$payment);
             if ($moved) {
-                $data = $rent->DataRent($id,$user,$option,$fechar,$fechae,$dias,$mont,$payment,$condition,$now);
+                $data = $rent->sendDataRent($id,$user,$option,$fechar,$fechae,$dias,$mont,$payment,$condition,$now);
                 if ($data) {
                     $dato['status'] = true;
                     $dato['messege'] = 'Se Actualizo Infomacion de Manera Exitosa (Usuario)';
@@ -75,9 +75,9 @@ switch ($_GET["op"]) {
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
     
-    case 'request':
+    case 'pendingreq':
         $dato = array();
-        $data = $rent->getRequest($user);
+        $data = $rent->getDataRequestPendingByUser($user);
         foreach ($data as $data) {
             $sub_array = array();
             $sub_array['id']   = $data['id'];
@@ -93,8 +93,7 @@ switch ($_GET["op"]) {
         break;
 
     case 'requpd':
-        
-        $data = $rent->updateRequest($id,$condition);
+        $data = $rent->updateDataRequest($id,$condition);
         if ($data) {
             $dato['status'] = true;
             $dato['messege'] = 'Se Actualizo Infomacion de Manera Exitosa';
@@ -107,7 +106,7 @@ switch ($_GET["op"]) {
     
     case 'showreq':
         $dato = array();
-        $data = $rent->getRequestId($id);
+        $data = $rent->getDataRequestById($id);
         foreach ($data as $data) {
             $sub_array = array();
             $sub_array['daterent']  = $data['daterent'];
@@ -133,9 +132,9 @@ switch ($_GET["op"]) {
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
 
-    case 'showallreq':
+    case 'show':
         $dato = array();
-        $data = $rent->getRequestUser($user);
+        $data = $rent->getDataRequestByUser($user);
         foreach ($data as $data) {
             $sub_array = array();
             $sub_array['id']  = $data['id'];
@@ -151,7 +150,7 @@ switch ($_GET["op"]) {
             $sub_array['datein']  = $data['datein'];
             $sub_array['dateout']  = $data['dateout'];
             $sub_array['daterent']  = $data['daterent'];
-            $sub_array['mont'] = $data['mont'];
+            $sub_array['mont'] = number_format($data['mont'],2);
             $sub_array['day']    = $data['day'];
             $sub_array['payment']    = $data['payment'];
             $sub_array['status']    = $data['status'];

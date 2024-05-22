@@ -9,11 +9,6 @@ $(document).ready(function () {
         });
     });
     //************************************************/
-    //********Llamado de Funcion para cargar la*******/
-    //************la cantidad e infomacion************/
-    //***********de los pedidos pendientes************/
-    requestPend(session)
-    //************************************************/
     //**********Evento para Cargar Informacion********/
     //**************en la pagina de profile***********/
     $.ajax({
@@ -199,7 +194,9 @@ $(document).ready(function () {
             }
         });
     });
-
+    //************************************************/
+    //**********Evento para actualizar estados********/
+    //*****************de las solicitudes*************/
     $('#cancreq').click(function (e) { 
         e.preventDefault();
         id= $('#idreq').val();
@@ -210,20 +207,34 @@ $(document).ready(function () {
             dataType: "json",
             data:  {id:id,condition:condition},
             success: function (data) {
-                if (data.status) {
-                    alert(data.messege)
-                    requestPend(session)
+                if (data.status) {                  
                     const toastTrigger = document.getElementById('cancreq')
                     const toastLiveExample = document.getElementById('liveToast')
                     const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
                     toastBootstrap.hide()
+                    Swal.fire({
+                        icon: 'success',
+                        html: '<h2>¡'+data.messege+'!</h2>',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        })         
+                    setTimeout(() => {
+                        requestPend(session)
+                    }, 2000);
                 } else {
-                    alert(data.messege)
-                    requestPend(session)
                     const toastTrigger = document.getElementById('cancreq')
                     const toastLiveExample = document.getElementById('liveToast')
                     const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-                    toastBootstrap.hide() 
+                    toastBootstrap.hide()
+                    Swal.fire({
+                        icon: 'success',
+                        html: '<h2>¡'+data.messege+'!</h2>',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        })         
+                    setTimeout(() => {
+                        requestPend(session)
+                    }, 2000);
                 }
             }
         });
@@ -240,12 +251,26 @@ $(document).ready(function () {
             data:  {id:id,condition:condition},
             success: function (data) {
                 if (data.status) {
-                    alert(data.messege)
-                    requestPend(session)
+                    Swal.fire({
+                        icon: 'success',
+                        html: '<h2>¡'+data.messege+'!</h2>',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        })         
+                    setTimeout(() => {
+                        requestPend(session)
+                    }, 2000);
                     $('#rentModal').modal('hide');
                 } else {
-                    alert(data.messege)
-                    requestPend(session)
+                    Swal.fire({
+                        icon: 'success',
+                        html: '<h2>¡'+data.messege+'!</h2>',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        })         
+                    setTimeout(() => {
+                        requestPend(session)
+                    }, 2000);
                     $('#rentModal').modal('hide');
                 }
             }
@@ -261,34 +286,4 @@ function takeOption(id) {
     const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
     toastBootstrap.show()
 }
-
-//************************************************/
-//**********Evento para Cargar Informacion********/
-//**************en la pagina de profile***********/
-function requestPend(session) {
-    $.ajax({
-        type: "POST",
-        url: "assets/app/rent/rent_controller.php?op=request",
-        dataType: "json",
-        data:  {id:session},
-        success: function (data) {
-            $('#reqc').text(data.length);
-            $('#reqc2').text(data.length);
-            $('#reqv').empty();
-            $.each(data, function(idx, opt) {
-                $('#reqv').append(
-                    '<a href="#" onclick="takeOption(`'+opt.id+'`)">'+
-                        '<li class="list-group-item d-flex justify-content-between lh-sm">'+
-                            '<div>'+
-                                '<h6 class="my-0">Por '+opt.day+' De Alquiler</h6>'+
-                                '<small class="text-body-secondary">'+opt.brand+' '+opt.model+' '+opt.anno+'</small>'+
-                            '</div>'+
-                            '<span class="text-body-secondary">$'+opt.mont+'</span>'+
-                        '</li>'+
-                    '</a>') 
-            });
-        }
-    });
-}
-    
 

@@ -15,5 +15,6 @@
   <script src="assets/js/moment.min.js"></script>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/portfolio.js"></script>
+  <script src="assets/js/request.js"></script>
   <script src="assets/js/admin.js"></script>
   

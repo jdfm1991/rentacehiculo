@@ -337,7 +337,10 @@ $(document).ready(function () {
             searchAdvance(region,brand,model,anno)
         } 
     });
-
+    //************************************************/
+    //**********Evento para calcular dias de**********/
+    //************diferencia entre dios***************/
+    //************y el monto a cobrar*****************/
     $('#fechar').change(function (e) { 
         e.preventDefault();
         fechar = moment($('#fechar').val())
@@ -361,7 +364,6 @@ $(document).ready(function () {
             $('#diaa').text(diff); 
         }
     });
-
     $('#fechae').change(function (e) { 
         e.preventDefault();
         fechar = moment($('#fechar').val())
@@ -382,12 +384,22 @@ $(document).ready(function () {
         dni = $('#rdni').val();
         status = $('#rstatus').val();
         if (status==1) {
-            
+            fechar  = $('#fechar').val();
+            fechae  = $('#fechae').val();
+            mont    = $('#mont').val();
+            payment = $("#payment")[0].files[0];
+            dias    = document.getElementById('diaa').textContent;
+            condition = 2
+            newmont = mont.replace(",","")
+            sendRequest(session,option,fechar,fechae,newmont,payment,dias,condition)
         } else {
             $("#messeger2").show();
             $("#errorr2").html('La informacion Del Usuario Esta Incompleta o Pendiente Por Verificar. <br> Si Desea Revisar La Informacion Suministrada haga Click <a id="btnprofile" href="#">Aqui</a> <br> Si Desea Con Un El Departamento de Atencion Al Publico haga Click Aqui');
         }
     });
+    //************************************************/
+    //**********Evento para enviar informacion********/
+    //************del Alquiler con estatus 1**********/
     $(document).on("click", "#btnprofile", function(){
         fechar  = $('#fechar').val();
         fechae  = $('#fechae').val();
@@ -395,42 +407,13 @@ $(document).ready(function () {
         payment = $("#payment")[0].files[0];
         dias    = document.getElementById('diaa').textContent;
         condition = 1
-        
         newmont = mont.replace(",","")
-
-        var datos = new FormData();
-        datos.append('user', session)
-        datos.append('option', option)
-        datos.append('fechar', fechar)
-        datos.append('fechae', fechae)
-        datos.append('mont', newmont)
-        datos.append('payment', payment)
-        datos.append('dias', dias)
-        datos.append('condition', condition)
-
-        $.ajax({
-            url: "assets/app/rent/rent_controller.php?op=register",
-            type: "POST",
-            dataType:"json",    
-            data:  datos,
-            cache: false,
-            contentType: false,
-            processData: false, 
-            success: function(data) {
-                if (data.status) {
-                    alert(data.messege)
-                    window.location.href="profile.php"; 
-                } else {
-                    alert(data.messege)
-                    window.location.href="profile.php"; 
-                }
-            }
-        });
+        sendRequest(session,option,fechar,fechae,newmont,payment,dias,condition)
     });    
 });
 
 //************************************************/
-//********Funcion para Cargar Vista Inicial********/
+//********Funcion para Cargar Vista Inicial*******/
 //******************de Pagina*********************/
 function getProspect(index) {
     if (index==undefined) {
@@ -516,4 +499,50 @@ function searchAdvance(region,brand,model,anno) {
         }
     });
     
+}
+//************************************************/
+//********Funcion para guardar la informacion*****/
+//***************de la nueva solicituf************/
+function sendRequest(session,option,fechar,fechae,newmont,payment,dias,condition) {
+    datos = new FormData();
+    datos.append('user', session)
+    datos.append('option', option)
+    datos.append('fechar', fechar)
+    datos.append('fechae', fechae)
+    datos.append('mont', newmont)
+    datos.append('payment', payment)
+    datos.append('dias', dias)
+    datos.append('condition', condition)
+    $.ajax({
+        url: "assets/app/rent/rent_controller.php?op=register",
+        type: "POST",
+        dataType:"json",    
+        data:  datos,
+        cache: false,
+        contentType: false,
+        processData: false, 
+        success: function(data) {
+            if (data.status) {
+                Swal.fire({
+                    icon: 'success',
+                    html: '<h2>¡'+data.messege+'!</h2>',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    })         
+                setTimeout(() => {
+                    window.location.href="myrequest.php"; 
+                }, 2000);               
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    html: '<h2>¡'+data.messege+'!</h2>',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    })         
+                setTimeout(() => {
+                    window.location.href="myrequest.php"; 
+                }, 2000);
+            }
+        }
+    });
 }

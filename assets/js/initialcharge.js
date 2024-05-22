@@ -1,4 +1,10 @@
 $(document).ready(function () {
+    const session = $.trim($('#session').val());
+    //************************************************/
+    //********Llamado de Funcion para cargar la*******/
+    //************la cantidad e infomacion************/
+    //***********de los pedidos pendientes************/
+    requestPend(session)
     //************************************************/
     //***********Evento para cerrar sesion************/
     //************************************************/
@@ -88,3 +94,35 @@ function getDataModel(brand) {
         }
     });
 }
+
+//************************************************/
+//**********Evento para Cargar Informacion********/
+//**************en la pagina de profile***********/
+function requestPend(session) {
+    console.log(session);
+    $.ajax({
+        type: "POST",
+        url: "assets/app/rent/rent_controller.php?op=pendingreq",
+        dataType: "json",
+        data:  {user:session},
+        success: function (data) {
+            console.log(data);
+            $('#reqc').text(data.length);
+            $('#reqc2').text(data.length);
+            $('#reqv').empty();
+            $.each(data, function(idx, opt) {
+                $('#reqv').append(
+                    '<a href="#" onclick="takeOption(`'+opt.id+'`)">'+
+                        '<li class="list-group-item d-flex justify-content-between lh-sm">'+
+                            '<div>'+
+                                '<h6 class="my-0">Por '+opt.day+' De Alquiler</h6>'+
+                                '<small class="text-body-secondary">'+opt.brand+' '+opt.model+' '+opt.anno+'</small>'+
+                            '</div>'+
+                            '<span class="text-body-secondary">$'+opt.mont+'</span>'+
+                        '</li>'+
+                    '</a>') 
+            });
+        }
+    });
+}
+    

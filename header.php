@@ -121,7 +121,7 @@ date_default_timezone_set('America/Caracas')
       </div>
     </div>
 <?php
-if ($_SESSION) { ?>
+if ($_SESSION['idtype']==2) { ?>
 <button id="viewreq" type="button" class="btn btn-outline-info btnreq">
   <i class="bi bi-cart-check-fill"></i>
   <span id="reqc2" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
