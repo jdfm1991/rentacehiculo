@@ -5,17 +5,18 @@ require_once("../../../conection.php");
 require_once("../../../env.php");
 require_once("home_model.php");
 
-$user = new User();
+$home = new Home();
 
-$name = (isset($_POST['name'])) ? $_POST['name'] : 'Administrator';
-$phone = (isset($_POST['phone'])) ? $_POST['phone'] : '000-000000';
-$email = (isset($_POST['email'])) ? $_POST['email'] : 'admin@admin.com';
-$passw = (isset($_POST['passw'])) ? $_POST['passw'] : '20975144';
+$id = (isset($_POST['id'])) ? $_POST['id'] : '664dd5260e7e7';
+$name = (isset($_POST['name'])) ? $_POST['name'] : '';
+$phone = (isset($_POST['phone'])) ? $_POST['phone'] : '';
+$email = (isset($_POST['email'])) ? $_POST['email'] : '';
+$passw = (isset($_POST['passw'])) ? $_POST['passw'] : '';
 
 switch ($_GET["op"]) {
     case 'login':
         $dato = array();
-        $data = $user->getLoginUser($email);
+        $data = $home->getLoginUser($email);
         if (is_array($data) AND count($data) > 0) {
                 foreach ($data as $data) {
                     if (password_verify($passw, $data['passw'])) {
@@ -44,16 +45,16 @@ switch ($_GET["op"]) {
         $passenc = password_hash($passw, PASSWORD_BCRYPT);
         $type= 2;
         $dato = array();
-        $userDB = $user->getLoginUser($email);
+        $userDB = $home->getLoginUser($email);
         if ($userDB) {
             $dato['status']  = false;
             $dato['message'] = 'Ya se Encuentra un Usuario Registrado con ese Correo, Por Favor Verifique Informacion o Seleccione la Opcion de Olvide Contraseña';
         } else {
-            $logreg = $user->setDataLogin($id,$email,$passenc,$type);
+            $logreg = $home->setDataLogin($id,$email,$passenc,$type);
             if ($logreg) {
-                $setdata = $user->setDataUser($id,$name,$phone);
+                $setdata = $home->setDataUser($id,$name,$phone);
                 if ($setdata) {
-                    $data = $user->getLoginUser($email);
+                    $data = $home->getLoginUser($email);
                     if (is_array($data) AND count($data) > 0) {
                         foreach ($data as $data) {
                             if (password_verify($passw, $data['passw'])) {
@@ -84,6 +85,16 @@ switch ($_GET["op"]) {
             }
         }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE); 
+        break;
+
+    case 'Valideteinfo':
+        $dato = array();
+        $data = $home->getDataInitialInfo($id);
+        if ($data>0) {
+            $dato['status']  = true;
+            $dato['message'] = 'Este Usuario No Posee La Infomacion de Perfil Completa, Desea Completarla Ahora?';
+        }
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
 
     default:

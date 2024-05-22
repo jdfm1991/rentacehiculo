@@ -1,5 +1,12 @@
 $(document).ready(function () {
     //************************************************/
+    //***********Evento para cerrar sesion************/
+    //************************************************/
+    $('#btnLogout').click(function (e) { 
+        e.preventDefault();
+        $(location).attr('href','logout.php');
+    });
+    //************************************************/
     //*********Cargar Selector de Regiones************/
     //************************************************/
     $.ajax({
@@ -31,7 +38,9 @@ $(document).ready(function () {
             });
         }
     });
-
+    //************************************************/
+    //***********Accion se cambia el selector*********/
+    //****************de marcas***********************/
     $('#vbrand').change(function (e) { 
         e.preventDefault();
         brand=$.trim($('#vbrand').val());
@@ -52,7 +61,9 @@ $(document).ready(function () {
         } 
         
     });
-
+    //************************************************/
+    //***********Llamada de la funcion para***********/
+    //****************Cargar los modelos**************/
     getDataModel()
 });
 //************************************************/

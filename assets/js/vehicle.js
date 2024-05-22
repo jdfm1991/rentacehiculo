@@ -23,7 +23,7 @@ $(document).ready(function () {
     //**************el Datatable de Vehiculo**********/
     vehicletable = $('#vehicletable').DataTable({
         responsive: true,  
-        pageLength: 10,
+        pageLength: 25,
         columnDefs: [{ width: '15%', targets: 7 }],
         ajax:{            
             url: "assets/app/vehicle/vehicle_controller.php?op=showall", 
@@ -55,7 +55,7 @@ $(document).ready(function () {
     //************la informacion del Vehiculo*********/
     $('#newvehicle').click(function (e) { 
         e.preventDefault();
-        resetForm()
+        resetFormVehicle()
         $(".modal-title").text("Registro de Nuevo Vehiculo")
         $('#VehicleModal').modal('show');
     });
@@ -122,7 +122,7 @@ $(document).ready(function () {
                     setTimeout(() => {
                         vehicletable.ajax.reload(null, false);
                     }, 1500);
-                    resetForm()
+                    resetFormVehicle()
                     $('#VehicleModal').modal('hide');
                     
                 } else {
@@ -166,7 +166,7 @@ $(document).ready(function () {
             dataType:"json",    
             data:  {id:id},
             success: function(data) {
-                console.log(data);
+                $('#plate').prop('disabled',true);
                 $.each(data, function(idx, opt) {  
                     $('#plate').val(opt.plate);
                     $('#vregion').val(opt.region);
@@ -343,7 +343,7 @@ function getImage(id) {
       });
 }
 
-function resetForm() {
+function resetFormVehicle() {
     $('#idv').val('');
     $('#plate').val('');
     $('#vregion').val('');

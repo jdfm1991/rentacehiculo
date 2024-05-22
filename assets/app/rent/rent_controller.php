@@ -20,6 +20,28 @@ $mont = (isset($_POST['mont'])) ? $_POST['mont'] : '';
 $condition = (isset($_POST['condition'])) ? $_POST['condition'] : '';
 
 switch ($_GET["op"]) {
+    case 'loaddata':
+        $dato = array();
+        $data = $rent->getDataUserById($user);
+        $data2 = $rent->getDataCarById($option);
+        foreach ($data as $data) {
+            $dato['nameu']  = $data['nameu'];
+            $dato['phone']  = $data['phone'];
+            $dato['letter'] = $data['letter'];
+            $dato['dni']    = $data['dni'];
+            $dato['imgdni'] = $data['imgdni'];
+            $dato['status'] = $data['status'];
+        }
+        foreach ($data2 as $data2) {
+            $dato['brand']  = $data2['brand'];
+            $dato['model']  = $data2['model'];
+            $dato['anno']   = $data2['anno'];
+            $dato['plate']  = $data2['plate'];
+            $dato['cost']   = number_format($data2['cost'],2);
+        }
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE); 
+        break;
+
     case 'register':
         $dato = array();
         if ($id ) {
@@ -139,6 +161,7 @@ switch ($_GET["op"]) {
         break;
 
     default:
-        # code...
+        header("Location: ../../../");
+        die();
         break;
 }

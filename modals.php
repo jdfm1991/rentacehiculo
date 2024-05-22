@@ -299,6 +299,63 @@ $tomorrow = date('Y-m-d', $newday);
 </div>
 <!--
   *************************************************
+  Modal Para Registro de Registro de Usuario
+  *************************************************
+-->
+<div class="modal fade mt-5" id="UserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Informacion</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+            <form id="formUser">    
+                <div class="modal-body">
+                  <input type="hidden" id="idu">
+                  <div class="row g-3">
+                    <div class="col-sm-6">
+                      <label for="uname" class="form-label">Nombre y Apellido</label>
+                      <input type="text" class="form-control" id="uname" placeholder="Por Favor Ingrese Su Nombre y Apellido" required>
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="dni" class="form-label">Identificacion</label>
+                      <input  type="text" class="form-control" id="dni" placeholder="Ingrese el Numero" required>
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="uemail" class="form-label">Email </label>
+                      <input type="email" class="form-control" id="uemail" placeholder="you@example.com" required>
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="upassw" class="form-label">Contraseña </label>
+                      <input type="text" class="form-control" id="upassw" placeholder="Ingrese Contrasenna">
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="uphone" class="form-label">Telefono </label>
+                      <input type="number" class="form-control" id="uphone" placeholder="Ingrese Numero de Telefono" required>
+                    </div>
+                    <div class="col-sm-12">
+                      <label for="uaddress" class="form-label">Direccion</label>
+                      <input type="text" class="form-control" id="uaddress" placeholder="1234 Main St" required>
+                    </div>
+                    <div id="usupid" class="col-sm-6">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-primary">Aprobar</button>
+                </div>
+            </form>  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+  *************************************************
   Modal Para Registro de Registro de Vehiculo
   *************************************************
 -->
@@ -384,3 +441,4 @@ $tomorrow = date('Y-m-d', $newday);
     </div>
   </div>
 </div>
+

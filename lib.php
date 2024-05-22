@@ -14,8 +14,6 @@
   <script src="assets/js/initialcharge.js"></script>
   <script src="assets/js/moment.min.js"></script>
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/home.js"></script>
   <script src="assets/js/portfolio.js"></script>
-  <script src="assets/js/user.js"></script>
   <script src="assets/js/admin.js"></script>
   

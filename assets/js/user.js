@@ -1,310 +1,160 @@
 $(document).ready(function () {
-    var session = $.trim($('#session').val());
-    var windowsScreen = window.matchMedia("(max-width: 992px)")
-    $('#send').hide();
-    reqc = $('#reqc')
-    $('#messegep').hide();
-    requestPend(session)
     //************************************************/
-    //***********Funcion para Validar solo************/
-    //**************Entrada de Numeros****************/
-    $(function() {
-        $("input[name='pdnin']").on('input',function (e) {
-            $(this).val($(this).val().replace(/[^0-9]/g,''));
-        });
-    });
-    //************************************************/
-    //**********Evento para Cargar Informacion********/
-    //**************en la pagina de profile***********/
-    $.ajax({
-        type: "POST",
-        url: "assets/app/user/user_controller.php?op=show",
-        dataType: "json",
-        data:  {user:session},
-        success: function (data) {
-            $.each(data, function(idx, opt) {
-                $('#imguser').empty();
-                $('#idsupport').empty();
-
-                if (opt.imguser) {
-                    $('#imguser').append('<img class="d-block mx-auto mb-4" src="assets/img/user/'+opt.imguser+'" alt="" height="100">') 
-                } else {
-                    $('#imguser').append('<img class="d-block mx-auto mb-4" src="assets/img/user/perfil.png" alt="" height="100">') 
-                }
-                if (!opt.nameu) {
-                    $('#pname').addClass('validate'); 
-                }
-                if (!opt.letter) {
-                    $('#pdnil').addClass('validate'); 
-                }
-                if (!opt.dni) {
-                    $('#pdnin').addClass('validate'); 
-                }
-                if (!opt.email) {
-                    $('#pemail').addClass('validate'); 
-                }
-                if (!opt.phone) {
-                    $('#pphone').addClass('validate'); 
-                }
-                if (!opt.address) {
-                    $('#paddress').addClass('validate'); 
-                }
-                $('#pname').val(opt.nameu);
-                $('#pdnil').val(opt.letter);
-                $('#pdnin').val(opt.dni);
-                $('#pemail').val(opt.email);
-                $('#pphone').val(opt.phone);
-                $('#paddress').val(opt.address);
-
-                if (opt.imgdni) {
-                    $('#idsupport').append(
-                        '<label for="pphone" class="form-label">Comprobante de Indentificacion </label>'+
-                        '<img class="d-block mx-auto mb-4" src="assets/img/identifications/'+opt.imgdni+'" alt="" height="250">'
-                    ) 
-                } else {
-                    $('#idsupport').append(
-                        '<label for="pphone" class="form-label">Comprobante de Indentificacion </label>'+
-                        '<img class="d-block mx-auto mb-4" src="assets/img/identifications/documento.png" alt="" height="250">') 
-                }
-
-                if (opt.status==1) {
-                    $("#errorp").text('Su Usuario Fue Verificado de Manera Exitosa');
-                    $('#messegep').addClass('alert-info'); 
-                    $('#messegep').show();
-                    setTimeout(() => {
-                        $("#errorp").text("");
-                        $("#messegep").hide();
-                    }, 3000);
-                } else {
-                    $("#errorp").text('Su Usuario Aun No ha Sido Verificado');
-                    $('#messegep').addClass('alert-danger'); 
-                    $('#messegep').show();
-                }
-                
-            });
-        }
-    });
-    //************************************************/
-    //**********Evento para Cargar Informacion********/
-    //**************en la pagina de profile***********/
-    requsertable = $('#requsertable').DataTable({
+    //********Accion para cargar la informacion*******/
+    //**************el Datatable de Usuarios**********/
+    usertable = $('#usertable').DataTable({
         responsive: true,  
-        pageLength: 50,
+        pageLength: 25,
         ajax:{            
-            url: "assets/app/rent/rent_controller.php?op=showallreq", 
-            method: 'POST', //usamos el metodo POST
-            data:  {'user':session},
+            url: "assets/app/user/user_controller.php?op=showall", 
+            method: 'POST', 
             dataSrc:""
         },
         columns:[
-            {data: "id"},
-            {data: "daterent"},
-            {data: "brand"},
-            {data: "model"},
-            {data: "mont"},
-            {data: "status"},
-            {data: "id",
-                    "render":function(data,type,row) {
-                        return "<div class='text-center'><a href='assets/app/rent/pdf.php?id="+data+"' class='btn btn-outline-info' target='_blank' rel='noopener noreferrer'><i class='bi bi-printer'></i><span>Visualizar</span></a></div>"
+            {data: "nameu"},
+            {data: "address"},
+            {data: "phone"},
+            {data: "email"},
+            {data: "status",
+                "render":function(data,type,row) {
+                    if (data==0) {
+                        return 'No Aprobado';
+                    }else{
+                        return 'Aprobado';
                     }
-                },
+                }
+            },
+            {data: "type"},
+            {data: "user",
+                "render":function(data,type,row) {
+                    return "<div class='text-center'>"+
+                    "<a href='#' onclick='takeIdU(`"+data+"`)' class='btn btn-outline-info btn-sm btnedit'><i class='bi bi-pencil-square'></i></a>"+
+                    "<a href='#' onclick='takeIdU(`"+data+"`)' class='btn btn-outline-danger btn-sm btncancel'><i class='bi bi-x-octagon'></i></a>"+
+                    "<a href='assets/app/user/pdf.php?id="+data+"' class='btn btn-outline-info btn-sm' target='_blank'><i class='bi bi-printer'></i></a>"+
+                    "</div>"
+                }
+            },
         ],
 
     });
-
-    if (windowsScreen.matches) {
-        requsertable.columns([2,3,4,5]).visible(false)
-    }
-    
     //************************************************/
-    //**********Evento para enviar Informacion********/
-    //************para actualizar de profile**********/
-    $('#formClient').submit(function (e) { 
-        e.preventDefault();
-        name = $.trim($('#pname').val());
-        pdnil = $.trim($('#pdnil').val());
-        pdnin = $.trim($('#pdnin').val());
-        email = $.trim($('#pemail').val());
-        passw = $.trim($('#ppassw').val());
-        phone = $.trim($('#pphone').val());
-        address = $.trim($('#paddress').val());
-        supportid  = $("#supportid")[0].files[0];
-        imageu  = $("#imageu")[0].files[0];
-
-        var datos = new FormData();
-        datos.append('user', session)
-        datos.append('name', name)
-        datos.append('pdnil', pdnil)
-        datos.append('pdnin', pdnin)
-        datos.append('email', email)
-        datos.append('passw', passw)
-        datos.append('phone', phone)
-        datos.append('address', address)
-        datos.append('supportid', supportid)
-        datos.append('imageu', imageu)
-
-        $.ajax({
-            url: "assets/app/user/user_controller.php?op=register",
-            type: "POST",
-            dataType:"json",    
-            data:  datos,
-            cache: false,
-            contentType: false,
-            processData: false, 
-            success: function(data) {
-                if (data.status1 && data.status2) {
-                    alert(data.messege1 + ' ' + data.messege2)
-                    location.reload(); 
-                } else {
-                    alert(data.messege1 + ' ' + data.messege2)
-                }
+    //*******Opcion para Inhabilitar el Usuario*******/
+    //***************para que sea no visible**********/
+    $(document).on("click", ".btncancel", function(){
+        id = $('#idu').val();
+        active = 0
+        Swal.fire({
+            title: "¿Está seguro de borrar esta informacion?",
+            showCancelButton: true,
+            confirmButtonText: "Si",
+          }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "assets/app/user/user_controller.php?op=newactive",
+                    type: "POST",
+                    dataType:"json",    
+                    data:  {id:id,active:active},
+                    success: function(data) {
+                      if (data.status == true) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: data.message,
+                            showConfirmButton: false,
+                            timer: 2000,
+                            });         
+                        setTimeout(() => {
+                            usertable.ajax.reload(null, false);
+                        }, 1000);
+                      } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: data.message,
+                            showConfirmButton: false,
+                            timer: 2000,
+                            }); 
+                      }                   
+                    }
+                  });
             }
-        });
+        });        
     });
-
-    $('#sendreq').click(function (e) { 
-        e.preventDefault();
-        id= $('#idreq').val();
+    //************************************************/
+    //******Opcion para actualizar la informacion*****/
+    //*******************del Usuario******************/
+    $(document).on("click", ".btnedit", function(){	            
+        id = $('#idu').val();
         $.ajax({
             type: "POST",
-            url: "assets/app/rent/rent_controller.php?op=showreq",
+            url: "assets/app/user/user_controller.php?op=show",
             dataType: "json",
             data:  {id:id},
             success: function (data) {
-                $(".modal-title").text("Informacion de registro")
-                $("#rname").prop('disabled',true);
-                $("#rphone").prop('disabled',true);
-                $("#rdni").prop('disabled',true);
-                $("#rbrand").prop('disabled',true);
-                $("#rmodel").prop('disabled',true);
-                $("#ranno").prop('disabled',true);
-                $("#rplate").prop('disabled',true);
-                $("#rcost").prop('disabled',true);
-                $('#mont').prop('disabled',true);
-                $('#fechar').prop('disabled',true);
-                $('#fechae').prop('disabled',true);
-                $('#payment').hide();
-                $("#messeger").hide();
-                $('#messeger2').hide();
-                $('#save').hide();
-                $('#send').show();
-                $('#payment').prop('required',false);
+                $('#usupid').empty();
+                $('#uname').prop('disabled',true);
+                $('#dni').prop('disabled',true);
+                $('#uemail').prop('disabled',true);
+                $('#uphone').prop('disabled',true);
+                $('#uaddress').prop('disabled',true);
+                $('#upassw').prop('disabled',true);
                 $.each(data, function(idx, opt) {
-                    fechar = new Date(opt.datein).toISOString().substring(0,10)
-                    fechae = new Date(opt.dateout).toISOString().substring(0,10)
-                    $('#rname').val(opt.nameu);
-                    $('#rphone').val(opt.phone);
-                    $('#rdnl').val(opt.letter);
-                    $('#rdni').val(opt.dni);
-                    $('#rbrand').val(opt.brand);
-                    $('#rmodel').val(opt.model);
-                    $('#ranno').val(opt.anno);
-                    $('#rplate').val(opt.plate);
-                    $('#rcost').val(opt.cost);
-                    $('#fechar').val(fechar)
-                    $('#fechae').val(fechae)
-                    $('#mont').val(opt.mont);
-                    $('#diass').text(opt.day);
-                    $('#paymentimg').empty();
-                    $('#paymentimg').append('<img class="d-block mx-auto mb-4" src="assets/img/payment/'+opt.payment+'" alt="" height="250">')
-                });                
-                $('#rentModal').modal('show');
-                const flag = document.getElementById('liveToast')
-                const toastflag = bootstrap.Toast.getOrCreateInstance(flag)
-                toastflag.hide()
+                    $('#usupid').empty();
+                    $('#uname').val(opt.nameu);
+                    $('#dni').val(opt.letter+'-'+opt.dni);
+                    $('#uemail').val(opt.email);
+                    $('#uphone').val(opt.phone);
+                    $('#uaddress').val(opt.address);
+                    if (opt.imgdni) {
+                        $('#usupid').append(
+                            '<label for="pphone" class="form-label">Comprobante de Indentificacion </label>'+
+                            '<img class="d-block mx-auto mb-4" src="assets/img/identifications/'+opt.imgdni+'" alt="" height="250">'
+                        ) 
+                    } else {
+                        $('#usupid').append(
+                            '<label for="pphone" class="form-label">Comprobante de Indentificacion </label>'+
+                            '<img class="d-block mx-auto mb-4" src="assets/img/identifications/documento.png" alt="" height="250">') 
+                    }
+                });
+                $(".modal-title").text("Infomacion de Usuario")
+                $('#UserModal').modal('show');
             }
         });
     });
-
-    $('#cancreq').click(function (e) { 
+    //************************************************/
+    //**********Evento para enviar informacion********/
+    //*************para actializar usuario************/
+    $('#formUser').submit(function (e) { 
         e.preventDefault();
-        id= $('#idreq').val();
-        condition = 6
+        id = $('#idu').val();
         $.ajax({
+            url: "assets/app/user/user_controller.php?op=newstatus",
             type: "POST",
-            url: "assets/app/rent/rent_controller.php?op=register",
-            dataType: "json",
-            data:  {id:id,condition:condition},
-            success: function (data) {
-                if (data.status) {
-                    alert(data.messege)
-                    requestPend(session)
-                    const toastTrigger = document.getElementById('cancreq')
-                    const toastLiveExample = document.getElementById('liveToast')
-                    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-                    toastBootstrap.hide()
-                } else {
-                    alert(data.messege)
-                    requestPend(session)
-                    const toastTrigger = document.getElementById('cancreq')
-                    const toastLiveExample = document.getElementById('liveToast')
-                    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-                    toastBootstrap.hide() 
-                }
+            dataType:"json",    
+            data:  {id:id},
+            success: function(data) {
+              if (data.status == true) {
+                Swal.fire({
+                    icon: 'success',
+                    title: data.message,
+                    showConfirmButton: false,
+                    timer: 2000,
+                    });         
+                setTimeout(() => {
+                    usertable.ajax.reload(null, false);
+                }, 1000);
+              } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: data.message,
+                    showConfirmButton: false,
+                    timer: 2000,
+                    }); 
+              } 
+              $('#UserModal').modal('hide');                  
             }
-        });
+          });
+        
     });
-
-    $('#send').click(function (e) { 
-        e.preventDefault();
-        id= $('#idreq').val();
-        condition = 2
-        $.ajax({
-            type: "POST",
-            url: "assets/app/rent/rent_controller.php?op=register",
-            dataType: "json",
-            data:  {id:id,condition:condition},
-            success: function (data) {
-                if (data.status) {
-                    alert(data.messege)
-                    requestPend(session)
-                    $('#rentModal').modal('hide');
-                } else {
-                    alert(data.messege)
-                    requestPend(session)
-                    $('#rentModal').modal('hide');
-                }
-            }
-        });
-    });
-
 });
-
-function takeOption(id) {
-   $('#idreq').val(id);
-    const toastTrigger = document.getElementById('btnoption')
-    const toastLiveExample = document.getElementById('liveToast')
-    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-    toastBootstrap.show()
+function takeIdU(id) {
+    $('#idu').val(id);
 }
-
-//************************************************/
-    //**********Evento para Cargar Informacion********/
-    //**************en la pagina de profile***********/
-function requestPend(session) {
-    $.ajax({
-        type: "POST",
-        url: "assets/app/rent/rent_controller.php?op=request",
-        dataType: "json",
-        data:  {user:session},
-        success: function (data) {
-            $('#reqc').text(data.length);
-            $('#reqc2').text(data.length);
-            $('#reqv').empty();
-            $.each(data, function(idx, opt) {
-                $('#reqv').append(
-                    '<a href="#" onclick="takeOption(`'+opt.id+'`)">'+
-                        '<li class="list-group-item d-flex justify-content-between lh-sm">'+
-                            '<div>'+
-                                '<h6 class="my-0">Por '+opt.day+' De Alquiler</h6>'+
-                                '<small class="text-body-secondary">'+opt.brand+' '+opt.model+' '+opt.anno+'</small>'+
-                            '</div>'+
-                            '<span class="text-body-secondary">$'+opt.mont+'</span>'+
-                        '</li>'+
-                    '</a>') 
-            });
-        }
-    });
-}
-    
-

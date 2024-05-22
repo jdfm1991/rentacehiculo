@@ -82,6 +82,7 @@ date_default_timezone_set('America/Caracas')
           if ($_SESSION['idtype']==1) {
             echo '
             <li><a href="vehicle.php" class="nav-link scrollto"><i class="bi bi-car-front"></i> <span>Lista de Vehiculos</span></a></li>
+            <li><a href="user.php" class="nav-link scrollto"><i class="bi bi-person-lines-fill"></i> <span>Lista de Usuarios</span></a></li>
             <li><a href="allrequest.php" class="nav-link scrollto"><i class="bi bi-send-arrow-up"></i> <span>Lista de Solicitudes Solicitudes</span></a></li>
             ';
           }

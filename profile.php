@@ -6,8 +6,8 @@ if (!$_SESSION) {
   die();
 }
 ?> 
-<input type="hidden" id="idreq">
-<div class="container">
+<!--<input type="hidden" id="idreq">-->
+<div class="container" style="min-width: 540px;height: auto;">
     <section class="section-bg mt-3">
       <div class="container" data-aos="fade-up">
         <div class="section-title">
@@ -99,6 +99,7 @@ if (!$_SESSION) {
       </div>
     </section>
 </div>
+<script src="assets/js/profile.js"></script>
 <?php 
 include_once("modals.php");
 if (URI<>$_SERVER["REQUEST_URI"] ) {

@@ -79,7 +79,6 @@ $(document).ready(function () {
         dataType: "json",
         data:  {id:option},
         success: function (data) {
-            console.log(data);
             //Colocacion de Fotos de Muestra
             $('#img_propect').empty();
             $('#img_propect').append('<div>')
@@ -138,7 +137,7 @@ $(document).ready(function () {
         if (session) {
             $.ajax({
                 type: "POST",
-                url: "assets/app/user/user_controller.php?op=client",
+                url: "assets/app/rent/rent_controller.php?op=loaddata",
                 dataType: "json",
                 data:  {user:session,option:option},
                 success: function (data) {
@@ -183,19 +182,27 @@ $(document).ready(function () {
                 }
             });
         } else {
-            alert('Para Rentar Un Vehiculo Debe Iniciar Sesion Primero')
-            $(".modal-title").text("Inicio de Sesion")
-            $("#messegel").hide();
-            $("#optreg").hide();
-            $("#name").prop('required',false);
-            $("#phone").prop('required',false);
-            $("#btnRegister").hide();
-            $("#btnStart").show();
-            $("#options").show();	
-            $('#loginModal').modal('show');
+            Swal.fire({
+                title: "Para Rentar Un Vehiculo Debe Iniciar Sesion Primero",
+                text: "Desea Iniciar Sesion Ahora?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Si",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    $(".modal-title").text("Inicio de Sesion")
+                    $("#messegel").hide();
+                    $("#optreg").hide();
+                    $("#name").prop('required',false);
+                    $("#phone").prop('required',false);
+                    $("#btnRegister").hide();
+                    $("#btnStart").show();
+                    $("#options").show();	
+                    $('#loginModal').modal('show');
+                }
+            });   
         }
     });
-    
     //************************************************/
     //**********Evento Si Cambia el Selector**********/
     //*****************de Regiones********************/

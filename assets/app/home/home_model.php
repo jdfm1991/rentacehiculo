@@ -1,7 +1,7 @@
 <?php
 require_once("../../../conection.php");
 
-class User extends Conectar{
+class Home extends Conectar{
 
     public function getLoginUser($email){
         //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
@@ -9,7 +9,7 @@ class User extends Conectar{
         $conectar= parent::conexion();
         parent::set_names();
         //QUERY
-            $sql="SELECT A.id AS id,email, passw, idtype, type FROM users_table AS A INNER JOIN user_type_table AS B ON A.idtype=B.id WHERE email=?";
+            $sql="SELECT A.id AS id,email, passw, idtype, type FROM users_table AS A INNER JOIN user_type_table AS B ON A.idtype=B.id WHERE email=? AND active=1";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1, $email);
@@ -60,6 +60,22 @@ class User extends Conectar{
         $sql->bindValue(1, $email);
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getDataInitialInfo($id){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT COUNT(*) AS N FROM users_data_table AS A 
+            INNER JOIN users_table AS B ON B.id=A.user 
+            WHERE (A.user=? AND B.idtype=2) AND (address IS NULL OR letter IS NULL OR dni IS NULL OR imgdni IS NULL)";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $id);
+        $sql->execute();
+        return ($sql->fetch(PDO::FETCH_ASSOC)['N']);
     }
 }
 

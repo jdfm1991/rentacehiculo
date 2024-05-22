@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    const session = $.trim($('#session').val());
+    if (session) {
+        ValidateInfo(session)
+    }
     //************************************************/
     //***********Funcion para Validar solo************/
     //**************Entrada de Numeros****************/
@@ -21,13 +25,6 @@ $(document).ready(function () {
         $("#btnStart").show();
         $("#options").show();	
         $('#loginModal').modal('show');	
-    });
-    //************************************************/
-    //***********Evento para cerrar sesion************/
-    //************************************************/
-    $('#btnLogout').click(function (e) { 
-        e.preventDefault();
-        $(location).attr('href','logout.php');
     });
     //************************************************/
     //***********Evento para registrar un ************/
@@ -63,7 +60,7 @@ $(document).ready(function () {
             success: function(data) {
                 if (data['status']==true) {
                     $('#loginModal').modal('hide');
-                    wipe()
+                    resetFormLogin()
                     Swal.fire({
                         icon: 'success',
                         title: 'Bienvenido...',
@@ -73,9 +70,9 @@ $(document).ready(function () {
                         });
                     setTimeout(() => {
                         if (data['idtype']==1) {
-                        $(location).attr('href','admin.php');
+                            $(location).attr('href','admin.php');
                         }else{
-                        location.reload();
+                            location.reload();
                         }
                     }, 2000);
                 } else {
@@ -173,7 +170,31 @@ $(document).ready(function () {
     });
 });
 
-function wipe() {
+function resetFormLogin() {
+    $("#name").val("");
+    $('#phone').val("");
     $("#email").val("");
     $('#passw').val("");
+}
+
+function ValidateInfo(session) {
+    $.ajax({
+        url: "assets/app/home/home_controller.php?op=Valideteinfo",
+        type: "POST",
+        dataType:"json",    
+        data:  {user:session},
+        success: function(data) {
+            if (data['status']==true) {
+                Swal.fire({
+                    title: data.message,
+                    showCancelButton: true,
+                    confirmButtonText: "Si",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        $(location).attr('href','profile.php');
+                    }
+                }); 
+            } 
+        }
+    });
 }
