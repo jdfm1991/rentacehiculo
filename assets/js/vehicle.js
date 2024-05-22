@@ -55,9 +55,9 @@ $(document).ready(function () {
     //************la informacion del Vehiculo*********/
     $('#newvehicle').click(function (e) { 
         e.preventDefault();
+        resetForm()
         $(".modal-title").text("Registro de Nuevo Vehiculo")
         $('#VehicleModal').modal('show');
-        
     });
     //************************************************/
     //*********Cargar Estado de los Vehiculos*********/
@@ -89,7 +89,6 @@ $(document).ready(function () {
         status = $('#vstatus').val();
         descrip= $('#vdescrip').val();
         carimg = document.getElementById('carimg').files.length;
-
         var datos = new FormData();
         datos.append('id', id)
         datos.append('plate', plate)
@@ -103,7 +102,6 @@ $(document).ready(function () {
         for (var index = 0; index < carimg; index++) {
           datos.append("carimg[]", document.getElementById('carimg').files[index]);
         }
-
         $.ajax({
             url: "assets/app/vehicle/vehicle_controller.php?op=register",
             type: "POST",
@@ -124,6 +122,7 @@ $(document).ready(function () {
                     setTimeout(() => {
                         vehicletable.ajax.reload(null, false);
                     }, 1500);
+                    resetForm()
                     $('#VehicleModal').modal('hide');
                     
                 } else {
@@ -233,42 +232,126 @@ $(document).ready(function () {
     //***************de los vehiculos activo**********/
     $(document).on("click", ".btnpicture", function(){
         id = $('#idv').val();
-        $.ajax({
-            url: "assets/app/vehicle/vehicle_controller.php?op=showimage",
-            type: "POST",
-            dataType:"json",    
-            data:  {id:id},
-            success: function(data) {
-                $('#galeryv').empty();
-                $.each(data, function(idx, opt) {
-                    $("#galeryv").append(
-                        '<div class="col">'+
-                            '<div class="card mb-4 rounded-3 shadow-sm">'+
-                                '<div class="card-body">'+
-                                    '<picture>'+
-                                        '<img src="assets/img/hero-bg1.jpg" class="img-fluid" alt="Galeria de vehiculos"/>'+
-                                    '</picture>'+
-                                    '<ul class="list-unstyled mt-2 mb-2">'+
-                                        '<li>20 users included</li>'+
-                                        '<li>10 GB of storage</li>'+
-                                        '<li>Priority email support</li>'+
-                                        '<li>Help center access</li>'+
-                                    '</ul>'+
-                                    '<button type="button" class="btn btn-sm btn-outline-primary">top</button>'+
-                                    '<button type="button" class="btn btn-sm btn-outline-danger">Eliminar</button>'+
-                                '</div>'+
-                            '</div>'+
-                        '</div>'
-                    );
-                });               
-            }
-          });
+        getImage(id)
         $(".modal-title").text("Imagenes de Vehiculo")
         $('#exampleModal').modal('show');
         
+    });
+    //************************************************/
+    //*******Opcion para seleccionar la imagen********/
+    //*********que se motrara en el portafolio********/
+    $(document).on("click", ".toppicture", function () {
+        id = $('#idiv').val();
+        id2 = $('#idic').val();
+        $.ajax({
+            url: "assets/app/vehicle/vehicle_controller.php?op=topimage",
+            type: "POST",
+            dataType:"json",    
+            data:  {id:id,id2:id2},
+            success: function(data) {
+                if (data.status == true) {
+                    $("#erroriv").text(data.message);
+                    $('#messegeiv').addClass('alert-success');
+                    $("#messegeiv").show();
+                    setTimeout(() => {
+                        $("#erroriv").text("");
+                        $("#messegeiv").hide();
+                    }, 3000);
+                } else {
+                $("#erroriv").text(data.message);
+                $('#messegeiv').addClass('alert-danger');
+                $("#messegeiv").show();
+                setTimeout(() => {
+                    $("#erroriv").text("");
+                    $("#messegeiv").hide();
+                }, 3000);
+                }      
+            }
+          });
+    });
+    //************************************************/
+    //*******Opcion para Inhabilitar las imagenes*****/
+    //***************para que sea no visible**********/
+    $(document).on("click", ".cancelpicture", function () {
+        id = $('#idiv').val();
+        active = 0
+        $.ajax({
+            url: "assets/app/vehicle/vehicle_controller.php?op=cancelimage",
+            type: "POST",
+            dataType:"json",    
+            data:  {id:id,active:active},
+            success: function(data) {
+                if (data.status == true) {
+                    $("#erroriv").text(data.message);
+                    $('#messegeiv').addClass('alert-success');
+                    $("#messegeiv").show();
+                    getImage(id)
+                    setTimeout(() => {
+                        $("#erroriv").text("");
+                        $("#messegeiv").hide();
+                    }, 3000);
+                  } else {
+                    $("#erroriv").text(data.message);
+                    $('#messegeiv').addClass('alert-danger');
+                    $("#messegeiv").show();
+                    setTimeout(() => {
+                        $("#erroriv").text("");
+                        $("#messegeiv").hide();
+                    }, 3000);
+                  }       
+            }
+          });
     });
 });
 
 function takeIdV(id) {
     $('#idv').val(id);
+}
+
+function takeIdIV(id,car) {
+    $('#idiv').val(id);
+    $('#idic').val(car);
+}
+
+function getImage(id) {
+    $.ajax({
+        url: "assets/app/vehicle/vehicle_controller.php?op=showimage",
+        type: "POST",
+        dataType:"json",    
+        data:  {id:id},
+        success: function(data) {
+            $('#galeryv').empty();
+            $.each(data, function(idx, opt) {
+                $("#galeryv").append(
+                    '<div class="col">'+
+                        '<div class="card mb-4 rounded-3 shadow-sm">'+
+                            '<div class="card-body">'+
+                                '<picture>'+
+                                    '<img src="assets/img/vehicle/'+opt.imgcar+'" class="imgfluid" alt="Galeria de vehiculos"/>'+
+                                '</picture>'+
+                                '<ul class="list-unstyled mt-2 mb-2">'+
+                                    '<li>'+opt.imgcar+'</li>'+
+                                '</ul>'+
+                                '<button type="button" class="btn btn-sm btn-outline-primary toppicture" onclick="takeIdIV(`'+opt.id+'`,`'+opt.car+'`)">top</button>'+
+                                '<button type="button" class="btn btn-sm btn-outline-danger cancelpicture" onclick="takeIdIV(`'+opt.id+'`)">Eliminar</button>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'
+                );
+            });               
+        }
+      });
+}
+
+function resetForm() {
+    $('#idv').val('');
+    $('#plate').val('');
+    $('#vregion').val('');
+    $('#vbrand').val('');
+    $('#vmodel').val('');
+    $('#vanno').val('');
+    $('#vcost').val('');
+    $('#vstatus').val('');
+    $('#vdescrip').val('');
+    $("#carimg").val(null);
 }

@@ -23,7 +23,7 @@ if (!$_SESSION) {
                                 <div class="col-lg-12">
                                   <div class="table-responsive">
                                     <div class="justify-content-centerd-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button id="newvehicle" type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"><i class="bi bi-plus-lg"></i><i class="bi bi-car-front"></i>
+                                    <button id="newvehicle" type="button" class="btn btn-primary mb-3"><i class="bi bi-plus-lg"></i><i class="bi bi-car-front"></i>
                                         <span class="tsearch">Registrar Vehidulo</span>
                                     </button>
                                     </div>

@@ -1,10 +1,6 @@
 <?php 
 include_once("header.php");
 require_once("env.php");
-if (!$_SESSION) {
-  header("Location: ./");
-  die();
-}
 ?> 
   <main id="main">
 

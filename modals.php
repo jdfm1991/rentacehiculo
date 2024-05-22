@@ -282,28 +282,14 @@ $tomorrow = date('Y-m-d', $newday);
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-
-
-        <div id="galeryv" class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-          <div class="col">
-            <div class="card mb-4 rounded-3 shadow-sm">
-              <div class="card-body">
-                <picture>
-                  <img src="assets/img/hero-bg1.jpg" class="img-fluid" alt="Galeria de vehiculos"/>
-                </picture>
-                <ul class="list-unstyled mt-2 mb-2">
-                  <li>20 users included</li>
-                  <li>10 GB of storage</li>
-                  <li>Priority email support</li>
-                  <li>Help center access</li>
-                </ul>
-                <button type="button" class="btn btn-sm btn-outline-primary">top</button>
-                <button type="button" class="btn btn-sm btn-outline-danger">Eliminar</button>
-              </div>
-            </div>
-          </div>
+        <input type="hidden" id="idiv">
+        <input type="hidden" id="idic">
+        <div id="messegeiv" class="alert " role="alert">
+          <p id="erroriv" class="mb-0"></p>
         </div>
-    
+        <div id="galeryv" class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+          
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>

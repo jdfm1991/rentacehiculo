@@ -44,12 +44,12 @@ class Portfolio extends Conectar{
         $conectar= parent::conexion();
         parent::set_names();
         //QUERY
-            $sql="SELECT image FROM cars_images_table WHERE car = ? LIMIT 1";
+            $sql="SELECT imgcar FROM cars_images_table WHERE car=? AND top=1";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1, $id);
         $sql->execute();
-        return ($sql->fetch(PDO::FETCH_ASSOC)['image']);
+        return ($sql->fetch(PDO::FETCH_ASSOC)['imgcar']);
     }
 
     public function getDataDetailsPortfolio($id){

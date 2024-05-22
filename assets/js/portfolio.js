@@ -86,7 +86,7 @@ $(document).ready(function () {
                 for (let i = 0; i < opt.image.length; i++) {
                     $('#img_propect').append(
                         '<div class="swiper-slide">'+
-                            '<img class="img_detail" src="assets/img/portfolio/'+opt.image[i]+'" alt="">'+
+                            '<img class="img_detail" src="assets/img/vehicle/'+opt.image[i]+'" alt="">'+
                         '</div>'
                         );
                 }
@@ -449,7 +449,7 @@ function getProspect(index) {
                 $('#prospect').append(
                     '<div class="col-sm-4 col-md-3 portfolio-item">'+
                         '<div class="portfolio-wrap">'+
-                        '<img src="assets/img/portfolio/'+opt.imgc+'" class="imgfluid" alt="">'+
+                        '<img src="assets/img/vehicle/'+opt.imgc+'" class="imgfluid" alt="">'+
                         '<div class="portfolio-info">'+
                             '<h4>'+opt.model+'</h4>'+
                             '<p>'+opt.brand+'</p>'+
@@ -485,7 +485,7 @@ function searchAdvance(region,brand,model,anno) {
                     $('#advancep').append(
                         '<div class="col-sm-3 col-sm-3 portfolio-item">'+
                             '<div class="portfolio-wrap">'+
-                            '<img src="assets/img/portfolio/'+opt.imgc+'" class="imgfluid" alt="">'+
+                            '<img src="assets/img/vehicle/'+opt.imgc+'" class="imgfluid" alt="">'+
                                 '<div class="portfolio-info">'+
                                     '<h4>'+opt.model+'</h4>'+
                                     '<p>'+opt.brand+'</p>'+

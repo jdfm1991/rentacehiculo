@@ -6,7 +6,7 @@ require_once("portfolio_model.php");
 
 $portfolio = new Portfolio();
 
-$index  = (isset($_POST['index'])) ? $_POST['index'] : '';
+$index  = (isset($_POST['index'])) ? $_POST['index'] : '1';
 $id     = (isset($_POST['id'])) ? $_POST['id'] : '';
 $region = (isset($_POST['region'])) ? $_POST['region'] : '';
 $model  = (isset($_POST['model'])) ? $_POST['model'] : '';

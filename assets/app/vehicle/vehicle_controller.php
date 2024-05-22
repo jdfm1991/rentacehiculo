@@ -7,6 +7,7 @@ require_once("vehicle_model.php");
 $vehicle = new Vehicle();
 
 $id     = (isset($_POST['id'])) ? $_POST['id'] : '';
+$id2    = (isset($_POST['id2'])) ? $_POST['id2'] : '';
 $plate  = (isset($_POST['plate'])) ? $_POST['plate'] : '';
 $region = (isset($_POST['region'])) ? $_POST['region'] : '';
 $brand  = (isset($_POST['brand'])) ? $_POST['brand'] : '';
@@ -145,15 +146,50 @@ switch ($_GET["op"]) {
         }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
+        
     case 'showimage':
         $dato = array();
         $data = $vehicle->getDataVehicleImageById($id);
         foreach ($data as $data) {
             $sub_array = array();
             $sub_array['id']   = $data['id'];
-            $sub_array['car ']   = $data['car'];
+            $sub_array['car']   = $data['car'];
             $sub_array['imgcar'] = $data['imgcar'];
             $dato[] = $sub_array;
+        }
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
+        break;
+
+    case 'cancelimage':
+        $dato = array();
+        $data = $vehicle->setNewStatusImage($id,$active);
+        if ($data) {
+            $dato['status']  = true;
+            $dato['message'] = 'Se Elimino la Informacion de Manera Satisfactoria';
+        } else {
+            $dato['status']  = false;
+            $dato['message'] = 'Error al Eliminar La Informacion';
+        }
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
+        break;
+
+    case 'topimage':
+        $dato = array();
+        $oldtop = 0;
+        $newtop = 1;
+        $old = $vehicle->setOldTopImage($id2,$oldtop);
+        if ($old) {
+            $data = $vehicle->setNewTopImage($id,$newtop);
+            if ($data) {
+                $dato['status']  = true;
+                $dato['message'] = 'Se EliActualizo la Informacion de Manera Satisfactoria';
+            } else {
+                $dato['status']  = false;
+                $dato['message'] = 'Error al Actualizar La Informacion';
+            }
+        } else {
+            $dato['status']  = false;
+            $dato['message'] = 'No se logro Cambiar Imagen Top Anterior';
         }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
