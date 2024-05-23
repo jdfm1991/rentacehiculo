@@ -38,11 +38,11 @@ require_once("env.php");
 
   </main><!-- End #main -->
 
-  <?php 
-include_once("modals.php");
+<?php 
 if (URI<>$_SERVER["REQUEST_URI"] ) {
   include_once("footer.php");
 }
+include_once("modals.php");
 include_once("lib.php");
 ?>
 </body>

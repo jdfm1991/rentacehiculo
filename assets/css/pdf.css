@@ -12,8 +12,17 @@
 }
 
 .text{
-    text-align: justify;
+    margin-top: -15px;
+    text-align: center;
     font-size: 15px;
     font-family: 'Times New Roman', Times, serif;
     font-style: italic;
 }
+
+.box{
+    width: 50%;
+    height: 270px;
+    margin: 0px 0px 0px 0px;
+    box-sizing: border-box;
+    float:left;
+  }

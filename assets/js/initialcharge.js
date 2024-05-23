@@ -99,14 +99,12 @@ function getDataModel(brand) {
 //**********Evento para Cargar Informacion********/
 //**************en la pagina de profile***********/
 function requestPend(session) {
-    console.log(session);
     $.ajax({
         type: "POST",
         url: "assets/app/rent/rent_controller.php?op=pendingreq",
         dataType: "json",
         data:  {user:session},
         success: function (data) {
-            console.log(data);
             $('#reqc').text(data.length);
             $('#reqc2').text(data.length);
             $('#reqv').empty();

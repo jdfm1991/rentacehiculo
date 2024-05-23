@@ -230,10 +230,32 @@ $tomorrow = date('Y-m-d', $newday);
                         <label for="mont" class="form-label">Monto a Pagar</label>
                         <input type="text" class="form-control" id="mont">
                     </div>
+                    <strong><label for="" class="form-label">Infomacion de Pago</label></strong>
+                    <div class="mt-3 mb-3 col-sm-4">
+                      <div class="form-floating">
+                        <select class="form-select" id="rmethod"  aria-label="Default select example" required>
+                          <!-- ======= Carga a Traves de Ajax ======= --> 
+                        </select>
+                        <label for="rmethod">Selecione un Metodo de Pago</label>
+                      </div>
+                    </div>
+                    <div class="mb-3 col-sm-4">
+                      <label for="fechap" class="form-label">Fecha de Pago</label>
+                      <input id="fechap" type="date" class="form-control" value=<?php echo $today; ?> min=<?php echo $today; ?> required>
+                    </div>
+                    <div class="mb-3 col-sm-4">
+                      <label for="reference" class="form-label">N# Referencia</label>
+                      <input type="text" class="form-control" id="reference" name="reference" required>
+                    </div>
+                    <div id="methodinfo" class="mt-3 mb-3 col-sm-7">
+                      <div id="datamethod">
+                        
+                      </div>
+                    </div>
                   </div>
                   <div class="mb-3">
                       <label for="payment" class="form-label">Soporte de Pago</label>
-                      <input type="file" class="form-control" id="payment" required>
+                      <input type="file" class="form-control" id="payment" accept="image/x-png,image/gif,image/jpeg" required>
                       <div id="paymentimg"></div>
                   </div>
                   <div id="messeger2" class="alert alert-warning" role="alert">

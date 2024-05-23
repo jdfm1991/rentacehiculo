@@ -33,10 +33,10 @@ $(document).ready(function () {
 
     $.ajax({
         type: "POST",
-        url: "assets/app/admin/admin_controller.php?op=processbar",
+        url: "assets/app/admin/admin_controller.php?op=processreq",
         dataType: "json",
         success: function (data) { 
-
+            console.log(data);
             $.each(data, function(idx, opt) {
                 $("#solicitud").append(
                     '<div class="col-sm-4">'+
@@ -50,7 +50,28 @@ $(document).ready(function () {
                     '</div>'
                 );
             });
-     
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "assets/app/admin/admin_controller.php?op=processcar",
+        dataType: "json",
+        success: function (data) { 
+            console.log(data);
+            $.each(data, function(idx, opt) {
+                $("#vehiculo").append(
+                    '<div class="col-sm-6">'+
+                        '<div class="progress">'+
+                            '<span id="rents1" class="skill">('+opt.count+') '+opt.status+'<i class="val">'+opt.percent+'%</i></span>'+
+                            '<div class="progress-bar-wrap">'+
+                                '<div id="rents1p" class="progress-bar" role="progressbar" aria-valuenow="'+opt.percent+'" aria-valuemin="0" aria-valuemax="100">'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'
+                );
+            });
         }
     });
     

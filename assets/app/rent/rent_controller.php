@@ -11,13 +11,17 @@ $rent = new Rent();
 
 $now = date('Y-m-d h:m:s');
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
-$user = (isset($_POST['user'])) ? $_POST['user'] : '664dd5260e7e7';
+$user = (isset($_POST['user'])) ? $_POST['user'] : '';
 $option = (isset($_POST['option'])) ? $_POST['option'] : '';
 $fechar = (isset($_POST['fechar'])) ? $_POST['fechar'] : '';
 $fechae = (isset($_POST['fechae'])) ? $_POST['fechae'] : '';
 $dias = (isset($_POST['dias'])) ? $_POST['dias'] : '';
 $mont = (isset($_POST['mont'])) ? $_POST['mont'] : '';
+$method = (isset($_POST['method'])) ? $_POST['method'] : '';
+$fechap = (isset($_POST['fechap'])) ? $_POST['fechap'] : '';
+$reference = (isset($_POST['reference'])) ? $_POST['reference'] : '';
 $condition = (isset($_POST['condition'])) ? $_POST['condition'] : '';
+
 
 switch ($_GET["op"]) {
     case 'loaddata':
@@ -59,7 +63,7 @@ switch ($_GET["op"]) {
             $payment = $_FILES['payment']['name'];
             $moved = move_uploaded_file($_FILES['payment']['tmp_name'], $path1.'/'.$payment);
             if ($moved) {
-                $data = $rent->sendDataRent($id,$user,$option,$fechar,$fechae,$dias,$mont,$payment,$condition,$now);
+                $data = $rent->sendDataRent($id,$user,$option,$fechar,$fechae,$dias,$mont,$method,$fechap,$reference,$payment,$condition,$now);
                 if ($data) {
                     $dato['status'] = true;
                     $dato['messege'] = 'Se Actualizo Infomacion de Manera Exitosa (Usuario)';
@@ -154,6 +158,34 @@ switch ($_GET["op"]) {
             $sub_array['day']    = $data['day'];
             $sub_array['payment']    = $data['payment'];
             $sub_array['status']    = $data['status'];
+            $dato[] = $sub_array;
+        }
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
+        break;
+
+    case 'showpaymentmethodall':
+        $dato = array();
+        $data = $rent->getDataPaymentMethod();
+        foreach ($data as $data) {
+            $sub_array = array();
+            $sub_array['id']  = $data['id'];
+            $sub_array['method']  = $data['method'];
+            $dato[] = $sub_array;
+        }
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
+        break;
+
+    case 'showpaymentmethod':
+        $dato = array();
+        $data = $rent->getDataPaymentMethodById($method);
+        foreach ($data as $data) {
+            $sub_array = array();
+            $sub_array['id']  = $data['id'];
+            $sub_array['method']  = $data['method'];
+            $sub_array['code']  = $data['code'];
+            $sub_array['numberaccount'] = $data['numberaccount'];
+            $sub_array['document']    = $data['document'];
+            $sub_array['phone']  = $data['phone'];
             $dato[] = $sub_array;
         }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);

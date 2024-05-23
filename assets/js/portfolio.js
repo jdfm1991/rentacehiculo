@@ -13,6 +13,15 @@ $(document).ready(function () {
     $('#canno').hide();
     $('#alertma').hide();
     $('#send').hide();
+    $('#methodinfo').hide();
+    //************************************************/
+    //***********Funcion para Validar solo************/
+    //**************Entrada de Numeros****************/
+    $(function() {
+        $("input[name='reference']").on('input',function (e) {
+            $(this).val($(this).val().replace(/[^0-9]/g,''));
+        });
+    });
     //************************************************/
     //*********Llamda de Funcion para Cargar**********/
     //************Vista Inicial de Pagina*************/
@@ -120,6 +129,22 @@ $(document).ready(function () {
                 $('#desc_prospect').append('<p>'+opt.descrip+'</p>');
             });
             $('#desc_prospect').append('</div>')
+        }
+    });
+    //************************************************/
+    //*********Mostras Los metodos de pago************/
+    //************************************************/
+    $.ajax({
+        type: "POST",
+        url: "assets/app/rent/rent_controller.php?op=showpaymentmethodall",
+        dataType: "json",
+        success: function (data) {
+            //Colocacion de Fotos de Muestra
+            $('#rmethod').append('<option value="">-*_-*-_-*</option>');
+            $.each(data, function(idx, opt) {
+                //se itera con each para llenar el select en la vista
+                $('#rmethod').append('<option name="" value="' + opt.id +'">' + opt.method + '</option>');
+            });
         }
     });
     //************************************************/
@@ -338,6 +363,53 @@ $(document).ready(function () {
         } 
     });
     //************************************************/
+    //**********Evento Si Cambia el Selector**********/
+    //**************de Metodos de pago****************/
+    $('#rmethod').change(function (e) { 
+        e.preventDefault();
+        method=$.trim($('#rmethod').val());
+        $.ajax({
+            type: "POST",
+            url: "assets/app/rent/rent_controller.php?op=showpaymentmethod",
+            dataType: "json",
+            data:  {method:method},
+            success: function (data) {
+                $('#datamethod').empty();
+                $.each(data, function(idx, opt) {
+                    if (opt.method) {
+                        $('#datamethod').append(
+                            '<span>Metodo: </span><strong>'+opt.method+'</strong><br>'
+                        );
+                    }
+                    if (opt.code) {
+                        $('#datamethod').append(
+                            '<span>Codigo Banco: </span><strong>'+opt.code+'</strong><br>'
+                        );
+                    }
+                    if (opt.numberaccount) {
+                        $('#datamethod').append(
+                            '<span>Numero de Cuenta: </span><strong>'+opt.numberaccount+'</strong><br>'
+                        );
+                    }
+                    if (opt.document) {
+                        $('#datamethod').append(
+                            '<span>Identificacion: </span><strong>'+opt.document+'</strong><br>'
+                        );
+                    }
+                    if (opt.phone) {
+                        $('#datamethod').append(
+                            '<span>N# Telefonico: </span><strong>'+opt.phone+'</strong><br></br>'
+                        );
+                    }
+                    
+                });
+                $('#methodinfo').show();
+            }
+        }); 
+
+        
+    });
+    //************************************************/
     //**********Evento para calcular dias de**********/
     //************diferencia entre dios***************/
     //************y el monto a cobrar*****************/
@@ -387,11 +459,14 @@ $(document).ready(function () {
             fechar  = $('#fechar').val();
             fechae  = $('#fechae').val();
             mont    = $('#mont').val();
+            method    = $('#rmethod').val();
+            fechap  = $('#fechap').val();
+            reference = $('#reference').val();
             payment = $("#payment")[0].files[0];
             dias    = document.getElementById('diaa').textContent;
             condition = 2
             newmont = mont.replace(",","")
-            sendRequest(session,option,fechar,fechae,newmont,payment,dias,condition)
+            sendRequest(session,option,fechar,fechae,newmont,method,fechap,reference,payment,dias,condition)
         } else {
             $("#messeger2").show();
             $("#errorr2").html('La informacion Del Usuario Esta Incompleta o Pendiente Por Verificar. <br> Si Desea Revisar La Informacion Suministrada haga Click <a id="btnprofile" href="#">Aqui</a> <br> Si Desea Con Un El Departamento de Atencion Al Publico haga Click Aqui');
@@ -404,11 +479,14 @@ $(document).ready(function () {
         fechar  = $('#fechar').val();
         fechae  = $('#fechae').val();
         mont    = $('#mont').val();
+        method  = $('#rmethod').val();
+        fechap  = $('#fechap').val();
+        reference = $('#reference').val();
         payment = $("#payment")[0].files[0];
         dias    = document.getElementById('diaa').textContent;
         condition = 1
         newmont = mont.replace(",","")
-        sendRequest(session,option,fechar,fechae,newmont,payment,dias,condition)
+        sendRequest(session,option,fechar,fechae,newmont,method,fechap,reference,payment,dias,condition)
     });    
 });
 
@@ -503,13 +581,16 @@ function searchAdvance(region,brand,model,anno) {
 //************************************************/
 //********Funcion para guardar la informacion*****/
 //***************de la nueva solicituf************/
-function sendRequest(session,option,fechar,fechae,newmont,payment,dias,condition) {
+function sendRequest(session,option,fechar,fechae,newmont,method,fechap,reference,payment,dias,condition) {
     datos = new FormData();
     datos.append('user', session)
     datos.append('option', option)
     datos.append('fechar', fechar)
     datos.append('fechae', fechae)
     datos.append('mont', newmont)
+    datos.append('method', method)
+    datos.append('fechap', fechap)
+    datos.append('reference', reference)
     datos.append('payment', payment)
     datos.append('dias', dias)
     datos.append('condition', condition)

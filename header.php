@@ -83,7 +83,7 @@ date_default_timezone_set('America/Caracas')
             echo '
             <li><a href="vehicle.php" class="nav-link scrollto"><i class="bi bi-car-front"></i> <span>Lista de Vehiculos</span></a></li>
             <li><a href="user.php" class="nav-link scrollto"><i class="bi bi-person-lines-fill"></i> <span>Lista de Usuarios</span></a></li>
-            <li><a href="allrequest.php" class="nav-link scrollto"><i class="bi bi-send-arrow-up"></i> <span>Lista de Solicitudes Solicitudes</span></a></li>
+            <li><a href="allrequest.php" class="nav-link scrollto"><i class="bi bi-send-arrow-up"></i> <span>Lista de Solicitudes</span></a></li>
             ';
           }
           if ($_SESSION['idtype']==2) {
@@ -121,7 +121,9 @@ date_default_timezone_set('America/Caracas')
       </div>
     </div>
 <?php
-if ($_SESSION['idtype']==2) { ?>
+if ($_SESSION) { 
+  if ($_SESSION['idtype']==2) {
+    ?>
 <button id="viewreq" type="button" class="btn btn-outline-info btnreq">
   <i class="bi bi-cart-check-fill"></i>
   <span id="reqc2" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
@@ -129,4 +131,4 @@ if ($_SESSION['idtype']==2) { ?>
   </span>
 </button>
 
-<?php } ?>
+<?php   } } ?>

@@ -10,7 +10,7 @@ if (!$_SESSION) {
     <section class="section-bg mt-3">
       <div class="container" data-aos="fade-up">
         <div class="section-title content-header">
-          <h2>mis Solicitudes</h2>
+          <h2>Lsitado de Solicitudes</h2>
         </div>
         <div class="content-wrapper">
             <!-- ======= Services Section ======= -->

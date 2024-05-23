@@ -34,6 +34,9 @@ foreach ($data as $data) {
     $day   = $data['day'];
     $payment   = $data['payment'];
     $status   = $data['status'];
+    $method   = $data['method'];
+    $datepayment   = $data['datepayment'];
+    $reference   = $data['reference'];
 }
 
 $mpdf = new \Mpdf\Mpdf([
@@ -49,7 +52,9 @@ QRcode::png('http://localhost/rentvehiculo/assets/app/rent/pdf.php?id='.$id, $co
 
 $stylesheet = file_get_contents('../../css/pdf.css');
 $body = '
-        <div class="dateinfo"><label><span><strong>Fecha de Solicitud: </strong></span></label><strong>'.$daterent.'</strong></div>
+        <div class="dateinfo">
+            <label><span><strong>Fecha de Solicitud: </strong></span></label><strong>'.$daterent.'</strong>
+        </div>
         <h2 class="title">Comprobante de Solicitud</h2>
         <h2 class="title">Datos de Cliente</h2>
         <p class="text"><span>Nombre y Apellido <strong>'.$nameu.'</strong>, D.N.I. ("Numero Cedula o Pasaporte") <strong>'.$letter.'-'.$dni.'</strong>, Numero Telefonico  <strong>'.$phone.'</strong>, Correo <strong>'.$email.'</strong>, Direccion <strong>'.$address.'</strong></span></p>
@@ -58,8 +63,17 @@ $body = '
         <h2 class="title">Datos de Alquiler</h2>
         <p class="text"><span>Dias de Alquiler de Vehiculo <strong>'.$day.'</strong>, Monto Pagado <strong>'.$mont.'</strong>, Fecha en la que  Cliente Recibe el Vehiculo <strong>'.$datein.'</strong>, Fecha en que el Cliente debe entregar el Vehiculo <strong>'.$dateout.'</strong></span></p>
         <h2 class="title">Datos de Pago</h2>
-        <p class="text"><span>Forma de pago <strong>Pendiente Por definir</strong>, Numero de Operacion <strong>***ejm124578***</strong>, Fecha de Pago <strong>**14/15/15**</strong></span></p>
-        <div class="dateinfo"><img src="'.$codesDir.$codeFile.'" /><p >ID de Solicitud</p></div>';
+        <p class="text"><span>Forma de pago <strong>'.$method.'</strong>, Numero de Operacion <strong>***'.$reference.'***</strong>, Fecha de Pago <strong>**'.$datepayment.'**</strong></span></p>
+        <div class="dateinfo">
+            <div class="box">
+                <img src="../../img/payment/'.$payment.'" />
+                <div class="text"><span>Soporte de Pago</span></div>
+            </div>
+            <div class="box">
+                <img src="'.$codesDir.$codeFile.'" />
+                <div class="text"><span>ID de Solicitud</span></div>
+            </div>
+        </div>';
 
 
 $mpdf->SetHeader('<img src="../../img/logo.png" style="width: 100px;">|<h1>Nombre de la Empresa</h1>Pag.: {PAGENO}, Consulta del: {DATE j-m-Y}');

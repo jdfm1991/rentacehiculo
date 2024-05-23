@@ -9,7 +9,6 @@ $admin = new Admin();
 
 
 switch($_GET["op"]){
-
     case 'initcount':
         $dato   = array();
         $data   = $admin->getDataCountInit();
@@ -22,14 +21,29 @@ switch($_GET["op"]){
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
     
-    case 'processbar':
+    case 'processreq':
         $dato   = array();
-        $data   = $admin->getDataStatus();
+        $data   = $admin->getDataRequestStatus();
         $total   = $admin->getDataRent();
         foreach ($data as $data) {
             $sub_array = array();
             $id = $data['id'];
-            $count   = $admin->getDataRentById($id);
+            $count   = $admin->getDataRentByStatus($id);
+            $sub_array['status'] = $data['status'];
+            $sub_array['count'] = $count;
+            $sub_array['percent'] = number_format((($count/$total)*100),2);
+            $dato[] = $sub_array;
+        }
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
+        break;
+    case 'processcar':
+        $dato   = array();
+        $data   = $admin->getDataCarStatus();
+        $total   = $admin->getDatacar();
+        foreach ($data as $data) {
+            $sub_array = array();
+            $id = $data['id'];
+            $count   = $admin->getDatacarByStatus($id);
             $sub_array['status'] = $data['status'];
             $sub_array['count'] = $count;
             $sub_array['percent'] = number_format((($count/$total)*100),2);
@@ -38,3 +52,4 @@ switch($_GET["op"]){
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
 }
+
