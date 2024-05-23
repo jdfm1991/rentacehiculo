@@ -66,5 +66,15 @@ switch($_GET["op"]){
         }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
+    case 'showstatus':
+        $data   = $admin->getDataRequestStatusAdmin();
+        foreach ($data as $data) {
+            $sub_array = array();
+            $sub_array['id'] = $data['id'];
+            $sub_array['status'] = $data['status'];
+            $dato[] = $sub_array;
+        }
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
+        break;
 }
 

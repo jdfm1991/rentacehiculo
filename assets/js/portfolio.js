@@ -616,7 +616,7 @@ function sendRequest(session,option,fechar,fechae,newmont,method,fechap,referenc
                 }, 2000);               
             } else {
                 Swal.fire({
-                    icon: 'success',
+                    icon: 'error',
                     html: '<h2>¡'+data.messege+'!</h2>',
                     showConfirmButton: false,
                     timer: 2000,

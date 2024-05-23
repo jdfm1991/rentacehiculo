@@ -53,6 +53,23 @@ class Rent extends Conectar{
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getDataRequestAll(){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT A.id,nameu,phone,B.status FROM rent_table AS A 
+                    INNER JOIN rent_status_table AS B ON A.status = B.id
+                    INNER JOIN users_data_table AS F ON A.user = F.user
+                    WHERE A.status!=1";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
     public function getDataRequestPendingByUser($user){
         //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
         //CUANDO ES APPWEB ES CONEXION.
@@ -79,7 +96,7 @@ class Rent extends Conectar{
         $conectar= parent::conexion();
         parent::set_names();
         //QUERY
-            $sql="SELECT daterent,nameu,F.phone,letter,dni,email,address,D.brand, E.model,anno,plate,cost,datein,dateout,mont,day,payment,B.status,H.method,datepayment,reference FROM rent_table AS A 
+            $sql="SELECT A.id,A.car,daterent,nameu,F.phone,letter,dni,email,address,D.brand, E.model,anno,plate,cost,datein,dateout,mont,day,payment,A.status AS ids,B.status,H.method,datepayment,reference FROM rent_table AS A 
 			INNER JOIN rent_status_table AS B ON A.status = B.id
 			INNER JOIN cars_table AS C ON A.car = C.id
 			INNER JOIN cars_brands_table AS D ON D.id = C.brand

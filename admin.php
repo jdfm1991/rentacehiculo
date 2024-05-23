@@ -7,7 +7,7 @@ if (!$_SESSION) {
 }
 ?>
 <div style="min-width: 540px;height: auto;">
-    <section class="section-bg">
+    <section>
       <div class="container" data-aos="fade-up">
         <div class="section-title">
           <h2>Infomacion General</h2>

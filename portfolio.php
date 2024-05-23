@@ -6,8 +6,8 @@ require_once("env.php");
     <button id="search" type="button" class="btn btn-primary btnsearch" data-bs-toggle="modal" data-bs-target="#advanceModal"><i class="bi bi-search"></i>
       <span class="tsearch">Busqueda Avanzada</span>
     </button>
-    <section id="portfolio" class="portfolio section-bg">
-      <div class="container" data-aos="fade-up">
+    <section id="portfolio" class="portfolio">
+      <div class="container section-bg" data-aos="fade-up">
         <div class="section-title">
           <h2>Portfolio</h2>
         </div> 

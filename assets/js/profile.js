@@ -128,7 +128,7 @@ $(document).ready(function () {
                     }, 2000);
                 } else {
                     Swal.fire({
-                        icon: 'success',
+                        icon: 'error',
                         html: '<h2>¡'+data.messegeu+'!</h2><br><h4>¡'+data.messegec+'!</h4>',
                         showConfirmButton: false,
                         timer: 2000,
@@ -232,7 +232,7 @@ $(document).ready(function () {
                     const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
                     toastBootstrap.hide()
                     Swal.fire({
-                        icon: 'success',
+                        icon: 'error',
                         html: '<h2>¡'+data.messege+'!</h2>',
                         showConfirmButton: false,
                         timer: 2000,
@@ -270,7 +270,7 @@ $(document).ready(function () {
                     $('#rentModal').modal('hide');
                 } else {
                     Swal.fire({
-                        icon: 'success',
+                        icon: 'error',
                         html: '<h2>¡'+data.messege+'!</h2>',
                         showConfirmButton: false,
                         timer: 2000,

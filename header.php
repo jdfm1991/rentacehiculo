@@ -84,6 +84,7 @@ date_default_timezone_set('America/Caracas')
             <li><a href="vehicle.php" class="nav-link scrollto"><i class="bi bi-car-front"></i> <span>Lista de Vehiculos</span></a></li>
             <li><a href="client.php" class="nav-link scrollto"><i class="bi bi-person-lines-fill"></i> <span>Lista de Clientes</span></a></li>
             <li><a href="allrequest.php" class="nav-link scrollto"><i class="bi bi-send-arrow-up"></i> <span>Lista de Solicitudes</span></a></li>
+            <li><a href="setting.php" class="nav-link scrollto"><i class="bi bi-gear-wide-connected"></i> <span>Configuraciones</span></a></li>
             ';
           }
           if ($_SESSION['idtype']==2) {

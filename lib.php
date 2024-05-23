@@ -17,4 +17,5 @@
   <script src="assets/js/portfolio.js"></script>
   <script src="assets/js/request.js"></script>
   <script src="assets/js/admin.js"></script>
+  <script src="assets/js/user.js"></script>
   

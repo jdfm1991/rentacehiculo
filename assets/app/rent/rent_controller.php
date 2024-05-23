@@ -117,6 +117,8 @@ switch ($_GET["op"]) {
         $data = $rent->getDataRequestById($id);
         foreach ($data as $data) {
             $sub_array = array();
+            $sub_array['id']  = $data['id'];
+            $sub_array['car']  = $data['car'];
             $sub_array['daterent']  = $data['daterent'];
             $sub_array['nameu']  = $data['nameu'];
             $sub_array['letter'] = $data['letter'];
@@ -135,6 +137,10 @@ switch ($_GET["op"]) {
             $sub_array['day']    = $data['day'];
             $sub_array['payment']    = $data['payment'];
             $sub_array['status']    = $data['status'];
+            $sub_array['ids']    = $data['ids'];
+            $sub_array['method'] = $data['method'];
+            $sub_array['datepayment']    = $data['datepayment'];
+            $sub_array['reference']    = $data['reference'];
             $dato[] = $sub_array;
         }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
@@ -161,6 +167,20 @@ switch ($_GET["op"]) {
             $sub_array['mont'] = number_format($data['mont'],2);
             $sub_array['day']    = $data['day'];
             $sub_array['payment']    = $data['payment'];
+            $sub_array['status']    = $data['status'];
+            $dato[] = $sub_array;
+        }
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
+        break;
+
+    case 'showall':
+        $dato = array();
+        $data = $rent->getDataRequestAll();
+        foreach ($data as $data) {
+            $sub_array = array();
+            $sub_array['id']  = $data['id'];
+            $sub_array['nameu']  = $data['nameu'];
+            $sub_array['phone']  = $data['phone'];
             $sub_array['status']    = $data['status'];
             $dato[] = $sub_array;
         }

@@ -70,6 +70,19 @@ class Admin extends Conectar{
         return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getDataRequestStatusAdmin(){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT * FROM rent_status_table WHERE id NOT IN (1,2,6)";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+        return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getDatacar(){
         //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
         //CUANDO ES APPWEB ES CONEXION.
