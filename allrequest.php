@@ -22,7 +22,7 @@ if (!$_SESSION) {
                             <div class="row">
                                 <div class="col-lg-12">
                                   <div class="table-responsive">        
-                                      <table id="requsertable" class="table table-hover table-condensed table-bordered table-striped text-center" style="width:100%" >
+                                      <table id="allrequsertable" class="table table-hover table-condensed table-bordered table-striped text-center" style="width:100%" >
                                           <thead class="text-center" style="background-color: #17A2B8;color: white;">
                                               <tr>
                                                 <th>Cod. Solicitud</th>
