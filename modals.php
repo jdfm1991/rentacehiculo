@@ -175,6 +175,7 @@ $tomorrow = date('Y-m-d', $newday);
                 <div class="modal-body">
                   <input type="hidden" id="rstatus">
                   <input type="hidden" id="idreq">
+                  <input type="hidden" id="idcar">
                   <div id="messeger" class="alert alert-warning" role="alert">
                     <p id="errorr" class="mb-0">Alert Description</p>
                   </div>

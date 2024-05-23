@@ -1,5 +1,6 @@
 $(document).ready(function () {
     const session = $.trim($('#session').val());
+    const status = $('#rstatus').val();
     //************************************************/
     //***********Funcion para Validar solo************/
     //**************Entrada de Numeros****************/
@@ -50,6 +51,7 @@ $(document).ready(function () {
                 $('#pemail').val(opt.email);
                 $('#pphone').val(opt.phone);
                 $('#paddress').val(opt.address);
+                $('#pstatus').val(opt.status)
 
                 if (opt.imgdni) {
                     $('#idsupport').append(
@@ -74,6 +76,7 @@ $(document).ready(function () {
                     $("#errorp").text('Su Usuario Aun No ha Sido Verificado');
                     $('#messegep').addClass('alert-danger'); 
                     $('#messegep').show();
+                    $('#sendreq').prop('disabled',true);
                 }
                 
             });
@@ -200,12 +203,14 @@ $(document).ready(function () {
     $('#cancreq').click(function (e) { 
         e.preventDefault();
         id= $('#idreq').val();
+        option= $('#idcar').val();
         condition = 6
+        carstatus = 1
         $.ajax({
             type: "POST",
             url: "assets/app/rent/rent_controller.php?op=register",
             dataType: "json",
-            data:  {id:id,condition:condition},
+            data:  {id:id,condition:condition,option:option,carstatus:carstatus},
             success: function (data) {
                 if (data.status) {                  
                     const toastTrigger = document.getElementById('cancreq')
@@ -243,12 +248,14 @@ $(document).ready(function () {
     $('#send').click(function (e) { 
         e.preventDefault();
         id= $('#idreq').val();
+        option= $('#idcar').val();
         condition = 2
+        carstatus = 2
         $.ajax({
             type: "POST",
             url: "assets/app/rent/rent_controller.php?op=register",
             dataType: "json",
-            data:  {id:id,condition:condition},
+            data:  {id:id,condition:condition,option:option,carstatus:carstatus},
             success: function (data) {
                 if (data.status) {
                     Swal.fire({
@@ -279,8 +286,9 @@ $(document).ready(function () {
 
 });
 
-function takeOption(id) {
+function takeOption(id,car) {
    $('#idreq').val(id);
+   $('#idcar').val(car);
     const toastTrigger = document.getElementById('btnoption')
     const toastLiveExample = document.getElementById('liveToast')
     const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)

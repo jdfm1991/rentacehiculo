@@ -36,6 +36,7 @@ if (!$_SESSION) {
               </div>
             </div>
             <form id="formClient">
+              <input type="hidden" id="pstatus">
               <div class="row g-3">
                 <div class="col-sm-6">
                   <label for="pname" class="form-label">Nombre y Apellido</label>

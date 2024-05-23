@@ -51,5 +51,20 @@ switch($_GET["op"]){
         }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
+
+    case 'processuser':
+        $dato   = array();
+        $data   = $admin->getDataClient();
+        foreach ($data as $data) {
+            $sub_array = array();
+            $sub_array['clientactive'] = $data['clientactive'];
+            $sub_array['clientinactive'] = $data['clientinactive'];
+            $sub_array['totalclient'] = $data['totalclient'];
+            $sub_array['percentactive'] = number_format((($data['clientactive']/$data['totalclient'])*100),2);
+            $sub_array['percentinactive'] = number_format((($data['clientinactive']/$data['totalclient'])*100),2);
+            $dato[] = $sub_array;
+        }
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
+        break;
 }
 

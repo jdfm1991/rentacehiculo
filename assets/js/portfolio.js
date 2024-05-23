@@ -190,10 +190,8 @@ $(document).ready(function () {
                             $("#errorr").text("");
                             $("#messeger").hide();
                         }, 3000);
-                        
                     }
                     $(".modal-title").text("Informacion de registro")
-                    
                     $("#rname").prop('disabled',true);
                     $("#rphone").prop('disabled',true);
                     $("#rdni").prop('disabled',true);
@@ -465,8 +463,9 @@ $(document).ready(function () {
             payment = $("#payment")[0].files[0];
             dias    = document.getElementById('diaa').textContent;
             condition = 2
+            carstatus = 2
             newmont = mont.replace(",","")
-            sendRequest(session,option,fechar,fechae,newmont,method,fechap,reference,payment,dias,condition)
+            sendRequest(session,option,fechar,fechae,newmont,method,fechap,reference,payment,dias,condition,carstatus)
         } else {
             $("#messeger2").show();
             $("#errorr2").html('La informacion Del Usuario Esta Incompleta o Pendiente Por Verificar. <br> Si Desea Revisar La Informacion Suministrada haga Click <a id="btnprofile" href="#">Aqui</a> <br> Si Desea Con Un El Departamento de Atencion Al Publico haga Click Aqui');
@@ -485,8 +484,9 @@ $(document).ready(function () {
         payment = $("#payment")[0].files[0];
         dias    = document.getElementById('diaa').textContent;
         condition = 1
+        carstatus = 2
         newmont = mont.replace(",","")
-        sendRequest(session,option,fechar,fechae,newmont,method,fechap,reference,payment,dias,condition)
+        sendRequest(session,option,fechar,fechae,newmont,method,fechap,reference,payment,dias,condition,carstatus)
     });    
 });
 
@@ -581,7 +581,7 @@ function searchAdvance(region,brand,model,anno) {
 //************************************************/
 //********Funcion para guardar la informacion*****/
 //***************de la nueva solicituf************/
-function sendRequest(session,option,fechar,fechae,newmont,method,fechap,reference,payment,dias,condition) {
+function sendRequest(session,option,fechar,fechae,newmont,method,fechap,reference,payment,dias,condition,carstatus) {
     datos = new FormData();
     datos.append('user', session)
     datos.append('option', option)
@@ -594,6 +594,7 @@ function sendRequest(session,option,fechar,fechae,newmont,method,fechap,referenc
     datos.append('payment', payment)
     datos.append('dias', dias)
     datos.append('condition', condition)
+    datos.append('carstatus', carstatus)
     $.ajax({
         url: "assets/app/rent/rent_controller.php?op=register",
         type: "POST",
@@ -611,7 +612,7 @@ function sendRequest(session,option,fechar,fechae,newmont,method,fechap,referenc
                     timer: 2000,
                     })         
                 setTimeout(() => {
-                    window.location.href="myrequest.php"; 
+                    window.location.href="profile.php"; 
                 }, 2000);               
             } else {
                 Swal.fire({
@@ -621,7 +622,7 @@ function sendRequest(session,option,fechar,fechae,newmont,method,fechap,referenc
                     timer: 2000,
                     })         
                 setTimeout(() => {
-                    window.location.href="myrequest.php"; 
+                    window.location.href="profile.php"; 
                 }, 2000);
             }
         }

@@ -21,6 +21,7 @@ $method = (isset($_POST['method'])) ? $_POST['method'] : '';
 $fechap = (isset($_POST['fechap'])) ? $_POST['fechap'] : '';
 $reference = (isset($_POST['reference'])) ? $_POST['reference'] : '';
 $condition = (isset($_POST['condition'])) ? $_POST['condition'] : '';
+$carstatus = (isset($_POST['carstatus'])) ? $_POST['carstatus'] : '';
 
 
 switch ($_GET["op"]) {
@@ -48,8 +49,9 @@ switch ($_GET["op"]) {
 
     case 'register':
         $dato = array();
-        if ($id ) {
+        if ($id) {
             $data = $rent->updateDataRequest($id,$condition);
+            $cars = $rent->changeStatusCarById($option,$carstatus);
             if ($data) {
                 $dato['status'] = true;
                 $dato['messege'] = 'Se Actualizo Infomacion de Manera Exitosa';
@@ -64,6 +66,7 @@ switch ($_GET["op"]) {
             $moved = move_uploaded_file($_FILES['payment']['tmp_name'], $path1.'/'.$payment);
             if ($moved) {
                 $data = $rent->sendDataRent($id,$user,$option,$fechar,$fechae,$dias,$mont,$method,$fechap,$reference,$payment,$condition,$now);
+                $cars = $rent->changeStatusCarById($option,$carstatus);
                 if ($data) {
                     $dato['status'] = true;
                     $dato['messege'] = 'Se Actualizo Infomacion de Manera Exitosa (Usuario)';
@@ -85,6 +88,7 @@ switch ($_GET["op"]) {
         foreach ($data as $data) {
             $sub_array = array();
             $sub_array['id']   = $data['id'];
+            $sub_array['car']   = $data['car'];
             $sub_array['brand']   = $data['brand'];
             $sub_array['model'] = $data['model'];
             $sub_array['anno'] = $data['anno'];

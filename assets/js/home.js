@@ -111,9 +111,21 @@ $(document).ready(function () {
             success: function(data) {
                 if (data['status']==true) {
                     $('#loginModal').modal('hide');
-                    wipe() 
-                    alert('eres '+ data['ut'])
-                    location.reload();
+                    resetFormLogin()
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Bienvenido...',
+                        html: '<h2>¡Estimado '+data['type']+'!</h2><br><h4>Usted '+data['message']+'</h4>',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        });
+                    setTimeout(() => {
+                        if (data['idtype']==1) {
+                            $(location).attr('href','admin.php');
+                        }else{
+                            location.reload();
+                        }
+                    }, 2000);
                 } else {
                     $("#errorl").text(data['message']);
                     $("#messegel").show();

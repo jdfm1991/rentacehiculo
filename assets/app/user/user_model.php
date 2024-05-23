@@ -12,7 +12,7 @@ class User extends Conectar{
             $sql="SELECT user,nameu, address, phone, status, email, type FROM users_data_table AS A 
             INNER JOIN users_table AS B ON A.user=B.id
             INNER JOIN user_type_table AS C ON C.id=B.idtype
-            WHERE active=1";
+            WHERE active=1 AND idtype=2";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
         $sql->execute();

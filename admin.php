@@ -81,6 +81,13 @@ if (!$_SESSION) {
                 </div>
                 <div id="vehiculo" class="row skills-content justify-content-center">
                 </div>
+                <div class="about mt-3">
+                  <div class="pt-4 pt-lg-0 content">
+                    <h3 class="text-center">Porcentaje de Clientes</h3>
+                  </div>
+                </div>
+                <div id="usuario" class="row skills-content justify-content-center">
+                </div>
               </div>
             </div>
             <!-- End Skills Section -->

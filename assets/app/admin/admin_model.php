@@ -96,4 +96,26 @@ class Admin extends Conectar{
         $sql->execute();
         return ($sql->fetch(PDO::FETCH_ASSOC)['N']);
     }
+
+    public function getDataClient(){
+        //LLAMAMOS A LA CONEXION QUE CORRESPONDA CUANDO ES SAINT: CONEXION2
+        //CUANDO ES APPWEB ES CONEXION.
+        $conectar= parent::conexion();
+        parent::set_names();
+        //QUERY
+            $sql="SELECT
+                (SELECT COUNT(*) FROM users_data_table AS A 
+                    INNER JOIN users_table AS B ON B.id=a.user
+                    WHERE idtype=2) AS totalclient,
+                (SELECT COUNT(*) FROM users_data_table AS A 
+                    INNER JOIN users_table AS B ON B.id=a.user
+                    WHERE idtype=2 AND status=1) AS clientactive,
+                (SELECT COUNT(*) FROM users_data_table AS A 
+                    INNER JOIN users_table AS B ON B.id=a.user
+                    WHERE idtype=2 AND status=0) AS clientinactive";
+        //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+        return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
