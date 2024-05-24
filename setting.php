@@ -55,7 +55,7 @@ if (!$_SESSION) {
                     <h2>Listado de Regiones</h2>
                     <div class="justify-content-centerd-grid gap-2 d-md-flex justify-content-md-end hide">
                       <button id="btnregion" type="button" class="btn btn-primary mb-3"><i class="bi bi-plus-lg"></i><i class="bi bi-car-front"></i>
-                          <span class="tsearch">Registrar Usuario</span>
+                          <span class="tsearch">Registrar Region</span>
                       </button>
                     </div>
                   </div>
@@ -85,22 +85,20 @@ if (!$_SESSION) {
           <div class="col-sm-6">
             <div data-aos="fade-up">
                 <div class="card mb-3">
+                  <div class="card-header">
+                    <h2>Listado de Marcas</h2>
+                    <div class="justify-content-centerd-grid gap-2 d-md-flex justify-content-md-end hide">
+                      <button id="btnbrand" type="button" class="btn btn-primary mb-3"><i class="bi bi-plus-lg"></i><i class="bi bi-car-front"></i>
+                          <span class="tsearch">Registrar Marcas</span>
+                      </button>
+                    </div>
+                  </div>
                   <div class="card-body">
                     <div class="table-responsive">
-                      <!--<div class="justify-content-centerd-grid gap-2 d-md-flex justify-content-md-end hide">
-                        <button id="newuser" type="button" class="btn btn-primary mb-3"><i class="bi bi-plus-lg"></i><i class="bi bi-car-front" disabled></i>
-                            <span class="tsearch">Registrar Usuario</span>
-                        </button>
-                      </div>-->
-                      <table id="usertable" class="table table-hover table-condensed table-bordered table-striped text-center" style="width:100%" >
+                      <table id="brandtable" class="table table-hover table-condensed table-bordered table-striped text-center" style="width:100%" >
                           <thead class="text-center" style="background-color: #17A2B8;color: white;">
                               <tr>
-                                <th>Nombre</th>
-                                <th>Direccion</th>
-                                <th>N# Telefono</th>
-                                <th>Correo</th>
-                                <th>Estatus</th>
-                                <th>Tipo</th>
+                                <th>Marca</th>
                                 <th>Accion</th>
                               </tr>
                           </thead>
@@ -108,12 +106,7 @@ if (!$_SESSION) {
                           </tbody>
                           <tfoot style="background-color: #ccc;color: white;">
                               <tr>
-                                <th>Nombre</th>
-                                <th>Direccion</th>
-                                <th>N# Telefono</th>
-                                <th>Correo</th>
-                                <th>Estatus</th>
-                                <th>Tipo</th>
+                                <th>Marca</th>
                                 <th>Accion</th>
                               </tr>
                           </tfoot>        
@@ -126,22 +119,21 @@ if (!$_SESSION) {
           <div class="col-sm-6">
             <div data-aos="fade-up">
                 <div class="card mb-3">
+                  <div class="card-header">
+                    <h2>Listado de Modelos</h2>
+                    <div class="justify-content-centerd-grid gap-2 d-md-flex justify-content-md-end hide">
+                      <button id="btnmodel" type="button" class="btn btn-primary mb-3"><i class="bi bi-plus-lg"></i><i class="bi bi-car-front"></i>
+                          <span class="tsearch">Registrar Modelos</span>
+                      </button>
+                    </div>
+                  </div>
                   <div class="card-body">
                     <div class="table-responsive">
-                      <!--<div class="justify-content-centerd-grid gap-2 d-md-flex justify-content-md-end hide">
-                        <button id="newuser" type="button" class="btn btn-primary mb-3"><i class="bi bi-plus-lg"></i><i class="bi bi-car-front" disabled></i>
-                            <span class="tsearch">Registrar Usuario</span>
-                        </button>
-                      </div>-->
-                      <table id="usertable" class="table table-hover table-condensed table-bordered table-striped text-center" style="width:100%" >
+                      <table id="modeltable" class="table table-hover table-condensed table-bordered table-striped text-center" style="width:100%" >
                           <thead class="text-center" style="background-color: #17A2B8;color: white;">
                               <tr>
-                                <th>Nombre</th>
-                                <th>Direccion</th>
-                                <th>N# Telefono</th>
-                                <th>Correo</th>
-                                <th>Estatus</th>
-                                <th>Tipo</th>
+                                <th>Modelo</th>
+                                <th>Marca</th>
                                 <th>Accion</th>
                               </tr>
                           </thead>
@@ -149,12 +141,8 @@ if (!$_SESSION) {
                           </tbody>
                           <tfoot style="background-color: #ccc;color: white;">
                               <tr>
-                                <th>Nombre</th>
-                                <th>Direccion</th>
-                                <th>N# Telefono</th>
-                                <th>Correo</th>
-                                <th>Estatus</th>
-                                <th>Tipo</th>
+                                <th>Modelo</th>
+                                <th>Marca</th>
                                 <th>Accion</th>
                               </tr>
                           </tfoot>        

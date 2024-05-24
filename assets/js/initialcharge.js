@@ -38,9 +38,11 @@ $(document).ready(function () {
         dataType: "json",
         success: function(data) {
             $('#vbrand').append('<option value="">-*_-*-_-*</option>');
+            $('#mbrand2').append('<option value="">-*_-*-_-*</option>');
             $.each(data, function(idx, opt) {
                 //se itera con each para llenar el select en la vista
                 $('#vbrand').append('<option name="" value="' + opt.id +'">' + opt.brand + '</option>');
+                $('#mbrand2').append('<option name="" value="' + opt.id +'">' + opt.brand + '</option>');
             });
         }
     });

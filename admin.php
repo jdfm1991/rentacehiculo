@@ -62,8 +62,8 @@ if (!$_SESSION) {
           </div>
           <div class="col-md-7 col-lg-8">
             <!-- ======= Skills Section ======= -->
-            <div id="skills" class="skills section-bg">
-              <div class="container" data-aos="fade-up">
+            <div id="skills" class="skills">
+              <div class="container  section-bg" data-aos="fade-up">
                 <div class="section-title">
                   <h2>Indicadores</h2>
                 </div>

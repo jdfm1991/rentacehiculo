@@ -59,7 +59,7 @@ $tomorrow = date('Y-m-d', $newday);
 </div>
 <!--
   *************************************************
-  Modal Para Registro de Usuario e Inicio de Sesion
+  Modal Para Registro de Usuario
   *************************************************
 -->
 <div class="modal fade mt-5" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -88,6 +88,118 @@ $tomorrow = date('Y-m-d', $newday);
                 </div>
                 <div id="messegeu" class="alert alert-danger" role="alert">
                   <p id="erroru" class="mb-0">Alert Description</p>
+                </div>
+            </form>  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+  *************************************************
+  Modal Para Registro de Region
+  *************************************************
+-->
+<div class="modal fade mt-5" id="regionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Login - Modulo Admin</h1>
+        <button type="button" id="closeLogin" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+            <form id="formregion">    
+                <div class="modal-body">
+                  <div class="mb-3">
+                      <label for="nregion" class="form-label">Region</label>
+                      <input type="text" class="form-control" id="nregion" placeholder="region" required>
+                  </div>              
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger btn-light" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-primary btn-light">Registar</button>
+                </div>
+                <div id="rmessege" class="alert alert-danger" role="alert">
+                  <p id="rerror" class="mb-0">Alert Description</p>
+                </div>
+            </form>  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+  *************************************************
+  Modal Para Registro de Marcas
+  *************************************************
+-->
+<div class="modal fade mt-5" id="brandModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Login - Modulo Admin</h1>
+        <button type="button" id="closeLogin" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+            <form id="formbrand">    
+                <div class="modal-body">
+                  <div class="mb-3">
+                      <label for="nbrand" class="form-label">Marca</label>
+                      <input type="text" class="form-control" id="nbrand" placeholder="marca" required>
+                  </div>              
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger btn-light" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-primary btn-light">Registar</button>
+                </div>
+                <div id="bmessege" class="alert alert-danger" role="alert">
+                  <p id="berror" class="mb-0">Alert Description</p>
+                </div>
+            </form>  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+  *************************************************
+  Modal Para Registro de Marcas
+  *************************************************
+-->
+<div class="modal fade mt-5" id="modelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Login - Modulo Admin</h1>
+        <button type="button" id="closeLogin" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+            <form id="formmodel">    
+                <div class="modal-body">
+                  <div class="row mb-3">
+                    <div class="col-sm-6">
+                        <label for="nmodel" class="form-label">Modelo</label>
+                        <input type="text" class="form-control" id="nmodel" placeholder="Modelo" required>
+                    </div>
+                    <div class="col-sm-6 mt-3">
+                      <div class="form-floating">
+                        <select id="mbrand2" class="form-select" aria-label="Default select example" required>
+                          <!-- ======= Carga a Traves de Ajax ======= -->
+                        </select>
+                        <label for="mbrand2">Selecione un Marca</label>
+                      </div>
+                    </div>     
+                  </div>   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger btn-light" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-primary btn-light">Registar</button>
+                </div>
+                <div id="mmessege" class="alert alert-danger" role="alert">
+                  <p id="merror" class="mb-0">Alert Description</p>
                 </div>
             </form>  
         </div>

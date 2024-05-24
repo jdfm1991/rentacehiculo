@@ -91,15 +91,15 @@ date_default_timezone_set('America/Caracas')
             echo '
             <li><a href="profile.php" class="nav-link scrollto"><i class="bi bi-person-gear"></i> <span>Mi Perfil</span></a></li>
             <li><a href="myrequest.php" class="nav-link scrollto"><i class="bi bi-send-arrow-up"></i> <span>Mis Solicitudes</span></a></li>
-            <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
-            <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+            <li><a href="whoiam.php" class="nav-link scrollto"><i class="bi bi-buildings"></i> <span>Policas E Infomacion</span></a></li>
+            <li><a href="howtouseme.php" class="nav-link scrollto"><i class="bi bi-question-square"></i> <span>Como Usar La pagina</span></a></li>
             ';
           }
           
         }else {
           echo '
-            <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
-            <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+            <li><a href="whoiam.php" class="nav-link scrollto"><i class="bi bi-buildings"></i> <span>Policas E Infomacion</span></a></li>
+            <li><a href="howtouseme.php" class="nav-link scrollto"><i class="bi bi-question-square"></i> <span>Como Usar La pagina</span></a></li>
             ';
           # code...
         }
