@@ -13,6 +13,7 @@ class Portfolio extends Conectar{
             INNER JOIN cars_models_table AS B ON A.model=B.id
             INNER JOIN cars_brands_table AS C ON A.brand=C.id
             INNER JOIN cars_images_table AS D ON A.id=D.car
+            WHERE A.active=1
             ORDER BY A.id ASC
             LIMIT $begin,$finish";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
@@ -31,6 +32,7 @@ class Portfolio extends Conectar{
             INNER JOIN cars_models_table AS B ON A.model=B.id
             INNER JOIN cars_brands_table AS C ON A.brand=C.id
             INNER JOIN cars_images_table AS D ON A.id=D.car
+            WHERE A.active=1
             ORDER BY A.id ASC";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
