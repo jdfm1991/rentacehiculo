@@ -1,5 +1,8 @@
 $(document).ready(function () {
     const session = $.trim($('#session').val());
+    $(".modal-content").css("color", "white" );
+    $(".modal-content").css("background", "rgba(20, 38, 110, 0.719)" );
+    $(".modal-content").css("background", "radial-gradient(circle, rgba(20, 38, 110, 0.719) 0%, rgba(0, 130, 211, 0.486) 100%)" );
     //************************************************/
     //********Llamado de Funcion para cargar la*******/
     //************la cantidad e infomacion************/

@@ -23,7 +23,6 @@ if (URI<>$_SERVER["REQUEST_URI"] ) {
 include_once("modals.php");
 include_once("lib.php");
 ?>
-<script src="assets/js/home.js"></script>
 </body>
 
 </html>

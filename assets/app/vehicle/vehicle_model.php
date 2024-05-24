@@ -13,8 +13,8 @@ class Vehicle extends Conectar{
             INNER JOIN cars_status_table AS B ON A.status=B.id
             INNER JOIN cars_regions_table AS C ON A.region=C.id
             INNER JOIN cars_brands_table AS D ON A.brand=D.id
-            INNER JOIN cars_models_table AS E ON A.model=e.id
-            WHERE active=1";
+            INNER JOIN cars_models_table AS E ON A.model=E.id
+            WHERE A.active=1";
         //PREPARACION DE LA CONSULTA PARA EJECUTARLA.
         $sql = $conectar->prepare($sql);
         $sql->execute();

@@ -41,14 +41,6 @@ date_default_timezone_set('America/Caracas')
   <!-- File sweetalert2 -->
   <script src="assets/sweetalert2/sweetalert2.min.js"></script>
   <link rel="stylesheet" href="assets/sweetalert2/sweetalert2.min.css">
-
-  <!-- =======================================================
-  * Template Name: MyResume
-  * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
-  * Updated: Mar 17 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -57,9 +49,6 @@ date_default_timezone_set('America/Caracas')
     echo '<input type="hidden" id="session" value="'.$_SESSION['id'].'">';
   }
   ?>
-
- <!-- ======= Mobile nav toggle button ======= -->
-  <!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
   <i class="bi bi-list mobile-nav-toggle d-lg-none"></i>
   <!-- ======= Header ======= -->
   <header id="header" class="d-flex flex-column justify-content-center">
@@ -101,26 +90,22 @@ date_default_timezone_set('America/Caracas')
             <li><a href="whoiam.php" class="nav-link scrollto"><i class="bi bi-buildings"></i> <span>Policas E Infomacion</span></a></li>
             <li><a href="howtouseme.php" class="nav-link scrollto"><i class="bi bi-question-square"></i> <span>Como Usar La pagina</span></a></li>
             ';
-          # code...
         }
         ?>
       </ul>
     </nav><!-- .nav-menu -->
   </header><!-- End Header -->
-
-  <div class="btnlogin">    
-      <div class="btn-group ms-3" role="group" aria-label="">
-        <?php
-        if ($_SESSION) { ?>
-          <a id="btnLogout" class="btn btn-outline-danger radius"><i class="bi bi-person-fill-x"></i><span class="tsearch">Cerrar Sesion</span></a>
-        <?php
-        } else { ?>
-          <a id="btnLogin" class="btn btn-outline-primary radius"><i class="bx bx-user"></i><span class="tsearch"> Iniciar Sesion</span></a>
-          <?php
-        }
-        ?>
-      </div>
-    </div>
+<?php
+if ($_SESSION) { ?>
+<button id="btnLogout" type="button" class="btn btn-outline-danger btnlogin radius"><i class="bi bi-person-fill-x"></i><span class="tsearch">Cerrar Sesion</span>
+    </button>
+<?php
+} else { ?>
+<button id="btnLogin" type="button" class="btn btn-outline-success btnlogin radius"><i class="bx bx-user"></i><span class="tsearch"> Iniciar Sesion</span>
+    </button>
+<?php
+}
+?>
 <?php
 if ($_SESSION) { 
   if ($_SESSION['idtype']==2) {
@@ -131,5 +116,4 @@ if ($_SESSION) {
     <!-- ======= Carga a Traves de Ajax ======= --> 
   </span>
 </button>
-
 <?php   } } ?>
