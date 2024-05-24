@@ -36,10 +36,34 @@ switch ($_GET["op"]) {
         }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
-    
-    case 'newactive':
+
+    case 'showadmin':
         $dato = array();
-        $data = $user->setNewStatusActive($id,$active);
+        $data = $user->getDataUserAdmin();
+        foreach ($data as $data) {
+            $sub_array = array();
+            $sub_array['id']   = $data['id'];
+            $sub_array['email']   = $data['email'];
+            $dato[] = $sub_array;
+        }
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
+        break;
+
+    case 'searchadmin':
+        $dato = array();
+        $data = $user->getDataUserAdminById($id);
+        foreach ($data as $data) {
+            $sub_array = array();
+            $sub_array['id']   = $data['id'];
+            $sub_array['email']   = $data['email'];
+            $dato[] = $sub_array;
+        }
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
+        break;
+    
+    case 'remove':
+        $dato = array();
+        $data = $user->removeStatusUser($id,$active);
         if ($data) {
             $dato['status']  = true;
             $dato['message'] = 'Se Elimino la Informacion de Manera Satisfactoria';
@@ -166,6 +190,40 @@ switch ($_GET["op"]) {
             $dato['messege'] = 'No Se Envio Ningun ID de Usuario';
         }
         
+        echo json_encode($dato, JSON_UNESCAPED_UNICODE);
+        break;
+
+    case 'registeruser':
+        $dato = array();
+        if ($id) {
+            $passw = password_hash($pass, PASSWORD_BCRYPT);
+            $data = $user->setUpdateUser($id,$passw);
+            if ($data) {
+                $dato['status']  = true;
+                $dato['message'] = 'Se Actualizo Usuario de Manera Satisfactoria';
+            } else {
+                $dato['status']  = false;
+                $dato['message'] = 'Error al Actualizar Usuario';
+            }
+        } else {
+            $id = uniqid();
+            $type= 1;
+            $passw = password_hash($pass, PASSWORD_BCRYPT);
+            $userDB = $user->getDataUser($email);
+            if ($userDB) {
+                $dato['status']  = false;
+                $dato['message'] = 'Este Correo Ya Se Encuentra Registrado';
+            } else{
+                $data = $user->setDataUser($id,$email,$passw,$type);
+                if ($data) {
+                    $dato['status']  = true;
+                    $dato['message'] = 'Se Guardo Usuario de Manera Satisfactoria';
+                } else {
+                    $dato['status']  = false;
+                    $dato['message'] = 'Error al Guardar Usuario';
+                }
+            }
+        }
         echo json_encode($dato, JSON_UNESCAPED_UNICODE);
         break;
 

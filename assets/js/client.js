@@ -28,8 +28,8 @@ $(document).ready(function () {
             {data: "user",
                 "render":function(data,type,row) {
                     return "<div class='text-center'>"+
-                    "<a href='#' onclick='takeIdU(`"+data+"`)' class='btn btn-outline-info btn-sm btnedit'><i class='bi bi-pencil-square'></i></a>"+
-                    "<a href='#' onclick='takeIdU(`"+data+"`)' class='btn btn-outline-danger btn-sm btncancel'><i class='bi bi-x-octagon'></i></a>"+
+                    "<a href='#' onclick='takeIdC(`"+data+"`)' class='btn btn-outline-info btn-sm btnedit'><i class='bi bi-pencil-square'></i></a>"+
+                    "<a href='#' onclick='takeIdC(`"+data+"`)' class='btn btn-outline-danger btn-sm btncancel'><i class='bi bi-x-octagon'></i></a>"+
                     "<a href='assets/app/user/pdf.php?id="+data+"' class='btn btn-outline-info btn-sm' target='_blank'><i class='bi bi-printer'></i></a>"+
                     "</div>"
                 }
@@ -115,14 +115,14 @@ $(document).ready(function () {
                     }
                 });
                 $(".modal-title").text("Infomacion de Usuario")
-                $('#UserModal').modal('show');
+                $('#clientModal').modal('show');
             }
         });
     });
     //************************************************/
     //**********Evento para enviar informacion********/
     //*************para actializar usuario************/
-    $('#formUser').submit(function (e) { 
+    $('#formclient').submit(function (e) { 
         e.preventDefault();
         id = $('#idu').val();
         $.ajax({
@@ -149,12 +149,12 @@ $(document).ready(function () {
                     timer: 2000,
                     }); 
               } 
-              $('#UserModal').modal('hide');                  
+              $('#clientModal').modal('hide');                  
             }
           });
         
     });
 });
-function takeIdU(id) {
-    $('#idu').val(id);
+function takeIdC(id) {
+    $('#idc').val(id);
 }

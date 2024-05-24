@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $('#messegeu').hide();
     //************************************************/
     //********Accion para cargar la informacion*******/
     //**************el Datatable de Usuarios**********/
@@ -6,31 +7,17 @@ $(document).ready(function () {
         responsive: true,  
         pageLength: 25,
         ajax:{            
-            url: "assets/app/user/user_controller.php?op=showall", 
+            url: "assets/app/user/user_controller.php?op=showadmin", 
             method: 'POST', 
             dataSrc:""
         },
         columns:[
-            {data: "nameu"},
-            {data: "address"},
-            {data: "phone"},
             {data: "email"},
-            {data: "status",
-                "render":function(data,type,row) {
-                    if (data==0) {
-                        return 'No Aprobado';
-                    }else{
-                        return 'Aprobado';
-                    }
-                }
-            },
-            {data: "type"},
-            {data: "user",
+            {data: "id",
                 "render":function(data,type,row) {
                     return "<div class='text-center'>"+
-                    "<a href='#' onclick='takeIdU(`"+data+"`)' class='btn btn-outline-info btn-sm btnedit'><i class='bi bi-pencil-square'></i></a>"+
-                    "<a href='#' onclick='takeIdU(`"+data+"`)' class='btn btn-outline-danger btn-sm btncancel'><i class='bi bi-x-octagon'></i></a>"+
-                    "<a href='assets/app/user/pdf.php?id="+data+"' class='btn btn-outline-info btn-sm' target='_blank'><i class='bi bi-printer'></i></a>"+
+                    "<a href='#' onclick='takeId(`"+data+"`)' class='btn btn-outline-info btn-sm btneditu'><i class='bi bi-pencil-square'></i></a>"+
+                    "<a href='#' onclick='takeId(`"+data+"`)' class='btn btn-outline-danger btn-sm btncancelu'><i class='bi bi-x-octagon'></i></a>"+
                     "</div>"
                 }
             },
@@ -38,10 +25,42 @@ $(document).ready(function () {
 
     });
     //************************************************/
-    //*******Opcion para Inhabilitar el Usuario*******/
-    //***************para que sea no visible**********/
-    $(document).on("click", ".btncancel", function(){
-        id = $('#idu').val();
+    //********Accion para cargar la informacion*******/
+    //**************el Datatable de Usuarios**********/
+    regiontable = $('#regiontable').DataTable({
+        responsive: true,  
+        pageLength: 25,
+        ajax:{            
+            url: "assets/app/user/user_controller.php?op=showadmin", 
+            method: 'POST', 
+            dataSrc:""
+        },
+        columns:[
+            {data: "email"},
+            {data: "id",
+                "render":function(data,type,row) {
+                    return "<div class='text-center'>"+
+                    "<a href='#' onclick='takeId(`"+data+"`)' class='btn btn-outline-info btn-sm btneditr'><i class='bi bi-pencil-square'></i></a>"+
+                    "<a href='#' onclick='takeId(`"+data+"`)' class='btn btn-outline-danger btn-sm btncancelr'><i class='bi bi-x-octagon'></i></a>"+
+                    "</div>"
+                }
+            },
+        ],
+
+    });
+    //************************************************/
+    //*******Opcion para cargar la infomrmacion*******/
+    //*****************del usuario nuevo**************/
+    $('#btnuser').click(function (e) { 
+        e.preventDefault();
+        $(".modal-title").text("Registro de Usuario")
+        $('#userModal').modal('show');
+    });
+    //************************************************/
+    //*******Opcion para editar la infomrmacion*******/
+    //*************del usuario existebte**************/
+    $(document).on("click", ".btncancelu", function(){
+        id = $('#settingID').val();
         active = 0
         Swal.fire({
             title: "¿Está seguro de borrar esta informacion?",
@@ -50,7 +69,7 @@ $(document).ready(function () {
           }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "assets/app/user/user_controller.php?op=newactive",
+                    url: "assets/app/user/user_controller.php?op=remove",
                     type: "POST",
                     dataType:"json",    
                     data:  {id:id,active:active},
@@ -81,55 +100,36 @@ $(document).ready(function () {
     //************************************************/
     //******Opcion para actualizar la informacion*****/
     //*******************del Usuario******************/
-    $(document).on("click", ".btnedit", function(){	            
-        id = $('#idu').val();
+    $(document).on("click", ".btneditu", function(){	            
+        id = $('#settingID').val();
         $.ajax({
             type: "POST",
-            url: "assets/app/user/user_controller.php?op=show",
+            url: "assets/app/user/user_controller.php?op=searchadmin",
             dataType: "json",
             data:  {id:id},
             success: function (data) {
-                $('#usupid').empty();
-                $('#uname').prop('disabled',true);
-                $('#dni').prop('disabled',true);
-                $('#uemail').prop('disabled',true);
-                $('#uphone').prop('disabled',true);
-                $('#uaddress').prop('disabled',true);
-                $('#upassw').prop('disabled',true);
+                $('#emailu').prop('disabled',true);
                 $.each(data, function(idx, opt) {
-                    $('#usupid').empty();
-                    $('#uname').val(opt.nameu);
-                    $('#dni').val(opt.letter+'-'+opt.dni);
-                    $('#uemail').val(opt.email);
-                    $('#uphone').val(opt.phone);
-                    $('#uaddress').val(opt.address);
-                    if (opt.imgdni) {
-                        $('#usupid').append(
-                            '<label for="pphone" class="form-label">Comprobante de Indentificacion </label>'+
-                            '<img class="d-block mx-auto mb-4" src="assets/img/identifications/'+opt.imgdni+'" alt="" height="250">'
-                        ) 
-                    } else {
-                        $('#usupid').append(
-                            '<label for="pphone" class="form-label">Comprobante de Indentificacion </label>'+
-                            '<img class="d-block mx-auto mb-4" src="assets/img/identifications/documento.png" alt="" height="250">') 
-                    }
+                    $('#emailu').val(opt.email);
                 });
-                $(".modal-title").text("Infomacion de Usuario")
-                $('#UserModal').modal('show');
+                $(".modal-title").text("Edicion de Usuario")
+                $('#userModal').modal('show');
             }
         });
     });
     //************************************************/
     //**********Evento para enviar informacion********/
     //*************para actializar usuario************/
-    $('#formUser').submit(function (e) { 
+    $('#formuser').submit(function (e) { 
         e.preventDefault();
-        id = $('#idu').val();
+        id = $('#settingID').val();
+        email = $('#emailu').val();
+        passw = $('#passu').val();
         $.ajax({
-            url: "assets/app/user/user_controller.php?op=newstatus",
+            url: "assets/app/user/user_controller.php?op=registeruser",
             type: "POST",
             dataType:"json",    
-            data:  {id:id},
+            data:  {id:id,email:email,passw:passw},
             success: function(data) {
               if (data.status == true) {
                 Swal.fire({
@@ -141,20 +141,21 @@ $(document).ready(function () {
                 setTimeout(() => {
                     usertable.ajax.reload(null, false);
                 }, 1000);
+                $('#userModal').modal('hide'); 
               } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: data.message,
-                    showConfirmButton: false,
-                    timer: 2000,
-                    }); 
+                $("#erroru").text(data.message);
+                    $("#messegeu").show();
+                    setTimeout(() => {
+                        $("#erroru").text("");
+                        $("#messegeu").hide();
+                    }, 3000);
               } 
-              $('#UserModal').modal('hide');                  
+                               
             }
           });
         
     });
 });
-function takeIdU(id) {
-    $('#idu').val(id);
+function takeId(id) {
+    $('#settingID').val(id);
 }

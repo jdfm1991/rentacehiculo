@@ -59,6 +59,44 @@ $tomorrow = date('Y-m-d', $newday);
 </div>
 <!--
   *************************************************
+  Modal Para Registro de Usuario e Inicio de Sesion
+  *************************************************
+-->
+<div class="modal fade mt-5" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Login - Modulo Admin</h1>
+        <button type="button" id="closeLogin" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+            <form id="formuser">    
+                <div class="modal-body">
+                  <div class="mb-3">
+                      <label for="emailu" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="emailu" placeholder="Email" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for="passu" class="form-label">Contraseña</label>
+                      <input type="password" class="form-control" id="passu" placeholder="Contraseña" required>
+                  </div>              
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger btn-light" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-primary btn-light">Registar</button>
+                </div>
+                <div id="messegeu" class="alert alert-danger" role="alert">
+                  <p id="erroru" class="mb-0">Alert Description</p>
+                </div>
+            </form>  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+  *************************************************
   Modal Para Opcion de Olvide Contrase#a
   *************************************************
 -->
@@ -326,7 +364,7 @@ $tomorrow = date('Y-m-d', $newday);
   Modal Para Registro de Registro de Usuario
   *************************************************
 -->
-<div class="modal fade mt-5" id="UserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade mt-5" id="clientModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -335,9 +373,9 @@ $tomorrow = date('Y-m-d', $newday);
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-            <form id="formUser">    
+            <form id="formclient">    
                 <div class="modal-body">
-                  <input type="hidden" id="idu">
+                  <input type="hidden" id="idc">
                   <div class="row g-3">
                     <div class="col-sm-6">
                       <label for="uname" class="form-label">Nombre y Apellido</label>
