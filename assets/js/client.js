@@ -41,7 +41,7 @@ $(document).ready(function () {
     //*******Opcion para Inhabilitar el Usuario*******/
     //***************para que sea no visible**********/
     $(document).on("click", ".btncancel", function(){
-        id = $('#idu').val();
+        id = $('#idc').val();
         active = 0
         Swal.fire({
             title: "¿Está seguro de borrar esta informacion?",
@@ -82,7 +82,7 @@ $(document).ready(function () {
     //******Opcion para actualizar la informacion*****/
     //*******************del Usuario******************/
     $(document).on("click", ".btnedit", function(){	            
-        id = $('#idu').val();
+        id = $('#idc').val();
         $.ajax({
             type: "POST",
             url: "assets/app/user/user_controller.php?op=show",
@@ -124,7 +124,7 @@ $(document).ready(function () {
     //*************para actializar usuario************/
     $('#formclient').submit(function (e) { 
         e.preventDefault();
-        id = $('#idu').val();
+        id = $('#idc').val();
         $.ajax({
             url: "assets/app/user/user_controller.php?op=newstatus",
             type: "POST",
